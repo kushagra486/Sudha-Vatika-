@@ -146,3 +146,21 @@ The trigger derives the total from `subtotal - discount + tax`, because generate
 ### D22. Prices start at zero
 
 Prices, terms and conditions vary by booking, and the owners will enter them in the app. The seed keeps the service and package names but sets every price to ₹0, so no invented figure can reach a quote.
+
+## Lead management
+
+### D23. Enquiries are captured in one database call
+
+`public.create_enquiry(...)` finds the guest by phone (or creates them), opens a lead owned by the caller, and saves the first call note, all in one transaction. On a patchy mobile connection, separate requests could leave a guest with no lead.
+
+The function runs with the caller's permissions (`SECURITY INVOKER`), so RLS applies to every insert. An existing guest's name is kept; a missing name is filled in.
+
+### D24. Leads screen behaviour
+
+- The list defaults to open leads. They are sorted by next follow-up (earliest first, unset last), then newest.
+- Follow-ups are marked overdue or due today by India date.
+- Search matches name, or phone digits when at least 3 digits are typed. Characters that mean something in PostgREST filters are stripped from the search text.
+- Marking a lead lost asks for a reason (common reasons are suggested) and clears its follow-up.
+- The WhatsApp button is hidden for guests who have opted out.
+- The availability panel lists event spaces only (rooms and dormitory are excluded, see D17) and flags upcoming spaces.
+- Notes added on a lead are stored as `messages` with `channel = 'call_note'`.

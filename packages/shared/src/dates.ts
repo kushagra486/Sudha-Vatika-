@@ -46,3 +46,49 @@ const displayDateTimeFormatter = new Intl.DateTimeFormat('en-IN', {
 export function formatDateTime(value: string | Date): string {
   return displayDateTimeFormatter.format(typeof value === 'string' ? new Date(value) : value);
 }
+
+const inputPartsFormatter = new Intl.DateTimeFormat('en-CA', {
+  timeZone: APP_TIMEZONE,
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+});
+
+/** timestamptz → "YYYY-MM-DDTHH:mm" in IST, for <input type="datetime-local">. */
+export function toISTInputValue(value: string | Date): string {
+  const parts = Object.fromEntries(
+    inputPartsFormatter
+      .formatToParts(typeof value === 'string' ? new Date(value) : value)
+      .map((p) => [p.type, p.value]),
+  );
+  return `${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}`;
+}
+
+/** "YYYY-MM-DDTHH:mm" typed in IST → ISO timestamp with offset. */
+export function fromISTInputValue(value: string): string {
+  return `${value}:00+05:30`;
+}
+
+/** An IST wall-clock time `days` from today, as an ISO timestamp. */
+export function istAt(days: number, hour: number, now: Date = new Date()): string {
+  const date = addDays(todayIST(now), days);
+  return fromISTInputValue(`${date}T${String(hour).padStart(2, '0')}:00`);
+}
+
+export type FollowUpState = 'overdue' | 'today' | 'upcoming' | 'none';
+
+/** Where a follow-up stands relative to today in IST. */
+export function followUpState(
+  value: string | null | undefined,
+  now: Date = new Date(),
+): FollowUpState {
+  if (!value) return 'none';
+  const due = todayIST(new Date(value));
+  const today = todayIST(now);
+  if (due < today) return 'overdue';
+  if (due === today) return 'today';
+  return 'upcoming';
+}

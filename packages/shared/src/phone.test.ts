@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatPhone, isE164, toE164 } from './phone.ts';
+import { formatPhone, isE164, telHref, toE164, whatsappHref } from './phone.ts';
 
 describe('toE164', () => {
   it.each([
@@ -33,5 +33,15 @@ describe('formatPhone', () => {
   });
   it('leaves other numbers alone', () => {
     expect(formatPhone('+14155550100')).toBe('+14155550100');
+  });
+});
+
+describe('contact links', () => {
+  it('builds tel and WhatsApp links', () => {
+    expect(telHref('+919876543210')).toBe('tel:+919876543210');
+    expect(whatsappHref('+919876543210')).toBe('https://wa.me/919876543210');
+    expect(whatsappHref('+919876543210', 'Hi Riya & family')).toBe(
+      'https://wa.me/919876543210?text=Hi%20Riya%20%26%20family',
+    );
   });
 });

@@ -51,3 +51,14 @@ export function formatPhone(e164: string): string {
   const match = /^\+91(\d{5})(\d{5})$/.exec(e164);
   return match ? `+91 ${match[1]} ${match[2]}` : e164;
 }
+
+/** tel: link for one-tap calling. */
+export function telHref(e164: string): string {
+  return `tel:${e164}`;
+}
+
+/** wa.me link that opens a WhatsApp chat, optionally with a draft message. */
+export function whatsappHref(e164: string, text?: string): string {
+  const base = `https://wa.me/${e164.replace(/^\+/, '')}`;
+  return text ? `${base}?text=${encodeURIComponent(text)}` : base;
+}
