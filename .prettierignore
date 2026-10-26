@@ -5,3 +5,4 @@ package-lock.json
 supabase/migrations
 supabase/seed.sql
 supabase/tests
+*.toml
