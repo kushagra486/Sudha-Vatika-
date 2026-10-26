@@ -1,5 +1,5 @@
 -- Shared fixtures for the SQL tests, layered on top of seed.sql.
--- Org A is the seeded "Demo Banquets". Org B is a second tenant used to prove isolation.
+-- Org A is the seeded "Sudha Vatika". Org B is a second tenant used to prove isolation.
 --
 -- Users (auth.users ids):
 --   aaaaaaaa-...-01 owner_a     aaaaaaaa-...-05 ops_a

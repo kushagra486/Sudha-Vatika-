@@ -1,5 +1,5 @@
 -- Booking overlap rules, totals, and booking/payment access.
--- Fixture: Grand Hall (…0201) is booked for dinner on 2026-12-12 (confirmed).
+-- Fixture: Ashoka Hall (…0201) is booked for dinner on 2026-12-12 (confirmed).
 begin;
 
 create temporary table t_ids as select

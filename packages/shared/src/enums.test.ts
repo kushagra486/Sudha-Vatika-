@@ -17,7 +17,12 @@ function quotedList(body: string): string[] {
 function sqlEnum(name: string): string[] {
   const match = new RegExp(`create type public\\.${name} as enum \\(([^)]*)\\)`).exec(sql);
   if (!match) throw new Error(`enum ${name} not found in migrations`);
-  return quotedList(match[1]!);
+  const added = [
+    ...sql.matchAll(
+      new RegExp(`alter type public\\.${name} add value if not exists '([^']+)'`, 'g'),
+    ),
+  ].map((m) => m[1]!);
+  return [...quotedList(match[1]!), ...added];
 }
 
 function sqlCheck(column: string): string[] {

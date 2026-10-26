@@ -106,7 +106,7 @@ select tests.eq((select count(*)::int from services where name = 'Valet parking'
 select tests.logout();
 
 select tests.login('aaaaaaaa-0000-4000-8000-000000000003');  -- sales
-select tests.eq((select count(*)::int from services), 7, 'sales can read services');
+select tests.eq((select count(*)::int from services), 8, 'sales can read services');
 select tests.throws(
   $$insert into services (name) values ('Sneaky')$$, '42501', 'sales cannot add services');
 select tests.eq(
@@ -114,7 +114,7 @@ select tests.eq(
 select tests.logout();
 
 select tests.login('aaaaaaaa-0000-4000-8000-000000000006');  -- viewer
-select tests.eq((select count(*)::int from units), 3, 'viewer can read units');
+select tests.eq((select count(*)::int from units), 9, 'viewer can read units');
 select tests.throws(
   $$insert into guests (phone_e164) values ('+919866666666')$$, '42501', 'viewer cannot add guests');
 select tests.eq(

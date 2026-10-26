@@ -4,7 +4,16 @@
 export const ROLES = ['owner', 'manager', 'sales', 'ops', 'viewer'] as const;
 export type Role = (typeof ROLES)[number];
 
-export const UNIT_KINDS = ['hall', 'lawn', 'room', 'other'] as const;
+export const UNIT_KINDS = [
+  'hall',
+  'lawn',
+  'room',
+  'other',
+  'pandaal',
+  'pool',
+  'restaurant',
+  'dormitory',
+] as const;
 export type UnitKind = (typeof UNIT_KINDS)[number];
 
 export const SHIFTS = ['full_day', 'breakfast', 'lunch', 'high_tea', 'dinner'] as const;

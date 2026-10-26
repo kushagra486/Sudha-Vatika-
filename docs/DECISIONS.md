@@ -106,3 +106,23 @@ Each nav item routes to a placeholder page until its phase lands, and module fol
 ### D15. Feature flags come from env
 
 `config.ts` reads `VITE_FEATURE_WHATSAPP`, `VITE_FEATURE_AI_EXTRACTION`, `VITE_FEATURE_CALL_CAPTURE` and `VITE_FEATURE_PAYMENT_GATEWAY`, all off by default. This lets a deployment switch features on without a code change.
+
+## Venue setup (Sudha Vatika)
+
+### D16. Space types and upcoming spaces
+
+The venue is moving to a resort format, so `unit_kind` gains `pandaal`, `pool`, `restaurant` and `dormitory` alongside `hall`, `lawn`, `room` and `other`.
+
+`units.upcoming` marks spaces still being built (Poolside Hall, Pool, Restaurant). They show in lists and quotes with a flag, and bookings are not blocked, so dates can be pre-sold.
+
+Parking, office and reception are facilities, not bookable units. The varmala area is a wedding add-on service, not a separate space.
+
+### D17. Rooms and dormitory are blocks, not single spaces
+
+`units.quantity` records how many identical rooms a row stands for: Hotel rooms = 8 (15 planned), Dormitory = 6 rooms with 50 beds.
+
+The event booking model (one booking per space per shift) doesn't fit overnight stays, where several rooms are sold per night. Room and dormitory bookings will get their own per-night model in a later phase. Until then, event bookings should not use these units.
+
+### D18. Two owners, no other roles yet
+
+The business is run by two people who both handle all leads and tasks. Both get the `owner` role, which sees every lead, including unassigned ones. The other roles stay in place for when staff join.

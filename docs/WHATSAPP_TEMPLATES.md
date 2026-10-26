@@ -7,7 +7,7 @@ Business-initiated WhatsApp messages (anything sent more than 24 hours after the
 - `variables` is a JSON array that maps each placeholder, in order, to a field. For example `["guest.full_name", "lead.event_date"]` means `{{1}}` is the guest's name and `{{2}}` is the lead's event date.
 - `meta_status` tracks review: `draft` → `pending` → `approved` or `rejected`. Only `approved` templates can be sent.
 
-## Seeded templates (demo org)
+## Seeded templates
 
 | Name                | Category | Body                                                                                       | Variables                                                     |
 | ------------------- | -------- | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |

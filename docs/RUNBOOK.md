@@ -27,7 +27,7 @@ Local emails, including magic links, go to Inbucket at http://localhost:54324.
    supabase link --project-ref <ref>
    supabase db push
    ```
-3. Optional: load the demo data by running `supabase/seed.sql` in the SQL editor.
+3. Load the venue's starting data by running `supabase/seed.sql` in the SQL editor.
 4. In **Authentication → Providers → Email**, turn off "Allow new users to sign up".
 5. In **Authentication → URL Configuration**, set the Site URL to your frontend URL.
 6. Put the project URL and anon key in `.env`.
@@ -46,7 +46,7 @@ Signup is closed (see DECISIONS D11), so the first account is created by hand:
        owner_full_name: 'Owner name',
      });
      ```
-   - **Demo organization from the seed:** in the SQL editor, run:
+   - **Sudha Vatika from the seed:** in the SQL editor, run:
      ```sql
      insert into profiles (id, org_id, outlet_id, full_name, role)
      select id, '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', 'Your Name', 'owner'

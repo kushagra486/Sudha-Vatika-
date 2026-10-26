@@ -32,7 +32,7 @@ apps/web/            React SPA
 packages/shared/     Zod schemas and helpers shared with Edge Functions
 supabase/migrations/ SQL migrations, one concern each
 supabase/tests/      RLS and constraint tests
-supabase/seed.sql    Demo outlet, halls, services, packages
+supabase/seed.sql    Sudha Vatika venue, spaces, services, packages
 docs/                DECISIONS, RUNBOOK, WHATSAPP_TEMPLATES
 ```
 
