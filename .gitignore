@@ -10,3 +10,4 @@ test-results/
 supabase/.branches/
 supabase/.temp/
 .DS_Store
+.netlify/
