@@ -52,11 +52,14 @@ insert into public.leads (id, org_id, outlet_id, guest_id, source, stage, owner_
 
 insert into public.bookings (id, org_id, outlet_id, unit_id, lead_id, guest_id, event_type, event_date, shift, guest_count, status, subtotal, discount, tax, created_by) values
   ('00000000-0000-4000-a000-000000000901', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', '00000000-0000-4000-a000-000000000201',
-   '00000000-0000-4000-a000-000000000801', '00000000-0000-4000-a000-000000000701', 'Wedding', '2026-12-12', 'dinner', 400, 'confirmed', 300000, 20000, 50400,
+   '00000000-0000-4000-a000-000000000801', '00000000-0000-4000-a000-000000000701', 'Wedding', '2026-12-12', 'dinner', 400, 'tentative', 300000, 20000, 50400,
    'aaaaaaaa-0000-4000-8000-000000000005');
 
 insert into public.payments (org_id, booking_id, amount, kind, method, recorded_by) values
   ('00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000901', 100000, 'advance', 'upi', 'aaaaaaaa-0000-4000-8000-000000000005');
+
+-- Confirmed only after the advance is in (see app.check_booking_advance).
+update public.bookings set status = 'confirmed' where id = '00000000-0000-4000-a000-000000000901';
 
 insert into public.messages (id, org_id, guest_id, lead_id, channel, direction, body, status) values
   ('00000000-0000-4000-a000-000000000a01', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000701', '00000000-0000-4000-a000-000000000801', 'whatsapp', 'in', 'Is 12 Dec available?', 'received'),

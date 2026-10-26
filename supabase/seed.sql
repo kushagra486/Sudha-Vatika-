@@ -1,10 +1,11 @@
 -- Starting data for Sudha Vatika: the venue, its spaces, services and packages.
--- Service and package prices are placeholders until the venue confirms them.
+-- Prices are 0 until the owners enter them in the app.
 -- Fixed ids make the seed idempotent and easy to reference in tests and docs.
 -- Users are not seeded; see docs/RUNBOOK.md for linking your login to this org.
 
-insert into public.organizations (id, name, tax_percent)
-values ('00000000-0000-4000-a000-000000000001', 'Sudha Vatika', 18.00)
+-- GST (18%) is offered per booking, not forced; min_advance is the ₹21,000 rule.
+insert into public.organizations (id, name, tax_percent, min_advance)
+values ('00000000-0000-4000-a000-000000000001', 'Sudha Vatika', 18.00, 21000.00)
 on conflict (id) do nothing;
 
 insert into public.outlets (id, org_id, name)
@@ -33,18 +34,18 @@ insert into public.service_categories (id, org_id, name) values
 on conflict (id) do nothing;
 
 insert into public.services (id, org_id, category_id, name, description, base_price, pricing_unit) values
-  ('00000000-0000-4000-a000-000000000401', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000301', 'Veg buffet',          '4 starters, 6 mains, 3 desserts',   850.00,  'per_guest'),
-  ('00000000-0000-4000-a000-000000000402', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000301', 'Non-veg buffet',      '5 starters, 7 mains, 3 desserts',  1150.00,  'per_guest'),
-  ('00000000-0000-4000-a000-000000000403', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000302', 'Floral stage decor',  'Fresh flowers, stage and entry',  45000.00, 'fixed'),
-  ('00000000-0000-4000-a000-000000000404', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000302', 'Mandap setup',        'Traditional mandap with lighting', 35000.00, 'fixed'),
-  ('00000000-0000-4000-a000-000000000405', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000303', 'DJ and sound',        '6 hours, 2 speakers, lights',     25000.00, 'fixed'),
-  ('00000000-0000-4000-a000-000000000406', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000304', 'Photo and video',     'One photographer, one videographer', 60000.00, 'per_day'),
-  ('00000000-0000-4000-a000-000000000407', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000302', 'Varmala stage',       'Varmala area setup for weddings',  15000.00, 'fixed')
+  ('00000000-0000-4000-a000-000000000401', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000301', 'Veg buffet',          '4 starters, 6 mains, 3 desserts',   0.00, 'per_guest'),
+  ('00000000-0000-4000-a000-000000000402', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000301', 'Non-veg buffet',      '5 starters, 7 mains, 3 desserts',  0.00, 'per_guest'),
+  ('00000000-0000-4000-a000-000000000403', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000302', 'Floral stage decor',  'Fresh flowers, stage and entry',  0.00, 'fixed'),
+  ('00000000-0000-4000-a000-000000000404', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000302', 'Mandap setup',        'Traditional mandap with lighting', 0.00, 'fixed'),
+  ('00000000-0000-4000-a000-000000000405', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000303', 'DJ and sound',        '6 hours, 2 speakers, lights',     0.00, 'fixed'),
+  ('00000000-0000-4000-a000-000000000406', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000304', 'Photo and video',     'One photographer, one videographer', 0.00, 'per_day'),
+  ('00000000-0000-4000-a000-000000000407', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000302', 'Varmala stage',       'Varmala area setup for weddings',  0.00, 'fixed')
 on conflict (id) do nothing;
 
 insert into public.packages (id, org_id, name, description, price, guest_min, guest_max) values
-  ('00000000-0000-4000-a000-000000000501', '00000000-0000-4000-a000-000000000001', 'Silver Wedding', 'Veg buffet, floral decor, DJ',                    250000.00, 100, 300),
-  ('00000000-0000-4000-a000-000000000502', '00000000-0000-4000-a000-000000000001', 'Gold Wedding',   'Non-veg buffet, mandap, decor, DJ, photo and video', 550000.00, 200, 500)
+  ('00000000-0000-4000-a000-000000000501', '00000000-0000-4000-a000-000000000001', 'Silver Wedding', 'Veg buffet, floral decor, DJ',                    0.00, 100, 300),
+  ('00000000-0000-4000-a000-000000000502', '00000000-0000-4000-a000-000000000001', 'Gold Wedding',   'Non-veg buffet, mandap, decor, DJ, photo and video', 0.00, 200, 500)
 on conflict (id) do nothing;
 
 insert into public.package_services (org_id, package_id, service_id, quantity) values

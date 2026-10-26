@@ -130,3 +130,19 @@ The business is run by two people who both handle all leads and tasks. Both get 
 ### D19. Lead sources match how enquiries arrive
 
 Most enquiries come by phone, some by WhatsApp, a few from Instagram, and the rest by word of mouth or office visits. `lead_source` gains `instagram` and `referral`. Office visits use `walk_in`, labelled "Office visit" in the UI. Because phone is the main channel, adding a lead must be a fast, phone-first form.
+
+### D20. GST is optional per booking
+
+Some customers are billed with GST and some without. `bookings.tax` is entered per booking: 0 means no GST. `organizations.tax_percent` (18%) is only the rate the UI offers when GST is switched on. How non-GST billing is handled will be decided later; nothing in the schema assumes GST.
+
+### D21. Minimum advance before confirming
+
+Sudha Vatika takes at least ₹21,000 on every booking. `organizations.min_advance` holds the amount, and a trigger blocks a booking from becoming `confirmed` until the net amount received (refunds subtracted) reaches it. When a booking's total is below the minimum, the full total is required instead.
+
+Tentative bookings (date holds) need no advance, and a confirmed booking can still be edited. The check counts payments even when the caller can't see them (sales).
+
+The trigger derives the total from `subtotal - discount + tax`, because generated columns are computed after BEFORE triggers run.
+
+### D22. Prices start at zero
+
+Prices, terms and conditions vary by booking, and the owners will enter them in the app. The seed keeps the service and package names but sets every price to ₹0, so no invented figure can reach a quote.
