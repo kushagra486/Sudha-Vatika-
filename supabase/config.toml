@@ -16,11 +16,12 @@ sql_paths = ["./seed.sql"]
 [auth]
 site_url = "http://localhost:5173"
 additional_redirect_urls = ["http://localhost:5173"]
-# Staff are invited by an owner; the login page never creates accounts.
-enable_signup = true
+# Closed signup: owners invite staff (dashboard or admin API). Magic links
+# still work for invited users. See docs/DECISIONS.md.
+enable_signup = false
 
 [auth.email]
-enable_signup = true
+enable_signup = false
 double_confirm_changes = true
 enable_confirmations = false
 
