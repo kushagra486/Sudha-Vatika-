@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
+import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
 import { AppLayout } from './AppLayout';
@@ -9,6 +10,7 @@ import { ComingSoonPage, NotFoundPage } from './pages';
 
 // Modules that have been built. Everything else in the nav shows ComingSoonPage.
 const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
+  dashboard: [{ path: 'dashboard', element: <DashboardPage /> }],
   leads: [
     { path: 'leads', element: <LeadsPage /> },
     { path: 'leads/:id', element: <LeadDetailPage /> },

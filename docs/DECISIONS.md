@@ -166,3 +166,24 @@ The function runs with the caller's permissions (`SECURITY INVOKER`), so RLS app
 - The WhatsApp button is hidden for guests who have opted out.
 - The availability panel lists event spaces only (rooms and dormitory are excluded, see D17) and flags upcoming spaces.
 - Notes added on a lead are stored as `messages` with `channel = 'call_note'`.
+
+## Dashboard
+
+### D25. Dashboard numbers come from one database call
+
+`public.dashboard_summary(p_today)` returns every headline figure as one JSON object: open leads by stage, overdue and due-today follow-ups, new enquiries, WhatsApp chats waiting on a reply, events in the next 7 days, money collected this month, money still owed on upcoming bookings, and lead sources over 30 days. The dashboard opens with one request.
+
+It runs with the caller's permissions (`SECURITY INVOKER`), so every count obeys RLS. Sales users see only their own leads and get zero for the money figures, which the UI hides for them. "Today" is the India date; the parameter exists so tests can fix the date.
+
+The lists (follow-ups due, upcoming events, payments due, the availability grid) are separate queries, so each card loads and retries on its own. All of them refresh every 5 minutes and when the window regains focus, so a screen left open at reception stays current.
+
+### D26. Dashboard design
+
+- **Look:** the existing warm theme. The design skill suggested a dark "liquid glass" style, which is meant for marketing pages and costs performance and contrast on mid-range phones.
+- **Stat tiles:** large numbers with fixed-width digits, linking to the page behind each number. Overdue follow-ups get a red border and a waiting WhatsApp reply an amber one, each with its icon, so colour is never the only signal.
+- **Pipeline and lead sources:** plain single-colour horizontal bars with the value written on every row. They are built from HTML rather than Recharts, which is too heavy for so few rows. No pie charts.
+- **Availability grid:**
+  - 14 days × event spaces; every cell carries a letter (B, L, T, D, F) as well as a colour, with a legend and screen-reader text.
+  - On phones the grid scrolls sideways inside its card, with the space names pinned on the left; the page itself never scrolls sideways.
+  - The scroll box is `position: relative` so the screen-reader labels don't widen the page.
+- **Grid layout:** grid items get `min-w-0`; without it, long rows push cards past 360px.
