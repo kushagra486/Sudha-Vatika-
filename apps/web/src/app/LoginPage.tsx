@@ -10,6 +10,7 @@ import { APP_NAME } from '@/config';
 import { t } from '@/i18n';
 import { requireSupabase } from '@/lib/supabase';
 import { useAuth } from './auth';
+import { loginErrorMessage } from './loginErrors';
 
 const schema = z.object({ email: z.string().trim().email(t.auth.invalidEmail) });
 type FormValues = z.infer<typeof schema>;
@@ -28,7 +29,7 @@ export function LoginPage() {
       email,
       options: { emailRedirectTo: window.location.origin, shouldCreateUser: false },
     });
-    if (err) setError(err.message);
+    if (err) setError(loginErrorMessage(err));
     else setSent(true);
   });
 

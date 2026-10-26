@@ -44,6 +44,9 @@ export const en = {
     sending: 'Sending…',
     sent: 'Check your inbox for the sign-in link.',
     invalidEmail: 'Enter a valid email address',
+    notRegistered: 'This email is not registered. Ask the owner to add you.',
+    rateLimited: 'Too many attempts. Wait a minute and try again.',
+    sendFailed: 'Could not send the sign-in link. Check your connection and try again.',
     noProfileTitle: 'Account not set up',
     noProfileBody:
       'You are signed in, but your account is not linked to an organization yet. Ask your owner or manager to add you.',
