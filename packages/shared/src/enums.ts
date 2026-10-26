@@ -19,7 +19,15 @@ export type UnitKind = (typeof UNIT_KINDS)[number];
 export const SHIFTS = ['full_day', 'breakfast', 'lunch', 'high_tea', 'dinner'] as const;
 export type Shift = (typeof SHIFTS)[number];
 
-export const LEAD_SOURCES = ['call', 'whatsapp', 'web', 'walk_in', 'manual'] as const;
+export const LEAD_SOURCES = [
+  'call',
+  'whatsapp',
+  'web',
+  'walk_in',
+  'manual',
+  'instagram',
+  'referral',
+] as const;
 export type LeadSource = (typeof LEAD_SOURCES)[number];
 
 export const LEAD_STAGES = [

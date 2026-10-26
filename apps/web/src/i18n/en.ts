@@ -45,6 +45,15 @@ export const en = {
   notFound: {
     title: 'Page not found',
   },
+  leadSources: {
+    call: 'Phone call',
+    whatsapp: 'WhatsApp',
+    web: 'Website',
+    walk_in: 'Office visit',
+    manual: 'Other',
+    instagram: 'Instagram',
+    referral: 'Word of mouth',
+  },
   roles: {
     owner: 'Owner',
     manager: 'Manager',

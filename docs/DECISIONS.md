@@ -126,3 +126,7 @@ The event booking model (one booking per space per shift) doesn't fit overnight 
 ### D18. Two owners, no other roles yet
 
 The business is run by two people who both handle all leads and tasks. Both get the `owner` role, which sees every lead, including unassigned ones. The other roles stay in place for when staff join.
+
+### D19. Lead sources match how enquiries arrive
+
+Most enquiries come by phone, some by WhatsApp, a few from Instagram, and the rest by word of mouth or office visits. `lead_source` gains `instagram` and `referral`. Office visits use `walk_in`, labelled "Office visit" in the UI. Because phone is the main channel, adding a lead must be a fast, phone-first form.
