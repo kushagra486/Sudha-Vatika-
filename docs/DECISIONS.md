@@ -115,6 +115,8 @@ The venue is moving to a resort format, so `unit_kind` gains `pandaal`, `pool`, 
 
 `units.upcoming` marks spaces still being built (Poolside Hall, Pool, Restaurant). They show in lists and quotes with a flag, and bookings are not blocked, so dates can be pre-sold.
 
+The pandaal (a fixed, waterproof, all-weather structure with an asbestos-sheet roof, 1,200 to 1,500 guests) and the lawn (open, up to 300 guests) are separate spaces: booking one never blocks the other.
+
 Parking, office and reception are facilities, not bookable units. The varmala area is a wedding add-on service, not a separate space.
 
 ### D17. Rooms and dormitory are blocks, not single spaces
