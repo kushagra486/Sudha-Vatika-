@@ -225,3 +225,14 @@ The test fixture booking is no longer linked to a lead. Otherwise confirming it 
   - back and next buttons page through 14 days at a time
 - **Clickable rows:** rows under "Upcoming events" and "Payments due" open their booking.
 - **WhatsApp tile:** while `VITE_FEATURE_WHATSAPP` is off, it's replaced by an "Open leads" tile, because its count would always be 0.
+
+## Hosting
+
+### D31. Database moved from the Raspberry Pi to Supabase's hosted platform
+
+The owners chose Supabase's free hosted platform over the self-hosted Pi (D27-era setup in `docs/PI_DATABASE_SETUP.md`, now retired). It's easier to manage from the dashboard, has managed backups and email delivery, and the venue no longer depends on the Pi's power and internet.
+
+- **Project:** `Sudha-Vatika-Dashboard` in the "sudha Vatika" organisation, region ap-south-1 (Mumbai), Postgres 17.
+- **What was copied:** all migrations and `supabase/seed.sql` were applied unchanged. The Pi held no real customer data, only the seed and the demo account, so no rows were copied. Login accounts aren't portable between auth servers, so owners' accounts are created fresh in the new project.
+- **Website:** Netlify uses the project URL and its **publishable** key (`sb_publishable_…`), which Supabase now recommends over the legacy anon JWT. Like the anon key, it's public by design: RLS protects the data.
+- **Security advisor follow-up:** `20261027000200_btree_gist_schema.sql` moves `btree_gist` out of `public` into `extensions` (lint 0014). I checked afterwards that both the overlap trigger and the exclusion constraint still block a clashing booking. The remaining notices are intentional: `create_organization` callable by signed-in users is the onboarding RPC (so public signup must stay **off**), and `inbound_events` has RLS with no policies (service role only). `public.rls_auto_enable()` isn't part of this app; it came with the new project.

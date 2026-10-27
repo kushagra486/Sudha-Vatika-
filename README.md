@@ -14,7 +14,7 @@ cp .env.example .env      # fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
 npm run dev
 ```
 
-See [docs/RUNBOOK.md](docs/RUNBOOK.md) for local Supabase setup, creating the first owner, and deploying. The live database runs on the owners' Raspberry Pi: see [docs/PI_DATABASE_SETUP.md](docs/PI_DATABASE_SETUP.md). The site is at https://sudha-vatika.netlify.app.
+See [docs/RUNBOOK.md](docs/RUNBOOK.md) for local Supabase setup, creating the first owner, and deploying. The live database is the Supabase project `Sudha-Vatika-Dashboard` (Mumbai) and the site is at https://sudha-vatika.netlify.app.
 
 ## Scripts
 

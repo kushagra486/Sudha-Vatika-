@@ -1,4 +1,6 @@
-# Database on the Raspberry Pi
+# Database on the Raspberry Pi (retired)
+
+> **Retired on 27 Oct 2026.** The owners moved the database to Supabase's hosted platform (project `Sudha-Vatika-Dashboard`, Mumbai), so it can be managed from the Supabase dashboard without depending on the Pi. See DECISIONS D31. This page is kept only as a record of how the Pi was set up.
 
 The owners chose to self-host the Sudha Vatika database on their Raspberry Pi ("Pi console") instead of Supabase's cloud. The web app is hosted on Netlify at <https://sudha-vatika.netlify.app> and talks to the Pi over HTTPS.
 
