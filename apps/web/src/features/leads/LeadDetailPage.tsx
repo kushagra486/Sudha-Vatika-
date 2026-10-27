@@ -9,7 +9,10 @@ import {
   type LeadStage,
   type Shift,
 } from '@bm/shared';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, CalendarPlus } from 'lucide-react';
+import { useAuth } from '@/app/auth';
+import { canWriteBookings } from '@/app/roles';
+import { NewBookingDialog } from '@/features/bookings/NewBookingDialog';
 import { useEffect, useState, type FormEvent } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
@@ -73,6 +76,9 @@ function BackLink() {
 }
 
 function LeadDetail({ lead }: { lead: Lead }) {
+  const { profile } = useAuth();
+  const [booking, setBooking] = useState(false);
+  const canBook = !!profile && canWriteBookings(profile.role);
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-4">
       <BackLink />
@@ -87,12 +93,36 @@ function LeadDetail({ lead }: { lead: Lead }) {
             {formatDateTime(lead.created_at)}
           </p>
         </div>
-        <ContactButtons
-          phone={lead.guest.phone_e164}
-          whatsappAllowed={lead.guest.whatsapp_opt_in}
-          size="sm"
-        />
+        <div className="flex flex-wrap gap-2">
+          <ContactButtons
+            phone={lead.guest.phone_e164}
+            whatsappAllowed={lead.guest.whatsapp_opt_in}
+            size="sm"
+          />
+          {canBook && (
+            <Button size="sm" onClick={() => setBooking(true)}>
+              <CalendarPlus className="h-4 w-4" />
+              {t.bookings.fromLead}
+            </Button>
+          )}
+        </div>
       </div>
+      {canBook && (
+        <NewBookingDialog
+          open={booking}
+          onOpenChange={setBooking}
+          prefill={{
+            lead: {
+              id: lead.id,
+              guestName: lead.guest.full_name ?? formatPhone(lead.guest.phone_e164),
+            },
+            unitId: lead.preferred_unit_id ?? undefined,
+            date: lead.event_date ?? undefined,
+            eventType: lead.event_type,
+            guestCount: lead.guest_count,
+          }}
+        />
+      )}
 
       <StagePicker lead={lead} />
 

@@ -50,9 +50,11 @@ insert into public.leads (id, org_id, outlet_id, guest_id, source, stage, owner_
   ('00000000-0000-4000-a000-000000000802', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', '00000000-0000-4000-a000-000000000702', 'call',     'new',       'aaaaaaaa-0000-4000-8000-000000000004', 'Birthday', '2026-11-20', 80),
   ('00000000-0000-4000-a000-000000000803', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', '00000000-0000-4000-a000-000000000702', 'web',      'new',       null,                                   'Reception', null,        null);
 
+-- Not linked to a lead, so confirming it leaves the fixture leads open
+-- (10_create_booking.sql covers the linked case).
 insert into public.bookings (id, org_id, outlet_id, unit_id, lead_id, guest_id, event_type, event_date, shift, guest_count, status, subtotal, discount, tax, created_by) values
   ('00000000-0000-4000-a000-000000000901', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', '00000000-0000-4000-a000-000000000201',
-   '00000000-0000-4000-a000-000000000801', '00000000-0000-4000-a000-000000000701', 'Wedding', '2026-12-12', 'dinner', 400, 'tentative', 300000, 20000, 50400,
+   null, '00000000-0000-4000-a000-000000000701', 'Wedding', '2026-12-12', 'dinner', 400, 'tentative', 300000, 20000, 50400,
    'aaaaaaaa-0000-4000-8000-000000000005');
 
 insert into public.payments (org_id, booking_id, amount, kind, method, recorded_by) values

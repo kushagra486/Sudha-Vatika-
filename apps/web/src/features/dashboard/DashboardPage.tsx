@@ -13,6 +13,9 @@ import {
   AlarmClock,
   CalendarCheck,
   IndianRupee,
+  ChevronLeft,
+  ChevronRight,
+  ListTodo,
   MessageCircle,
   Plus,
   UserPlus,
@@ -22,12 +25,15 @@ import {
 import { useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '@/app/auth';
+import { canAddLeads, canSeeMoney, canWriteBookings } from '@/app/roles';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ContactButtons, FollowUpBadge, StageBadge } from '@/features/leads/LeadBits';
 import { useEventSpaces } from '@/features/leads/api';
 import { QuickAddDialog } from '@/features/leads/QuickAddDialog';
+import { config } from '@/config';
+import { NewBookingDialog, type BookingPrefill } from '@/features/bookings/NewBookingDialog';
 import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 import {
@@ -41,9 +47,6 @@ import {
 import { cellFor, dateRange, SHIFT_LETTERS, type CellState } from './availability';
 
 const D = t.dashboard;
-
-/** Roles that can read payments (see DECISIONS D7). */
-const MONEY_ROLES = ['owner', 'manager', 'ops', 'viewer'] as const;
 
 function greeting(now = new Date()): string {
   const hour = Number(
@@ -76,8 +79,8 @@ export function DashboardPage() {
   const { profile } = useAuth();
   const [adding, setAdding] = useState(false);
   const summary = useDashboardSummary();
-  const seesMoney = !!profile && (MONEY_ROLES as readonly string[]).includes(profile.role);
-  const canAddLeads = !!profile && ['owner', 'manager', 'sales'].includes(profile.role);
+  const seesMoney = !!profile && canSeeMoney(profile.role);
+  const addsLeads = !!profile && canAddLeads(profile.role);
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-4 sm:gap-6">
@@ -89,7 +92,7 @@ export function DashboardPage() {
           </h1>
           <p className="text-sm text-muted-foreground">{formatEventDate(todayIST())}</p>
         </div>
-        {canAddLeads && (
+        {addsLeads && (
           <Button onClick={() => setAdding(true)}>
             <Plus className="h-4 w-4" />
             {t.leads.add}
@@ -118,7 +121,7 @@ export function DashboardPage() {
         <SourcesCard summary={summary.data} loading={summary.isPending} />
       </div>
 
-      {canAddLeads && <QuickAddDialog open={adding} onOpenChange={setAdding} />}
+      {addsLeads && <QuickAddDialog open={adding} onOpenChange={setAdding} />}
     </div>
   );
 }
@@ -224,14 +227,14 @@ function Tiles({
         sub={`${s.follow_ups.today} ${D.tiles.dueToday.toLowerCase()}`}
         icon={AlarmClock}
         tone={s.follow_ups.overdue > 0 ? 'alert' : s.follow_ups.today > 0 ? 'warn' : 'plain'}
-        to="/leads"
+        to="/leads?view=due"
       />
       <Tile
         label={D.tiles.newLeads}
         value={String(s.new_leads.today)}
         sub={D.tiles.newLeadsSub(s.new_leads.last_7_days)}
         icon={UserPlus}
-        to="/leads"
+        to="/leads?view=new"
       />
       <Tile
         label={D.tiles.events}
@@ -240,14 +243,19 @@ function Tiles({
         icon={CalendarCheck}
         to="/bookings"
       />
-      <Tile
-        label={D.tiles.unreplied}
-        value={String(s.unreplied_whatsapp)}
-        sub={D.tiles.unrepliedSub}
-        icon={MessageCircle}
-        tone={s.unreplied_whatsapp > 0 ? 'warn' : 'plain'}
-        to="/chats"
-      />
+      {config.features.whatsappEnabled ? (
+        <Tile
+          label={D.tiles.unreplied}
+          value={String(s.unreplied_whatsapp)}
+          sub={D.tiles.unrepliedSub}
+          icon={MessageCircle}
+          tone={s.unreplied_whatsapp > 0 ? 'warn' : 'plain'}
+          to="/chats"
+        />
+      ) : (
+        // WhatsApp is not connected yet (feature flag off): its count would always be 0.
+        <Tile label={D.tiles.openLeads} value={String(s.open_total)} icon={ListTodo} to="/leads" />
+      )}
       {seesMoney && (
         <>
           <Tile
@@ -386,28 +394,36 @@ function UpcomingCard() {
       ) : (
         <ul className="flex flex-col divide-y">
           {q.data.map((b) => (
-            <li key={b.id} className="flex items-start gap-3 py-2">
-              <div className="w-24 shrink-0">
-                <p
-                  className={cn('text-sm font-semibold', b.event_date === today && 'text-primary')}
-                >
-                  {dayLabel(b.event_date, today)}
-                </p>
-                <p className="text-xs text-muted-foreground">{t.shifts[b.shift]}</p>
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium">
-                  {b.unit.name}
-                  {b.event_type ? ` · ${b.event_type}` : ''}
-                </p>
-                <p className="truncate text-xs text-muted-foreground">
-                  {b.guest.full_name ?? formatPhone(b.guest.phone_e164)}
-                  {b.guest_count ? ` · ${t.leads.guests(b.guest_count)}` : ''}
-                </p>
-              </div>
-              <Badge tone={b.status === 'confirmed' ? 'green' : 'amber'}>
-                {t.bookingStatuses[b.status]}
-              </Badge>
+            <li key={b.id}>
+              <Link
+                to={`/bookings/${b.id}`}
+                className="flex items-start gap-3 py-2 -mx-2 rounded-md px-2 hover:bg-muted/50"
+              >
+                <div className="w-24 shrink-0">
+                  <p
+                    className={cn(
+                      'text-sm font-semibold',
+                      b.event_date === today && 'text-primary',
+                    )}
+                  >
+                    {dayLabel(b.event_date, today)}
+                  </p>
+                  <p className="text-xs text-muted-foreground">{t.shifts[b.shift]}</p>
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-medium">
+                    {b.unit.name}
+                    {b.event_type ? ` · ${b.event_type}` : ''}
+                  </p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {b.guest.full_name ?? formatPhone(b.guest.phone_e164)}
+                    {b.guest_count ? ` · ${t.leads.guests(b.guest_count)}` : ''}
+                  </p>
+                </div>
+                <Badge tone={b.status === 'confirmed' ? 'green' : 'amber'}>
+                  {t.bookingStatuses[b.status]}
+                </Badge>
+              </Link>
             </li>
           ))}
         </ul>
@@ -425,24 +441,54 @@ const CELL_STYLES: Record<CellState, string> = {
   upcoming: 'bg-muted text-muted-foreground',
 };
 
-function AvailabilityCard() {
-  const DAYS = 14;
-  const today = todayIST();
-  const dates = dateRange(today, DAYS);
-  const spaces = useEventSpaces();
-  const bookings = useBookingsBetween(today, dates[DAYS - 1]!);
+const DAYS = 14;
 
-  const booked = new Map<string, Shift[]>();
+function AvailabilityCard() {
+  const { profile } = useAuth();
+  const canBook = !!profile && canWriteBookings(profile.role);
+  const [page, setPage] = useState(0);
+  const [prefill, setPrefill] = useState<BookingPrefill | null>(null);
+  const today = todayIST();
+  const start = addDays(today, page * DAYS);
+  const dates = dateRange(start, DAYS);
+  const spaces = useEventSpaces();
+  const bookings = useBookingsBetween(start, dates[DAYS - 1]!);
+
+  const booked = new Map<string, { id: string; shift: Shift }[]>();
   for (const b of bookings.data ?? []) {
     const key = `${b.unit_id}|${b.event_date}`;
-    booked.set(key, [...(booked.get(key) ?? []), b.shift]);
+    booked.set(key, [...(booked.get(key) ?? []), { id: b.id, shift: b.shift }]);
   }
 
   const weekday = new Intl.DateTimeFormat('en-IN', { weekday: 'short', timeZone: 'UTC' });
   const dayNum = new Intl.DateTimeFormat('en-IN', { day: 'numeric', timeZone: 'UTC' });
 
   return (
-    <Section title={D.availability} sub={D.availabilitySub}>
+    <Section
+      title={D.availability}
+      sub={`${formatEventDate(dates[0]!)} – ${formatEventDate(dates[DAYS - 1]!)}`}
+      action={
+        <div className="flex gap-1">
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label={D.earlier}
+            disabled={page === 0}
+            onClick={() => setPage((p) => Math.max(0, p - 1))}
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            aria-label={D.later}
+            onClick={() => setPage((p) => p + 1)}
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
+        </div>
+      }
+    >
       <ul
         className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground"
         aria-label="Legend"
@@ -502,7 +548,11 @@ function AvailabilityCard() {
                     {u.name}
                   </th>
                   {dates.map((d) => {
-                    const cell = cellFor(booked.get(`${u.id}|${d}`) ?? [], u.upcoming);
+                    const here = booked.get(`${u.id}|${d}`) ?? [];
+                    const cell = cellFor(
+                      here.map((b) => b.shift),
+                      u.upcoming,
+                    );
                     const letters =
                       cell.state === 'full'
                         ? SHIFT_LETTERS.full_day
@@ -515,15 +565,29 @@ function AvailabilityCard() {
                       <td
                         key={d}
                         className={cn(
-                          'h-9 rounded text-center font-semibold',
+                          'h-9 rounded p-0 text-center font-semibold',
                           CELL_STYLES[cell.state],
                         )}
                         title={`${u.name}, ${formatEventDate(d)}: ${description}`}
                       >
-                        <span aria-hidden>
-                          {cell.state === 'free' ? '' : cell.state === 'upcoming' ? '–' : letters}
-                        </span>
-                        <span className="sr-only">{description}</span>
+                        <CellAction
+                          label={`${u.name}, ${formatEventDate(d)}: ${description}`}
+                          bookingId={cell.state === 'full' ? here[0]?.id : undefined}
+                          onNew={
+                            canBook && cell.state !== 'full'
+                              ? () =>
+                                  setPrefill({
+                                    unitId: u.id,
+                                    date: d,
+                                    shift: firstFreeShift(cell.shifts),
+                                  })
+                              : undefined
+                          }
+                        >
+                          <span aria-hidden>
+                            {cell.state === 'free' ? '' : cell.state === 'upcoming' ? '–' : letters}
+                          </span>
+                        </CellAction>
                       </td>
                     );
                   })}
@@ -533,7 +597,63 @@ function AvailabilityCard() {
           </table>
         </div>
       )}
+      {prefill && (
+        <NewBookingDialog open onOpenChange={(o) => !o && setPrefill(null)} prefill={prefill} />
+      )}
     </Section>
+  );
+}
+
+const MEAL_ORDER: Shift[] = ['breakfast', 'lunch', 'high_tea', 'dinner'];
+
+/** Free day → full day; partly booked → the first meal slot still open. */
+function firstFreeShift(taken: Shift[]): Shift {
+  if (taken.length === 0) return 'full_day';
+  return MEAL_ORDER.find((s) => !taken.includes(s)) ?? 'dinner';
+}
+
+/** Fills the grid cell: opens the booking, starts a new one, or is plain text. */
+function CellAction({
+  label,
+  bookingId,
+  onNew,
+  children,
+}: {
+  label: string;
+  bookingId?: string;
+  onNew?: () => void;
+  children: ReactNode;
+}) {
+  const cls =
+    'flex h-9 w-full items-center justify-center rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring';
+  if (bookingId) {
+    return (
+      <Link
+        to={`/bookings/${bookingId}`}
+        className={cn(cls, 'hover:brightness-95')}
+        aria-label={label}
+      >
+        {children}
+      </Link>
+    );
+  }
+  if (onNew) {
+    return (
+      <button
+        type="button"
+        className={cn(cls, 'hover:brightness-95')}
+        aria-label={label}
+        onClick={onNew}
+      >
+        {children}
+      </button>
+    );
+  }
+  return (
+    <span className={cls}>
+      {children}
+      <span className="sr-only">{label}</span>
+    </span>
   );
 }
 
@@ -553,26 +673,31 @@ function PaymentsDueCard() {
       ) : (
         <ul className="flex flex-col divide-y">
           {q.data.map((b) => (
-            <li key={b.id} className="flex items-start justify-between gap-3 py-2">
-              <div className="min-w-0">
-                <p className="truncate text-sm font-medium">
-                  {b.guest.full_name ?? formatPhone(b.guest.phone_e164)}
-                </p>
-                <p className="truncate text-xs text-muted-foreground">
-                  {dayLabel(b.event_date, today)} · {b.unit.name}
-                </p>
-                {b.status === 'tentative' && b.paid === 0 && (
-                  <Badge tone="amber" className="mt-1">
-                    {D.belowAdvance}
-                  </Badge>
-                )}
-              </div>
-              <div className="shrink-0 text-right">
-                <p className="text-sm font-semibold tabular-nums">{formatINR(b.balance)}</p>
-                <p className="text-xs text-muted-foreground tabular-nums">
-                  {D.paid(formatINR(b.paid))}
-                </p>
-              </div>
+            <li key={b.id}>
+              <Link
+                to={`/bookings/${b.id}`}
+                className="flex items-start justify-between gap-3 py-2 -mx-2 rounded-md px-2 hover:bg-muted/50"
+              >
+                <div className="min-w-0">
+                  <p className="truncate text-sm font-medium">
+                    {b.guest.full_name ?? formatPhone(b.guest.phone_e164)}
+                  </p>
+                  <p className="truncate text-xs text-muted-foreground">
+                    {dayLabel(b.event_date, today)} · {b.unit.name}
+                  </p>
+                  {b.status === 'tentative' && b.paid === 0 && (
+                    <Badge tone="amber" className="mt-1">
+                      {D.belowAdvance}
+                    </Badge>
+                  )}
+                </div>
+                <div className="shrink-0 text-right">
+                  <p className="text-sm font-semibold tabular-nums">{formatINR(b.balance)}</p>
+                  <p className="text-xs text-muted-foreground tabular-nums">
+                    {D.paid(formatINR(b.paid))}
+                  </p>
+                </div>
+              </Link>
             </li>
           ))}
         </ul>

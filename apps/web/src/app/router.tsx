@@ -1,7 +1,10 @@
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
+import { BookingDetailPage } from '@/features/bookings/BookingDetailPage';
+import { BookingsPage } from '@/features/bookings/BookingsPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
+import { PaymentsPage } from '@/features/payments/PaymentsPage';
 import { AppLayout } from './AppLayout';
 import { RequireAuth, RequireRole } from './guards';
 import { LoginPage } from './LoginPage';
@@ -15,6 +18,11 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
     { path: 'leads', element: <LeadsPage /> },
     { path: 'leads/:id', element: <LeadDetailPage /> },
   ],
+  bookings: [
+    { path: 'bookings', element: <BookingsPage /> },
+    { path: 'bookings/:id', element: <BookingDetailPage /> },
+  ],
+  payments: [{ path: 'payments', element: <PaymentsPage /> }],
 };
 
 function guarded(item: NavItem, route: RouteObject): RouteObject {

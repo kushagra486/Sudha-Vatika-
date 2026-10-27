@@ -5,25 +5,40 @@ import {
   LEAD_STAGES,
   type LeadSource,
 } from '@bm/shared';
-import { Plus, Search } from 'lucide-react';
+import { Plus, Search, X } from 'lucide-react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Select } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { t } from '@/i18n';
-import { useLeads, type LeadFilters, type LeadListItem, type StageFilter } from './api';
+import {
+  useLeads,
+  type LeadFilters,
+  type LeadListItem,
+  type LeadView,
+  type StageFilter,
+} from './api';
 import { ContactButtons, FollowUpBadge, StageBadge } from './LeadBits';
 import { QuickAddDialog } from './QuickAddDialog';
 
-const DEFAULT_FILTERS: LeadFilters = { stage: 'open', source: 'any', search: '' };
+type Controls = Omit<LeadFilters, 'view'>;
+const DEFAULT_CONTROLS: Controls = { stage: 'open', source: 'any', search: '' };
+
+function readView(raw: string | null): LeadView {
+  return raw === 'due' || raw === 'new' ? raw : 'all';
+}
 
 export function LeadsPage() {
-  const [filters, setFilters] = useState<LeadFilters>(DEFAULT_FILTERS);
+  const [params, setParams] = useSearchParams();
+  const view = readView(params.get('view'));
+  const [controls, setFilters] = useState<Controls>(DEFAULT_CONTROLS);
+  const filters: LeadFilters = { ...controls, view };
   const [adding, setAdding] = useState(false);
   const leads = useLeads(filters);
-  const filtered = filters.stage !== 'open' || filters.source !== 'any' || filters.search !== '';
+  const filtered =
+    view !== 'all' || filters.stage !== 'open' || filters.source !== 'any' || filters.search !== '';
 
   return (
     <div className="mx-auto flex max-w-4xl flex-col gap-4">
@@ -34,6 +49,16 @@ export function LeadsPage() {
           {t.leads.add}
         </Button>
       </div>
+
+      {view !== 'all' && (
+        <div className="flex flex-wrap items-center gap-2 rounded-md bg-secondary px-3 py-2 text-sm">
+          <span className="font-medium">{t.leads.views[view]}</span>
+          <Button variant="ghost" size="sm" className="ml-auto" onClick={() => setParams({})}>
+            <X className="h-4 w-4" aria-hidden />
+            {t.leads.clearView}
+          </Button>
+        </div>
+      )}
 
       <div className="grid gap-2 sm:grid-cols-[1fr_auto_auto]">
         <div className="relative">

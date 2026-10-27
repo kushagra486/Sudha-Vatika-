@@ -193,3 +193,35 @@ The lists (follow-ups due, upcoming events, payments due, the availability grid)
 Magic links stay the default, but the sign-in page can switch to email and password. This lets the owners test with a demo account before SMTP is configured on the Pi, and keeps people able to sign in if email delivery fails. Signup stays closed: password accounts are created on the Pi with the admin API, never from the app. Sign-in errors are mapped to plain messages (`app/loginErrors.ts`), and the server's own text is never shown.
 
 The demo account `demo@example.com` has the `owner` role in the Sudha Vatika venue. Delete it, or change its password, before real customer data goes in.
+
+## Bookings and payments
+
+### D28. Bookings are created through `create_booking`
+
+`public.create_booking(...)` does everything in one transaction. It uses the lead's guest (or finds or creates one by phone), takes the outlet from the space, and inserts a **tentative** booking. It runs with the caller's permissions, so RLS, the overlap rule and the advance rule all apply as usual.
+
+Confirming a booking marks its lead `booked` and clears the follow-up. That trigger runs with the definer's permissions, because ops staff confirm bookings but can't edit leads.
+
+The test fixture booking is no longer linked to a lead. Otherwise confirming it would mark the fixture lead booked and change the expected counts in other test files.
+
+### D29. Booking screens
+
+- **List:** filters for Upcoming, Tentative, Past and Cancelled.
+- **Booking page:**
+  - shows the money breakdown, what's been received and the balance
+  - shows advance progress ("₹11,000 of ₹21,000 received"), and Confirm stays disabled until the advance is in
+  - records payments, including refunds
+  - lets you edit the space, date, shift, guests and price
+  - can be cancelled (after a second confirmation), or marked completed once the event date arrives
+- **Who sees what:** payments and money are hidden from sales users. They can still press Confirm, and the database checks the advance.
+- **GST when editing:** the stored GST is kept when the price doesn't change, so changing the rate in settings never quietly rewrites an old booking.
+
+### D30. Dashboard links
+
+- **Tiles open filtered lists:** "Overdue follow-ups" opens `/leads?view=due` and "New enquiries" opens `/leads?view=new`. Both use India-date boundaries.
+- **Availability grid:**
+  - a full cell opens its booking
+  - a free or partly booked cell starts a new booking with the space, date and first open shift filled in
+  - back and next buttons page through 14 days at a time
+- **Clickable rows:** rows under "Upcoming events" and "Payments due" open their booking.
+- **WhatsApp tile:** while `VITE_FEATURE_WHATSAPP` is off, it's replaced by an "Open leads" tile, because its count would always be 0.

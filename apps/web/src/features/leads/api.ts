@@ -1,5 +1,8 @@
 import {
+  addDays,
+  fromISTInputValue,
   LIVE_BOOKING_STATUSES,
+  todayIST,
   OPEN_LEAD_STAGES,
   type LeadSource,
   type LeadStage,
@@ -58,10 +61,14 @@ export interface Unit {
 /** 'open' = every stage still in play. */
 export type StageFilter = 'open' | 'all' | LeadStage;
 
+/** Shortcut views the dashboard tiles link to (?view=due or ?view=new). */
+export type LeadView = 'all' | 'due' | 'new';
+
 export interface LeadFilters {
   stage: StageFilter;
   source: LeadSource | 'any';
   search: string;
+  view: LeadView;
 }
 
 const LIST_COLUMNS =
@@ -94,6 +101,12 @@ export function useLeads(filters: LeadFilters) {
       if (filters.stage === 'open') q = q.in('stage', [...OPEN_LEAD_STAGES]);
       else if (filters.stage !== 'all') q = q.eq('stage', filters.stage);
       if (filters.source !== 'any') q = q.eq('source', filters.source);
+      // India-date boundaries, same as the dashboard tiles.
+      if (filters.view === 'due') {
+        q = q.lt('next_follow_up_at', fromISTInputValue(`${addDays(todayIST(), 1)}T00:00`));
+      } else if (filters.view === 'new') {
+        q = q.gte('created_at', fromISTInputValue(`${todayIST()}T00:00`));
+      }
 
       const term = sanitizeSearch(filters.search);
       if (term) {
