@@ -187,3 +187,9 @@ The lists (follow-ups due, upcoming events, payments due, the availability grid)
   - On phones the grid scrolls sideways inside its card, with the space names pinned on the left; the page itself never scrolls sideways.
   - The scroll box is `position: relative` so the screen-reader labels don't widen the page.
 - **Grid layout:** grid items get `min-w-0`; without it, long rows push cards past 360px.
+
+### D27. Password sign-in alongside magic links
+
+Magic links stay the default, but the sign-in page can switch to email and password. This lets the owners test with a demo account before SMTP is configured on the Pi, and keeps people able to sign in if email delivery fails. Signup stays closed: password accounts are created on the Pi with the admin API, never from the app. Sign-in errors are mapped to plain messages (`app/loginErrors.ts`), and the server's own text is never shown.
+
+The demo account `demo@example.com` has the `owner` role in the Sudha Vatika venue. Delete it, or change its password, before real customer data goes in.

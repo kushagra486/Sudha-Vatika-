@@ -8,6 +8,12 @@ describe('loginErrorMessage', () => {
     );
   });
 
+  it('explains a wrong password', () => {
+    expect(loginErrorMessage({ message: 'Invalid login credentials', status: 400 })).toBe(
+      'Wrong email or password.',
+    );
+  });
+
   it('explains rate limits', () => {
     expect(loginErrorMessage({ message: 'email rate limit exceeded', status: 429 })).toMatch(
       /Too many/,
