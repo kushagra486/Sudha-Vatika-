@@ -61,6 +61,18 @@ describe('LoginPage', () => {
     expect(signInWithOtp).not.toHaveBeenCalled();
   });
 
+  it('can reveal the password to check for typos', async () => {
+    const user = userEvent.setup();
+    renderPage();
+    await user.click(screen.getByRole('button', { name: 'Sign in with a password instead' }));
+    const field = screen.getByLabelText('Password');
+    expect(field).toHaveAttribute('type', 'password');
+    await user.click(screen.getByRole('button', { name: 'Show password' }));
+    expect(field).toHaveAttribute('type', 'text');
+    await user.click(screen.getByRole('button', { name: 'Hide password' }));
+    expect(field).toHaveAttribute('type', 'password');
+  });
+
   it('asks for a password before calling the server', async () => {
     const user = userEvent.setup();
     renderPage();

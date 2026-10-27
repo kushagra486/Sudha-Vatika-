@@ -47,6 +47,8 @@ export const en = {
     notRegistered: 'This email is not registered. Ask the owner to add you.',
     wrongPassword: 'Wrong email or password.',
     passwordLabel: 'Password',
+    showPassword: 'Show password',
+    hidePassword: 'Hide password',
     passwordRequired: 'Enter your password',
     signIn: 'Sign in',
     signingIn: 'Signing in…',

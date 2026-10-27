@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Eye, EyeOff } from 'lucide-react';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Navigate } from 'react-router-dom';
@@ -23,6 +24,7 @@ type FormValues = z.infer<typeof schema>;
 export function LoginPage() {
   const { session } = useAuth();
   const [mode, setMode] = useState<Mode>('link');
+  const [showPassword, setShowPassword] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const form = useForm<FormValues>({
@@ -82,6 +84,9 @@ export function LoginPage() {
             type="email"
             autoComplete={mode === 'password' ? 'username' : 'email'}
             inputMode="email"
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
             placeholder={t.auth.emailPlaceholder}
             aria-invalid={!!form.formState.errors.email}
             {...form.register('email')}
@@ -95,13 +100,28 @@ export function LoginPage() {
               <label htmlFor="password" className="text-sm font-medium">
                 {t.auth.passwordLabel}
               </label>
-              <Input
-                id="password"
-                type="password"
-                autoComplete="current-password"
-                aria-invalid={!!form.formState.errors.password}
-                {...form.register('password')}
-              />
+              <div className="relative">
+                <Input
+                  id="password"
+                  type={showPassword ? 'text' : 'password'}
+                  autoComplete="current-password"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck={false}
+                  className="pr-12"
+                  aria-invalid={!!form.formState.errors.password}
+                  {...form.register('password')}
+                />
+                <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 flex w-11 items-center justify-center rounded-r-md text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                  aria-label={showPassword ? t.auth.hidePassword : t.auth.showPassword}
+                  aria-pressed={showPassword}
+                  onClick={() => setShowPassword((v) => !v)}
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
               {form.formState.errors.password && (
                 <p className="text-sm text-destructive">{form.formState.errors.password.message}</p>
               )}
