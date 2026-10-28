@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Field, Select } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { t } from '@/i18n';
+import { currentLang, setLang, t, type Lang } from '@/i18n';
 import {
   useAddMember,
   useChangeOwnPassword,
@@ -28,6 +28,7 @@ export function SettingsPage() {
     <div className="mx-auto flex max-w-3xl flex-col gap-4">
       <h1 className="text-xl font-semibold sm:text-2xl">{S.title}</h1>
       <AccountCard />
+      <LanguageCard />
       {isOwner && <VenueCard />}
       {isOwner && <TeamCard />}
     </div>
@@ -401,5 +402,34 @@ function AddMemberForm() {
         {add.isPending ? t.common.saving : S.team.create}
       </Button>
     </form>
+  );
+}
+
+function LanguageCard() {
+  const lang = currentLang();
+  const options: [Lang, string][] = [
+    ['en', 'English'],
+    ['hi', 'हिन्दी'],
+  ];
+  return (
+    <Card>
+      <CardHeader>
+        <CardTitle className="text-base">{S.language.title}</CardTitle>
+        <CardDescription>{S.language.hint}</CardDescription>
+      </CardHeader>
+      <CardContent className="flex gap-2">
+        {options.map(([code, label]) => (
+          <Button
+            key={code}
+            variant={lang === code ? 'default' : 'outline'}
+            aria-pressed={lang === code}
+            lang={code}
+            onClick={() => lang !== code && setLang(code)}
+          >
+            {label}
+          </Button>
+        ))}
+      </CardContent>
+    </Card>
   );
 }

@@ -310,6 +310,7 @@ export const en = {
       tooShort: 'Use at least 8 characters',
       mismatch: 'The two passwords do not match',
     },
+    language: { title: 'Language', hint: 'Which language the app shows' },
     venue: {
       title: 'Venue and billing',
       name: 'Business name',
