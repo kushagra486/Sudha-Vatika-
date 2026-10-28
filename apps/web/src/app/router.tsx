@@ -4,6 +4,7 @@ import { BookingsPage } from '@/features/bookings/BookingsPage';
 import { PackagesPage } from '@/features/catalog/PackagesPage';
 import { ServicesPage } from '@/features/catalog/ServicesPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
+import { InventoryPage } from '@/features/inventory/InventoryPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
 import { PaymentsPage } from '@/features/payments/PaymentsPage';
@@ -26,6 +27,7 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
     { path: 'bookings/:id', element: <BookingDetailPage /> },
   ],
   payments: [{ path: 'payments', element: <PaymentsPage /> }],
+  inventory: [{ path: 'inventory', element: <InventoryPage /> }],
   services: [{ path: 'services', element: <ServicesPage /> }],
   packages: [{ path: 'packages', element: <PackagesPage /> }],
   settings: [{ path: 'settings', element: <SettingsPage /> }],

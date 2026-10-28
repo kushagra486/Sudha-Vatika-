@@ -23,6 +23,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Field, Select } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { BookingStaysCard } from '@/features/inventory/BookingStaysCard';
 import { ContactButtons } from '@/features/leads/LeadBits';
 import { useEventSpaces } from '@/features/leads/api';
 import { t } from '@/i18n';
@@ -139,6 +140,11 @@ function BookingDetail({ booking: b }: { booking: BookingRow }) {
           />
         )}
         {role && canWriteBookings(role) && b.status !== 'cancelled' && <EditCard booking={b} />}
+        <BookingStaysCard
+          booking={b}
+          canWrite={!!role && canWriteBookings(role) && b.status !== 'cancelled'}
+          money={seesMoney}
+        />
       </div>
     </div>
   );
