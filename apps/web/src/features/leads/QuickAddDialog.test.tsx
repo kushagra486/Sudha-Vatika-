@@ -24,6 +24,31 @@ vi.mock('./api', () => ({
   useGuestByPhone: (phone: string | null) => ({ data: phone ? existingGuest : null }),
 }));
 
+// The AI helper answers instantly with a fixed extraction.
+vi.mock('@/features/ai/api', () => ({
+  useExtract: () => ({
+    isPending: false,
+    isError: false,
+    data: undefined,
+    mutate: (_text: string, opts: { onSuccess: (r: unknown) => void }) =>
+      opts.onSuccess({
+        extraction: {
+          full_name: 'Rahul',
+          event_type: 'Wedding',
+          event_date: '2026-12-12',
+          guest_count: 900,
+          budget_min: null,
+          budget_max: null,
+          preferred_space: 'Pandaal',
+          services: [],
+          summary: '',
+        },
+        preferred_unit_id: 'u-pandaal',
+        source: 'rules',
+      }),
+  }),
+}));
+
 const navigate = vi.fn();
 vi.mock('react-router-dom', async (orig) => ({
   ...(await orig<typeof import('react-router-dom')>()),
@@ -45,6 +70,18 @@ describe('QuickAddDialog', () => {
     mutateAsync.mockReset();
     navigate.mockReset();
     existingGuest = null;
+  });
+
+  it('fills empty fields from a pasted message', async () => {
+    const user = userEvent.setup();
+    renderDialog();
+    await user.type(screen.getByLabelText('Name'), 'Typed name');
+    await user.click(screen.getByRole('button', { name: /paste a message/i }));
+    await user.type(screen.getByLabelText(/paste the guest/i), 'Shaadi 12 Dec, 900 log, pandaal');
+    await user.click(screen.getByRole('button', { name: /fill the form/i }));
+    expect(screen.getByLabelText('Name')).toHaveValue('Typed name');
+    expect(screen.getByLabelText('Event type')).toHaveValue('Wedding');
+    expect(screen.getByLabelText(/guests/i)).toHaveValue('900');
   });
 
   it('needs only a valid phone number', async () => {

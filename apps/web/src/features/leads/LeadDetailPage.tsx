@@ -31,6 +31,7 @@ import {
   useUpdateLead,
   type Lead,
 } from './api';
+import { LeadAssistCard } from '@/features/ai/LeadAssistCard';
 import { ContactButtons, FollowUpBadge } from './LeadBits';
 import { STAGE_TONES } from './stageTones';
 
@@ -131,7 +132,10 @@ function LeadDetail({ lead }: { lead: Lead }) {
           <DetailsCard lead={lead} />
           <AvailabilityCard date={lead.event_date} />
         </div>
-        <NotesCard lead={lead} />
+        <div className="flex flex-col gap-4">
+          <NotesCard lead={lead} />
+          {profile && profile.role !== 'viewer' && <LeadAssistCard lead={lead} />}
+        </div>
       </div>
     </div>
   );

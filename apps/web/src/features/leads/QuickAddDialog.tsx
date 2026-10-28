@@ -14,6 +14,7 @@ import {
 import { Field, Select, Textarea } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { t } from '@/i18n';
+import { PasteToFill } from '@/features/ai/PasteToFill';
 import { useCreateEnquiry, useEventSpaces, useGuestByPhone } from './api';
 
 const L = t.leads.quickAdd;
@@ -106,6 +107,20 @@ export function QuickAddDialog({
         </DialogHeader>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate>
+          <PasteToFill
+            onFill={({ extraction: x, preferred_unit_id }, text) => {
+              // Fill only empty fields; whatever staff typed wins.
+              const fill = (k: keyof FormValues, v: string | null | undefined) => {
+                if (v && !watch(k)) setValue(k, v as never, { shouldValidate: true });
+              };
+              fill('full_name', x.full_name);
+              fill('event_type', x.event_type);
+              fill('event_date', x.event_date);
+              fill('guest_count', x.guest_count ? String(x.guest_count) : null);
+              fill('preferred_unit_id', preferred_unit_id);
+              fill('note', text);
+            }}
+          />
           <Field label={L.phone} htmlFor="qa-phone" error={formState.errors.phone?.message}>
             <Input
               id="qa-phone"
