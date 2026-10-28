@@ -236,3 +236,60 @@ The owners chose Supabase's free hosted platform over the self-hosted Pi (D27-er
 - **What was copied:** all migrations and `supabase/seed.sql` were applied unchanged. The Pi held no real customer data, only the seed and the demo account, so no rows were copied. Login accounts aren't portable between auth servers, so owners' accounts are created fresh in the new project.
 - **Website:** Netlify uses the project URL and its **publishable** key (`sb_publishable_…`), which Supabase now recommends over the legacy anon JWT. Like the anon key, it's public by design: RLS protects the data.
 - **Security advisor follow-up:** `20261027000200_btree_gist_schema.sql` moves `btree_gist` out of `public` into `extensions` (lint 0014). I checked afterwards that both the overlap trigger and the exclusion constraint still block a clashing booking. The remaining notices are intentional: `create_organization` callable by signed-in users is the onboarding RPC (so public signup must stay **off**), and `inbound_events` has RLS with no policies (service role only). `public.rls_auto_enable()` isn't part of this app; it came with the new project.
+
+## Features added after go-live
+
+### D32. Settings and staff accounts
+
+- Everyone can change their own password. Owners also edit the venue (name, GSTIN, default GST rate, minimum advance, address) and the team.
+- Creating logins needs the service role, so it runs in the `manage-staff` Edge Function. The function checks that the caller is an active owner of the same organization before it creates a user or resets a password.
+- A deferred constraint trigger (`profiles_keep_an_owner`) refuses any change that would leave an organization with no active owner, so nobody can lock the owners out by mistake.
+
+### D33. Catalogue and itemised quotes
+
+- Services and packages are edited in the app. Prices may stay at ₹0 until the owners decide them.
+- Once a booking has line items, a trigger keeps `subtotal` equal to the items. A booking that was charged GST is re-taxed at the organization's rate, a booking without GST stays without it, and the discount is capped at the new subtotal.
+- `/quote/:id` is a print-friendly quotation. "Save as PDF" in the browser makes the file, so no PDF service is needed. The same quote goes out as WhatsApp text in one tap.
+
+### D34. Rooms and dorms are booked per night
+
+Event spaces are booked per shift (D6). Hotel rooms and dorm rooms are booked per night in `room_stays`, against `units.quantity`. A trigger locks the unit row and refuses any night that would go over the rooms on hand. The check-out day is free again. `create_room_stay` finds or creates the guest by phone, the same way `create_booking` does.
+
+### D35. Media stays private
+
+Files go into the private `media` bucket under `<org_id>/…`, which is what the storage policies check. Staff see them through one-hour signed links. Sharing creates a 7-day link and opens the phone's share sheet (WhatsApp web on desktop).
+
+### D36. WhatsApp works before the Business API exists
+
+- **Without an account:** every Send opens WhatsApp (click-to-chat) with the text filled in, and logs the message.
+- **With an account:** after the Meta account and the secrets in RUNBOOK are set, turn on `VITE_FEATURE_WHATSAPP`. Then `send-whatsapp` sends from the venue's number, and `whatsapp-webhook` records replies and delivery ticks.
+- **The webhook:**
+  - It verifies Meta's signature and stores each message id once, in `inbound_events`.
+  - It creates the guest and a WhatsApp enquiry for unknown numbers.
+  - The existing opt-out trigger handles STOP.
+- **Campaigns:** campaign messages carry `campaign_id`, and a unique index stops a guest getting the same campaign twice.
+
+### D37. Call capture is provider-neutral
+
+`call-webhook` accepts JSON or form posts using the common field names of Indian cloud telephony providers. It authenticates with a shared secret header, and stores each call id once. An inbound caller with no open enquiry gets a new "call" lead that is due for follow-up now.
+
+### D38. AI: Claude with a rule-based fallback
+
+- **The `ai` Edge Function:** it does three jobs: read an enquiry message, draft a WhatsApp reply, and suggest extras. It reads data as the signed-in user, so RLS still applies.
+- **Model and output:** it uses Claude (`claude-opus-5-5` by default; override with the `AI_MODEL` secret). Answers use structured outputs validated by Zod. The server-side refusal fallback (`fallbacks: "default"`) re-runs a declined request on another model.
+- **Effort:** `low` for extraction and upsell, `medium` for reply drafts.
+- **No key, or any error:** the same actions run on rules in `packages/shared/src/ai.ts`, which covers common Hinglish phrasing ("400 log", "2 lakh", "12 Dec ko"). The buttons always answer, and every result says whether Claude or the built-in helper produced it.
+- **Staff stay in charge:** extraction fills only empty fields, and drafts land in the message box for staff to edit before sending.
+- The API key is a Supabase secret and never reaches the browser.
+
+### D39. Dashboard trends and reception screen
+
+- **Trends:** `dashboard_trends()` compares this month so far with the same number of days last month (capped at month end), returns six months of history, and gives tonight's room counts. It runs with the caller's permissions, so sales users see no money.
+- **Charts:** they are small multiples, one measure per chart, so there is never a second axis.
+- **Reception screen:** `/tv` is a full-screen view that refreshes itself, for a screen at reception. It shows events, rooms and counts, never money.
+
+### D40. Hindi
+
+- **How translation works:** `hi.ts` translates the main screens, and any key it lacks falls back to English (deep merge). New screens therefore work before their Hindi is written.
+- **Where to choose:** the choice is per device, in Settings → Language, and the app reloads to apply it.
+- **Keeping it correct:** a test fails if `hi.ts` uses a key that doesn't exist in English.
