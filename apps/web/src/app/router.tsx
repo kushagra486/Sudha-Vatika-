@@ -4,6 +4,7 @@ import { BookingsPage } from '@/features/bookings/BookingsPage';
 import { QuotePage } from '@/features/bookings/QuotePage';
 import { PackagesPage } from '@/features/catalog/PackagesPage';
 import { ServicesPage } from '@/features/catalog/ServicesPage';
+import { TvPage } from '@/features/dashboard/TvPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { GuestDetailPage } from '@/features/guests/GuestDetailPage';
 import { GuestsPage } from '@/features/guests/GuestsPage';
@@ -59,6 +60,15 @@ function guarded(item: NavItem, route: RouteObject): RouteObject {
 
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
+  // Reception screen: signed-in, full screen, no app chrome.
+  {
+    path: '/tv',
+    element: (
+      <RequireAuth>
+        <TvPage />
+      </RequireAuth>
+    ),
+  },
   // Printable quotation: signed-in, but without the app chrome.
   {
     path: '/quote/:id',

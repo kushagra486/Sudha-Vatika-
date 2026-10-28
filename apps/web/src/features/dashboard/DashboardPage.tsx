@@ -17,6 +17,7 @@ import {
   ChevronRight,
   ListTodo,
   MessageCircle,
+  Monitor,
   Plus,
   UserPlus,
   Wallet,
@@ -44,6 +45,8 @@ import {
   useUpcomingBookings,
   type DashboardSummary,
 } from './api';
+import { RoomsTonightCard } from './RoomsTonightCard';
+import { TrendsCard } from './TrendsCard';
 import { cellFor, dateRange, SHIFT_LETTERS, type CellState } from './availability';
 
 const D = t.dashboard;
@@ -92,12 +95,20 @@ export function DashboardPage() {
           </h1>
           <p className="text-sm text-muted-foreground">{formatEventDate(todayIST())}</p>
         </div>
-        {addsLeads && (
-          <Button onClick={() => setAdding(true)}>
-            <Plus className="h-4 w-4" />
-            {t.leads.add}
+        <div className="flex flex-wrap gap-2">
+          <Button asChild variant="outline">
+            <Link to="/tv">
+              <Monitor className="h-4 w-4" />
+              {t.insights.tv}
+            </Link>
           </Button>
-        )}
+          {addsLeads && (
+            <Button onClick={() => setAdding(true)}>
+              <Plus className="h-4 w-4" />
+              {t.leads.add}
+            </Button>
+          )}
+        </div>
       </header>
 
       <Tiles
@@ -114,6 +125,11 @@ export function DashboardPage() {
       </div>
 
       <AvailabilityCard />
+
+      <div className="grid gap-4 sm:gap-6 lg:grid-cols-[2fr_1fr]">
+        <TrendsCard seesMoney={seesMoney} />
+        <RoomsTonightCard />
+      </div>
 
       <div className="grid gap-4 sm:gap-6 lg:grid-cols-3">
         {seesMoney && <PaymentsDueCard />}

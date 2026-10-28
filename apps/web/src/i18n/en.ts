@@ -661,6 +661,38 @@ export const en = {
     },
     mark: { sent: 'Mark offered', accepted: 'Accepted', declined: 'Declined' },
   },
+  insights: {
+    title: 'This month so far',
+    subtitle: 'Compared with the same days last month',
+    leads: 'Enquiries',
+    bookings: 'Bookings made',
+    bookedValue: 'Value booked',
+    collected: 'Collected',
+    vs: (arrow: string, pct: number) => `${arrow} ${pct}% vs last month`,
+    vsNone: 'None last month',
+    same: 'Same as last month',
+    lastWas: (v: string) => `(last month: ${v})`,
+    sixMonths: 'Last 6 months',
+    roomsTonight: 'Rooms tonight',
+    roomsSub: 'Hotel rooms and dorms',
+    occupied: (taken: number, of: number) => `${taken} of ${of} taken`,
+    moves: (arriving: number, leaving: number) =>
+      [arriving ? `${arriving} arriving` : null, leaving ? `${leaving} leaving` : null]
+        .filter(Boolean)
+        .join(' · '),
+    tv: 'Reception screen',
+  },
+  tv: {
+    today: 'Today',
+    tomorrow: 'Tomorrow',
+    none: 'No events',
+    event: 'Event',
+    rooms: 'Rooms tonight',
+    free: (free: number, of: number) => `${free} of ${of} free`,
+    newToday: 'New enquiries today',
+    followUps: 'Follow-ups due',
+    exit: 'Exit',
+  },
   bookingStatuses: {
     tentative: 'Tentative',
     confirmed: 'Confirmed',
