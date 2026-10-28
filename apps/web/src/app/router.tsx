@@ -8,6 +8,7 @@ import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { GuestDetailPage } from '@/features/guests/GuestDetailPage';
 import { GuestsPage } from '@/features/guests/GuestsPage';
 import { InventoryPage } from '@/features/inventory/InventoryPage';
+import { MediaPage } from '@/features/media/MediaPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
 import { PaymentsPage } from '@/features/payments/PaymentsPage';
@@ -37,6 +38,7 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
   inventory: [{ path: 'inventory', element: <InventoryPage /> }],
   services: [{ path: 'services', element: <ServicesPage /> }],
   packages: [{ path: 'packages', element: <PackagesPage /> }],
+  media: [{ path: 'media', element: <MediaPage /> }],
   settings: [{ path: 'settings', element: <SettingsPage /> }],
 };
 
