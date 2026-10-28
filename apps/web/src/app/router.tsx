@@ -1,6 +1,7 @@
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
 import { BookingDetailPage } from '@/features/bookings/BookingDetailPage';
 import { BookingsPage } from '@/features/bookings/BookingsPage';
+import { QuotePage } from '@/features/bookings/QuotePage';
 import { PackagesPage } from '@/features/catalog/PackagesPage';
 import { ServicesPage } from '@/features/catalog/ServicesPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
@@ -45,6 +46,15 @@ function guarded(item: NavItem, route: RouteObject): RouteObject {
 
 export const router = createBrowserRouter([
   { path: '/login', element: <LoginPage /> },
+  // Printable quotation: signed-in, but without the app chrome.
+  {
+    path: '/quote/:id',
+    element: (
+      <RequireAuth>
+        <QuotePage />
+      </RequireAuth>
+    ),
+  },
   {
     path: '/',
     element: (

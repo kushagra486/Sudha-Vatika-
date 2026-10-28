@@ -40,6 +40,8 @@ import {
 } from './api';
 import { BookingStatusBadge } from './BookingBits';
 import { bookingErrorMessage } from './errors';
+import { ItemsCard } from './ItemsCard';
+import { useBookingItems } from './items';
 
 const D = t.bookings.detail;
 
@@ -137,6 +139,12 @@ function BookingDetail({ booking: b }: { booking: BookingRow }) {
             booking={b}
             payments={payments.data ?? []}
             canRecord={!!role && canRecordPayments(role)}
+          />
+        )}
+        {seesMoney && (
+          <ItemsCard
+            booking={b}
+            canWrite={!!role && canWriteBookings(role) && b.status !== 'cancelled'}
           />
         )}
         {role && canWriteBookings(role) && b.status !== 'cancelled' && <EditCard booking={b} />}
@@ -425,6 +433,8 @@ function EditCard({ booking: b }: { booking: BookingRow }) {
   const update = useUpdateBooking(b.id);
   const spaces = useEventSpaces();
   const org = useOrgSettings();
+  const items = useBookingItems(b.id);
+  const itemised = (items.data?.length ?? 0) > 0;
   const [form, setForm] = useState<EditForm>(() => toForm(b));
   const [error, setError] = useState<string | null>(null);
   useEffect(() => setForm(toForm(b)), [b]);
@@ -512,11 +522,16 @@ function EditCard({ booking: b }: { booking: BookingRow }) {
             <Field label={F.eventType} htmlFor="e-type">
               <Input id="e-type" value={form.event_type} onChange={set('event_type')} />
             </Field>
-            <Field label={F.subtotal} htmlFor="e-subtotal">
+            <Field
+              label={F.subtotal}
+              htmlFor="e-subtotal"
+              hint={itemised ? t.quote.itemised : undefined}
+            >
               <Input
                 id="e-subtotal"
                 inputMode="decimal"
                 value={form.subtotal}
+                disabled={itemised}
                 onChange={set('subtotal')}
               />
             </Field>
