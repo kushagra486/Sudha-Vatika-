@@ -1,6 +1,8 @@
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
 import { BookingDetailPage } from '@/features/bookings/BookingDetailPage';
 import { BookingsPage } from '@/features/bookings/BookingsPage';
+import { PackagesPage } from '@/features/catalog/PackagesPage';
+import { ServicesPage } from '@/features/catalog/ServicesPage';
 import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
@@ -24,6 +26,8 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
     { path: 'bookings/:id', element: <BookingDetailPage /> },
   ],
   payments: [{ path: 'payments', element: <PaymentsPage /> }],
+  services: [{ path: 'services', element: <ServicesPage /> }],
+  packages: [{ path: 'packages', element: <PackagesPage /> }],
   settings: [{ path: 'settings', element: <SettingsPage /> }],
 };
 
