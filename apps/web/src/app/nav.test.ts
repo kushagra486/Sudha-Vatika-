@@ -8,9 +8,9 @@ describe('navItemsFor', () => {
     expect(paths('owner')).toHaveLength(NAV_ITEMS.length);
   });
 
-  it('keeps settings owner-only', () => {
-    expect(paths('manager')).not.toContain('/settings');
-    expect(paths('owner')).toContain('/settings');
+  it('shows settings to every role (password change)', () => {
+    expect(paths('viewer')).toContain('/settings');
+    expect(paths('sales')).toContain('/settings');
   });
 
   it('matches the sales role in section 4', () => {

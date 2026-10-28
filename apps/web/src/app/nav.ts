@@ -64,7 +64,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { path: '/campaigns', labelKey: 'campaigns', icon: Megaphone, roles: MANAGEMENT },
   { path: '/templates', labelKey: 'templates', icon: FileText, roles: [...MANAGEMENT, 'sales'] },
   { path: '/upsell', labelKey: 'upsell', icon: Sparkles, roles: [...MANAGEMENT, 'sales'] },
-  { path: '/settings', labelKey: 'settings', icon: Settings, roles: ['owner'] },
+  // Everyone can change their own password; owner-only sections are gated inside.
+  { path: '/settings', labelKey: 'settings', icon: Settings, roles: ALL },
 ];
 
 export function navItemsFor(role: Role): NavItem[] {

@@ -5,6 +5,7 @@ import { DashboardPage } from '@/features/dashboard/DashboardPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
 import { PaymentsPage } from '@/features/payments/PaymentsPage';
+import { SettingsPage } from '@/features/settings/SettingsPage';
 import { AppLayout } from './AppLayout';
 import { RequireAuth, RequireRole } from './guards';
 import { LoginPage } from './LoginPage';
@@ -23,6 +24,7 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
     { path: 'bookings/:id', element: <BookingDetailPage /> },
   ],
   payments: [{ path: 'payments', element: <PaymentsPage /> }],
+  settings: [{ path: 'settings', element: <SettingsPage /> }],
 };
 
 function guarded(item: NavItem, route: RouteObject): RouteObject {
