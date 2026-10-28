@@ -37,6 +37,7 @@ export interface Payment {
 }
 
 export interface OrgSettings {
+  name: string;
   tax_percent: number;
   min_advance: number;
 }
@@ -69,10 +70,11 @@ export function useOrgSettings() {
     queryFn: async () => {
       const { data, error } = await requireSupabase()
         .from('organizations')
-        .select('tax_percent, min_advance')
+        .select('name, tax_percent, min_advance')
         .single();
       if (error) throw error;
       return {
+        name: data.name as string,
         tax_percent: Number(data.tax_percent),
         min_advance: Number(data.min_advance),
       } as OrgSettings;

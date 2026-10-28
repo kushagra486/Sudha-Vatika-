@@ -15,7 +15,8 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "vitest run",
     "test:db": "bash scripts/test-db.sh",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test",
+    "check:functions": "npx -y deno@2 check supabase/functions/*/index.ts"
   },
   "engines": {
     "node": ">=20"
