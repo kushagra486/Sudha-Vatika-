@@ -438,7 +438,8 @@ export function describeDraft(d: EnquiryDraft): string {
     d.budget_max ? `budget ${formatINR(d.budget_max)}` : null,
     d.phone,
   ].filter(Boolean);
-  return `New enquiry ready: ${bits.join(', ') || 'no details yet'}.${
-    d.phone ? '' : ' Add the phone number,'
-  } Check the details below and tap Add.`;
+  const next = d.phone
+    ? 'Check the details below and tap Add.'
+    : 'Add the phone number, check the details below and tap Add.';
+  return `New enquiry ready: ${bits.join(', ') || 'no details yet'}. ${next}`;
 }
