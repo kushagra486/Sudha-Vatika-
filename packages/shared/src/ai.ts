@@ -259,3 +259,50 @@ export function upsellByRules(
   }
   return ideas.slice(0, 5);
 }
+
+export interface ListedCustomer {
+  full_name: string | null;
+  phone: string | null; // as written; the app normalises it
+  event_type: string | null;
+  event_date: string | null; // YYYY-MM-DD
+  guest_count: number | null;
+  budget_max: number | null;
+  notes: string | null;
+}
+
+const PHONE_IN_TEXT = /(?:\+?91[\s-]?)?0?[6-9]\d{4}[\s-]?\d{5}\b/;
+
+/**
+ * A typed list of customers -> one entry per customer. Each line (or each
+ * block separated by a blank line) that holds a phone number is a customer:
+ * the words before the number are the name, the rest is read for the event.
+ */
+export function extractListByRules(text: string, today: string): ListedCustomer[] {
+  const chunks = text.includes('\n\n') ? text.split(/\n\s*\n/) : text.split(/\n/);
+  const out: ListedCustomer[] = [];
+  for (const raw of chunks) {
+    const chunk = raw.replace(/\s+/g, ' ').trim();
+    const m = chunk.match(PHONE_IN_TEXT);
+    if (!m) continue;
+    const before = chunk
+      .slice(0, m.index)
+      .replace(/^[\d.)\-–•*\s]+/, '') // list numbering "1." "2)"
+      .replace(/[,:;\-–|]+\s*$/, '')
+      .trim();
+    const after = chunk
+      .slice(m.index! + m[0].length)
+      .replace(/^[,:;\-–|\s]+/, '')
+      .trim();
+    const x = extractEnquiryByRules(after, today, []);
+    out.push({
+      full_name: /\p{L}/u.test(before) ? before : (x.full_name ?? null),
+      phone: m[0].replace(/[\s-]/g, ''),
+      event_type: x.event_type,
+      event_date: x.event_date,
+      guest_count: x.guest_count,
+      budget_max: x.budget_max,
+      notes: after || null,
+    });
+  }
+  return out;
+}

@@ -6,7 +6,7 @@ import { t } from '@/i18n';
 export function AiSourceNote({ source }: { source: AiSource }) {
   return (
     <p className="flex items-center gap-1 text-xs text-muted-foreground">
-      <Sparkles className="h-3 w-3" /> {source === 'llm' ? t.ai.byClaude : t.ai.byRules}
+      <Sparkles className="h-3 w-3" /> {source === 'llm' ? t.ai.byLlm : t.ai.byRules}
     </p>
   );
 }

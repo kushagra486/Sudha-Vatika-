@@ -623,8 +623,8 @@ export const en = {
   },
   ai: {
     title: 'Assistant',
-    byClaude: 'Suggested by Claude AI. Check before sending.',
-    byRules: 'Suggested by the built-in helper (AI not connected). Check before sending.',
+    byLlm: 'Suggested by AI. Check before sending.',
+    byRules: 'Suggested by the built-in helper (AI not connected or busy). Check before sending.',
     thinking: 'Thinking…',
     error: 'The assistant could not answer. Try again.',
     draftTitle: 'Draft a WhatsApp reply',
@@ -743,6 +743,30 @@ export const en = {
     openEnquiry: 'Open enquiry',
     moveBack: 'Move back to review',
     toReview: (n: number) => `${n} call${n === 1 ? '' : 's'} to review`,
+  },
+  customerList: {
+    title: 'Add customers from a list',
+    hint: 'Type or paste customer names, phone numbers and details, or photograph a handwritten page. Each customer becomes an enquiry.',
+    textLabel: 'Customer list',
+    placeholder:
+      'One customer per line, e.g.\nRahul Verma 98765 43210 shaadi 12 Dec 400 log lawn\nNeha 70071 22334 engagement Jan 150 guests',
+    readText: 'Read list',
+    reading: 'Reading…',
+    photo: 'Photo of a written list',
+    photoHint:
+      'Photos and handwriting are read by the AI model. Write clearly, one customer per line.',
+    noneFound: 'No customers with a phone number were found.',
+    needsAi:
+      'Reading a photo needs the AI key. Type the list instead, or add the OpenRouter key in Supabase.',
+    readError: 'Could not read the list. Check your connection and try again.',
+    add: 'Add',
+    remove: 'Remove this customer',
+    notes: 'Other details',
+    fixPhone: 'Check the phone number (10 digits).',
+    addAll: (n: number) => `Add ${n} as enquir${n === 1 ? 'y' : 'ies'}`,
+    done: (r: { created: number; updated: number; skipped: number }) =>
+      `${r.created} new enquir${r.created === 1 ? 'y' : 'ies'} added, ${r.updated} existing updated${r.skipped ? `, ${r.skipped} skipped` : ''}.`,
+    openLeads: 'Open leads',
   },
   bookingStatuses: {
     tentative: 'Tentative',

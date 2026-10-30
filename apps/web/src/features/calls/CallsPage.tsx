@@ -22,6 +22,7 @@ import {
   type InboxCall,
   type InboxStatus,
 } from './api';
+import { ListImportCard } from './ListImportCard';
 import { readScreenshot } from './ocr';
 import { parseRecentsWords, type RecentCall } from './recents';
 
@@ -38,6 +39,7 @@ export function CallsPage() {
         <p className="text-sm text-muted-foreground">{C.subtitle}</p>
       </div>
       <ImportCard />
+      <ListImportCard />
       <div role="tablist" className="flex gap-1 rounded-lg bg-muted p-1 text-sm">
         {TABS.map((k) => (
           <button

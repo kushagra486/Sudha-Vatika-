@@ -349,7 +349,7 @@ export const hi: Translation = {
   },
   ai: {
     title: 'सहायक',
-    byClaude: 'Claude AI का सुझाव। भेजने से पहले जाँच लें।',
+    byLlm: 'AI का सुझाव। भेजने से पहले जाँच लें।',
     byRules: 'बिल्ट-इन सहायक का सुझाव (AI जुड़ा नहीं)। भेजने से पहले जाँच लें।',
     thinking: 'सोच रहा है…',
     draftTitle: 'WhatsApp जवाब तैयार करें',

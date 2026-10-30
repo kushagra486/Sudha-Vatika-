@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   draftReplyByRules,
+  extractListByRules,
   extractEnquiryByRules,
   findBudget,
   findDate,
@@ -101,5 +102,43 @@ describe('draftReplyByRules and upsellByRules', () => {
       new Set(['dj']),
     );
     expect(ideas.map((i) => i.id)).toEqual(['d', 'r', 'p']);
+  });
+});
+
+describe('extractListByRules', () => {
+  it('reads one customer per line', () => {
+    const list = extractListByRules(
+      `1. Rahul Verma 98765 43210 shaadi 12 Dec 400 log
+2) Neha - +91 70071-22334 - engagement 5 Jan, 150 guests, budget 2 lakh
+random line without number
+Amit 09935100221`,
+      '2026-10-30',
+    );
+    expect(list).toHaveLength(3);
+    expect(list[0]).toMatchObject({
+      full_name: 'Rahul Verma',
+      phone: '9876543210',
+      event_type: 'Wedding',
+      event_date: '2026-12-12',
+      guest_count: 400,
+    });
+    expect(list[1]).toMatchObject({
+      full_name: 'Neha',
+      phone: '+917007122334',
+      event_type: 'Engagement',
+      event_date: '2027-01-05',
+      guest_count: 150,
+      budget_max: 200000,
+    });
+    expect(list[2]).toMatchObject({ full_name: 'Amit', phone: '09935100221', notes: null });
+  });
+
+  it('treats blank-line separated blocks as one customer each', () => {
+    const list = extractListByRules(
+      'Priya Sharma\n98111 22233\nbirthday 20 Nov\n\nKaran\n9822233344',
+      '2026-10-30',
+    );
+    expect(list.map((c) => c.full_name)).toEqual(['Priya Sharma', 'Karan']);
+    expect(list[0]!.event_type).toBe('Birthday');
   });
 });
