@@ -71,6 +71,7 @@ const anthropic =
 // Stable instructions first so repeated calls reuse the prompt cache.
 const SYSTEM = `You assist the staff of an Indian banquet and resort venue. Guests write in English, Hindi or Hinglish, often informally over WhatsApp or as call notes.
 Be accurate: never invent facts. Leave a field null when the text doesn't say it.
+Only fill a date when a specific day is written ("14 Feb", "12/03"); vague times like "next month" or "after Diwali" stay null and go in the notes.
 Money is in Indian rupees. "Lakh" = 100,000; "k" = 1,000. Dates are day-first (12/01 = 12 January).`;
 
 // ------------------------------------------------------------------ schemas
