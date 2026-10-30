@@ -2,6 +2,7 @@ import type { Session } from '@supabase/supabase-js';
 import type { Role } from '@bm/shared';
 import { useQuery } from '@tanstack/react-query';
 import { createContext, useContext, useEffect, useState, type ReactNode } from 'react';
+import { clearAssistantCache } from '@/features/assistant/api';
 import { requireSupabase } from '@/lib/supabase';
 
 export interface Profile {
@@ -56,6 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     profile: profileQuery.data ?? null,
     loading: sessionLoading || (!!userId && profileQuery.isPending),
     signOut: async () => {
+      clearAssistantCache(); // the offline copy holds guest details
       await supabase.auth.signOut();
     },
   };

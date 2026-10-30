@@ -5,3 +5,4 @@ export * from './dates.ts';
 export * from './schemas.ts';
 export * from './templates.ts';
 export * from './ai.ts';
+export * from './assistant.ts';

@@ -621,6 +621,31 @@ export const en = {
     send: 'Send',
     sent: 'Sent',
   },
+  assistant: {
+    button: 'Ask',
+    open: 'Open the assistant',
+    title: 'Ask the assistant',
+    intro:
+      'Ask about bookings, free dates, enquiries, follow-ups, payments, rooms or prices. English or Hinglish.',
+    placeholder: 'e.g. Is any hall free on 14 Feb for 300 guests?',
+    send: 'Send',
+    clear: 'Clear the conversation',
+    byLlm: 'Answered by AI from your data. Check before acting on it.',
+    byRules: 'Answered by the built-in helper (AI busy or not connected).',
+    offline: 'Offline answer from data saved on this phone at',
+    offlineNoData:
+      'You are offline and no data is saved on this device yet. Open the assistant once while online.',
+    error: 'The assistant could not answer. Try again.',
+    askDashboard: 'Ask assistant',
+    suggestions: [
+      'Summary for today',
+      'Kal kya free hai?',
+      'Whose follow-ups are due?',
+      'What events are this week?',
+      'How much was collected this month?',
+      'Who is staying in the rooms tonight?',
+    ],
+  },
   ai: {
     title: 'Assistant',
     byLlm: 'Suggested by AI. Check before sending.',

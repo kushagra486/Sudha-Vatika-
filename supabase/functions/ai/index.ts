@@ -1,16 +1,20 @@
 // AI assistant for the venue team. Every action is scoped to the caller's
 // organization through their own JWT (RLS applies to every read):
+//   chat          the dashboard assistant: questions about bookings, enquiries,
+//                 follow-ups, money, rooms and prices
 //   extract       WhatsApp / call text -> enquiry fields
 //   extract_list  typed list or photo of a written page -> customers
 //   draft_reply   a ready-to-send WhatsApp reply for a lead
 //   upsell        services and packages worth offering a lead
 //
-// Provider is picked from whichever key is set (or AI_PROVIDER):
-//   GROQ_API_KEY        Groq (free tier)            default model openai/gpt-oss-120b
-//   OPENROUTER_API_KEY  OpenRouter (free models)    default: free Gemma, with backups
-//   ANTHROPIC_API_KEY   Claude                       default claude-opus-5-5
-// AI_MODEL overrides the model. Without any key, or if a call fails, the same
-// actions run on built-in rules so the buttons always do something useful.
+// Every provider with a key is tried in turn until one answers (AI_PROVIDER
+// goes first, otherwise this order):
+//   OPENROUTER_API_KEY  OpenRouter (free models)    free Gemma, with backups
+//   GROQ_API_KEY        Groq (free tier)            llama-3.3-70b-versatile
+//   ANTHROPIC_API_KEY   Claude                       claude-opus-5-5
+// AI_MODEL overrides the first provider's model. If no key is set, or every
+// provider fails, the same actions run on built-in rules so the buttons
+// always do something useful.
 import Anthropic from 'npm:@anthropic-ai/sdk@1.3.0';
 import { zodOutputFormat } from 'npm:@anthropic-ai/sdk@1.3.0/helpers/zod';
 import { z } from 'npm:zod@4.6.7';
@@ -25,52 +29,57 @@ import {
   type ListedCustomer,
   type UpsellIdea,
 } from '../../../packages/shared/src/ai.ts';
+import { answerByRules, type AssistantSnapshot } from '../../../packages/shared/src/assistant.ts';
 import { formatEventDate, todayIST } from '../../../packages/shared/src/dates.ts';
 import { formatINR } from '../../../packages/shared/src/money.ts';
 import { corsHeaders, fail, getCaller, json, type Caller } from '../_shared/http.ts';
 
 type Provider = 'groq' | 'openrouter' | 'anthropic';
 
-function pickProvider(): Provider | null {
+const KEY_NAME: Record<Provider, string> = {
+  groq: 'GROQ_API_KEY',
+  openrouter: 'OPENROUTER_API_KEY',
+  anthropic: 'ANTHROPIC_API_KEY',
+};
+const keyFor = (p: Provider) => Deno.env.get(KEY_NAME[p]);
+
+/** Providers that have a key, in the order they are tried. */
+const PROVIDERS: Provider[] = (() => {
+  const order: Provider[] = ['openrouter', 'groq', 'anthropic'];
   const forced = Deno.env.get('AI_PROVIDER') as Provider | undefined;
-  if (forced && keyFor(forced)) return forced;
-  if (Deno.env.get('GROQ_API_KEY')) return 'groq';
-  if (Deno.env.get('OPENROUTER_API_KEY')) return 'openrouter';
-  if (Deno.env.get('ANTHROPIC_API_KEY')) return 'anthropic';
-  return null;
-}
+  if (forced && order.includes(forced))
+    (order.splice(order.indexOf(forced), 1), order.unshift(forced));
+  return order.filter((p) => !!keyFor(p));
+})();
 
-function keyFor(p: Provider): string | undefined {
-  return Deno.env.get(
-    p === 'groq' ? 'GROQ_API_KEY' : p === 'openrouter' ? 'OPENROUTER_API_KEY' : 'ANTHROPIC_API_KEY',
-  );
-}
-
-const PROVIDER = pickProvider();
 const DEFAULT_MODELS: Record<Provider, string[]> = {
-  groq: ['openai/gpt-oss-120b'],
   // Free models come and go on OpenRouter, so name backups; it tries them in order.
   openrouter: [
     'google/gemma-4-31b-it:free',
     'google/gemma-4-26b-a4b-it:free',
     'nvidia/nemotron-3.5-super-vl:free',
   ],
+  groq: ['llama-3.3-70b-versatile', 'openai/gpt-oss-120b'],
   anthropic: ['claude-opus-5-5'],
 };
-const MODELS = PROVIDER
-  ? Deno.env.get('AI_MODEL')
-    ? [Deno.env.get('AI_MODEL')!]
-    : DEFAULT_MODELS[PROVIDER]
-  : [];
+const GROQ_VISION = 'meta-llama/llama-4-scout-17b-16e-instruct';
+
+function modelsFor(p: Provider): string[] {
+  const override = Deno.env.get('AI_MODEL');
+  return override && p === PROVIDERS[0] ? [override] : DEFAULT_MODELS[p];
+}
 
 // Last model failure on this instance, shown by `status` so owners can see why
-// answers fell back to the rules (rate limit, bad output…). Never holds keys.
+// answers fell back to a backup or the rules. Never holds keys.
 let lastError: string | null = null;
+const note = (p: Provider, msg: string) => {
+  lastError = `${p}: ${msg}`.slice(0, 400);
+  console.warn('ai', lastError);
+};
 
-const anthropic =
-  PROVIDER === 'anthropic'
-    ? new Anthropic({ apiKey: keyFor('anthropic'), maxRetries: 1, timeout: 45_000 })
-    : null;
+const anthropic = keyFor('anthropic')
+  ? new Anthropic({ apiKey: keyFor('anthropic'), maxRetries: 1, timeout: 45_000 })
+  : null;
 
 // Stable instructions first so repeated calls reuse the prompt cache.
 const SYSTEM = `You assist the staff of an Indian banquet and resort venue. Guests write in English, Hindi or Hinglish, often informally over WhatsApp or as call notes.
@@ -102,6 +111,10 @@ const ExtractionSchema = z.object({
 
 const ReplySchema = z.object({ reply: z.string() });
 
+const AnswerSchema = z.object({
+  answer: z.string().describe('The reply shown to the staff member. Plain text, short lines.'),
+});
+
 const ListSchema = z.object({
   customers: z
     .array(
@@ -132,6 +145,14 @@ const UpsellSchema = z.object({
 
 // ------------------------------------------------------------------ model calls
 
+interface AskOptions {
+  effort: 'low' | 'medium';
+  image?: string;
+  /** Per-provider time limit; the whole chain can take a multiple of it. */
+  timeoutMs?: number;
+  maxTokens?: number;
+}
+
 /** "data:image/jpeg;base64,..." -> media type and base64 data. */
 function splitDataUrl(url: string) {
   const m = url.match(/^data:(image\/(?:jpeg|png|webp|gif));base64,(.+)$/);
@@ -144,34 +165,36 @@ function splitDataUrl(url: string) {
 async function askClaude<T extends z.ZodType>(
   schema: T,
   prompt: string,
-  effort: 'low' | 'medium',
-  image?: string,
+  o: AskOptions,
 ): Promise<z.infer<T> | null> {
-  const img = image ? splitDataUrl(image) : null;
-  const res = await anthropic!.beta.messages.parse({
-    model: MODELS[0]!,
-    betas: ['server-side-fallback-2026-07-01'],
-    fallbacks: 'default',
-    max_tokens: 8000,
-    system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
-    messages: [
-      {
-        role: 'user',
-        content: img
-          ? [
-              {
-                type: 'image',
-                source: { type: 'base64', media_type: img.mediaType, data: img.data },
-              },
-              { type: 'text', text: prompt },
-            ]
-          : prompt,
-      },
-    ],
-    output_config: { effort, format: zodOutputFormat(schema) },
-  });
+  const img = o.image ? splitDataUrl(o.image) : null;
+  const res = await anthropic!.beta.messages.parse(
+    {
+      model: modelsFor('anthropic')[0]!,
+      betas: ['server-side-fallback-2026-07-01'],
+      fallbacks: 'default',
+      max_tokens: 8000,
+      system: [{ type: 'text', text: SYSTEM, cache_control: { type: 'ephemeral' } }],
+      messages: [
+        {
+          role: 'user',
+          content: img
+            ? [
+                {
+                  type: 'image',
+                  source: { type: 'base64', media_type: img.mediaType, data: img.data },
+                },
+                { type: 'text', text: prompt },
+              ]
+            : prompt,
+        },
+      ],
+      output_config: { effort: o.effort, format: zodOutputFormat(schema) },
+    },
+    { timeout: o.timeoutMs ?? 45_000 },
+  );
   if (res.stop_reason === 'refusal') {
-    console.warn('ai refusal', res.stop_details?.category);
+    note('anthropic', `refusal ${res.stop_details?.category ?? ''}`);
     return null;
   }
   return (res.parsed_output as z.infer<T> | null) ?? null;
@@ -183,12 +206,14 @@ async function askClaude<T extends z.ZodType>(
  * free models don't all honour schemas strictly.
  */
 async function askOpenAiCompatible<T extends z.ZodType>(
+  provider: 'groq' | 'openrouter',
+  model: string | string[],
   schema: T,
   prompt: string,
-  image?: string,
+  o: AskOptions,
 ): Promise<z.infer<T> | null> {
   const url =
-    PROVIDER === 'groq'
+    provider === 'groq'
       ? 'https://api.groq.com/openai/v1/chat/completions'
       : 'https://openrouter.ai/api/v1/chat/completions';
   const body: Record<string, unknown> = {
@@ -199,41 +224,37 @@ async function askOpenAiCompatible<T extends z.ZodType>(
       },
       {
         role: 'user',
-        content: image
+        content: o.image
           ? [
               { type: 'text', text: prompt },
-              { type: 'image_url', image_url: { url: image } },
+              { type: 'image_url', image_url: { url: o.image } },
             ]
           : prompt,
       },
     ],
     response_format: { type: 'json_object' },
     temperature: 0.2,
-    max_tokens: image ? 6000 : 4000,
+    max_tokens: o.maxTokens ?? (o.image ? 6000 : 4000),
   };
-  if (PROVIDER === 'openrouter') {
-    // Free models are often busy, so OpenRouter tries the list in order. Some
-    // backups "think" first and can spend the whole budget on it: turn that off.
-    body.reasoning = { enabled: false };
-    if (MODELS.length > 1) body.models = MODELS;
-    else body.model = MODELS[0];
-  } else body.model = MODELS[0];
+  if (Array.isArray(model)) body.models = model;
+  else body.model = model;
+  // Some OpenRouter backups "think" first and can spend the whole budget on it.
+  if (provider === 'openrouter') body.reasoning = { enabled: false };
 
   const res = await fetch(url, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${keyFor(PROVIDER!)}`,
+      Authorization: `Bearer ${keyFor(provider)}`,
       'Content-Type': 'application/json',
       // OpenRouter shows these on its dashboard; harmless for Groq.
       'HTTP-Referer': 'https://sudha-vatika.netlify.app',
       'X-Title': 'Banquet Manager',
     },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(image ? 90_000 : 40_000),
+    signal: AbortSignal.timeout(o.timeoutMs ?? (o.image ? 90_000 : 40_000)),
   });
   if (!res.ok) {
-    lastError = `HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`;
-    console.error('ai http', lastError);
+    note(provider, `HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`);
     return null;
   }
   const data = await res.json();
@@ -242,36 +263,65 @@ async function askOpenAiCompatible<T extends z.ZodType>(
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
   if (start < 0 || end <= start) {
-    lastError = `no JSON in reply: ${text.slice(0, 200)}`;
+    note(provider, `no JSON in reply: ${text.slice(0, 200)}`);
     return null;
   }
-  const parsed = schema.safeParse(JSON.parse(text.slice(start, end + 1)));
+  let raw: unknown;
+  try {
+    raw = JSON.parse(text.slice(start, end + 1));
+  } catch {
+    note(provider, `bad JSON in reply: ${text.slice(0, 200)}`);
+    return null;
+  }
+  const parsed = schema.safeParse(raw);
   if (!parsed.success) {
-    lastError = `reply did not match schema: ${JSON.stringify(parsed.error.issues.slice(0, 3))}`;
-    console.warn('ai', lastError);
+    note(
+      provider,
+      `reply did not match schema: ${JSON.stringify(parsed.error.issues.slice(0, 3))}`,
+    );
     return null;
   }
   return parsed.data;
 }
 
-/** One structured answer, or null so the caller falls back to rules. */
+async function tryProvider<T extends z.ZodType>(
+  p: Provider,
+  schema: T,
+  prompt: string,
+  o: AskOptions,
+): Promise<z.infer<T> | null> {
+  if (p === 'anthropic') return askClaude(schema, prompt, o);
+  const models = modelsFor(p);
+  if (p === 'openrouter')
+    return askOpenAiCompatible(p, models.length > 1 ? models : models[0]!, schema, prompt, o);
+  // Groq takes one model per call: images need its vision model, otherwise
+  // fall through the list (a busy or retired model returns an error).
+  for (const m of o.image ? [GROQ_VISION] : models) {
+    const r = await askOpenAiCompatible(p, m, schema, prompt, o);
+    if (r) return r;
+  }
+  return null;
+}
+
+/**
+ * One structured answer from the first provider that gives one, or null so
+ * the caller falls back to rules. `via` names the provider that answered.
+ */
 async function ask<T extends z.ZodType>(
   schema: T,
   prompt: string,
-  effort: 'low' | 'medium',
-  image?: string,
-): Promise<z.infer<T> | null> {
-  if (!PROVIDER) return null;
-  try {
-    return PROVIDER === 'anthropic'
-      ? await askClaude(schema, prompt, effort, image)
-      : await askOpenAiCompatible(schema, prompt, image);
-  } catch (e) {
-    lastError = e instanceof Error ? `${e.name}: ${e.message}`.slice(0, 300) : String(e);
-    if (e instanceof Anthropic.APIError) console.error('ai api error', e.status, e.message);
-    else console.error('ai error', e);
-    return null;
+  o: AskOptions,
+): Promise<{ data: z.infer<T>; via: Provider } | null> {
+  for (const p of PROVIDERS) {
+    try {
+      const data = await tryProvider(p, schema, prompt, o);
+      if (data) return { data, via: p };
+    } catch (e) {
+      note(p, e instanceof Error ? `${e.name}: ${e.message}` : String(e));
+      if (e instanceof Anthropic.APIError) console.error('ai api error', e.status, e.message);
+    }
   }
+  return null;
 }
 
 // ------------------------------------------------------------------ data
@@ -349,8 +399,8 @@ async function extract(c: Caller, text: string) {
   const llm = await ask(
     ExtractionSchema,
     `Today is ${today}. Venue spaces: ${names.join(', ')}.\n\nExtract the enquiry details from this message:\n"""\n${text}\n"""`,
-    'low',
-  );
+    { effort: 'low' },
+  ).then((r) => r?.data ?? null);
   const rules = extractEnquiryByRules(text, today, names);
   const extraction: EnquiryExtraction = llm
     ? fillGaps(
@@ -401,8 +451,8 @@ Conversation so far (oldest first):
 ${history || '(no messages yet)'}
 ${instruction ? `Staff instruction: ${instruction}\n` : ''}
 Rules: reply in the guest's language and tone (Hinglish if they wrote Hinglish). Warm, short (under 70 words), WhatsApp style, no markdown headings. Do not quote prices; offer a quotation or a visit. Ask for any missing date or guest count.`,
-    'medium',
-  );
+    { effort: 'medium' },
+  ).then((r) => r?.data ?? null);
   const text =
     llm?.reply ??
     draftReplyByRules({
@@ -461,8 +511,8 @@ Already included (skip these ids): ${[...have].join(', ') || 'nothing'}.
 Catalogue (JSON):
 ${JSON.stringify(catalog.map(({ kind, id, name, description }) => ({ kind, id, name, description })))}
 Pick up to 5 items this guest would most plausibly add, most valuable first. Only use ids from the catalogue.`,
-    'low',
-  );
+    { effort: 'low' },
+  ).then((r) => r?.data ?? null);
   const ideas: UpsellIdea[] = llm
     ? llm.ideas.filter((i) => ids.has(i.id) && !have.has(i.id))
     : upsellByRules(eventType, catalog, guests, have);
@@ -490,7 +540,8 @@ async function extractList(text: string | null, image: string | null) {
   const today = todayIST();
   const prompt = `Today is ${today}. Venue staff wrote this list of customers (typed or handwritten, English or Hindi).
 Return one entry per customer. Copy each phone number's digits exactly as written. Use null for anything not written.${text ? `\n\n"""\n${text}\n"""` : ''}`;
-  const llm = await ask(ListSchema, prompt, 'medium', image ?? undefined);
+  const llm = (await ask(ListSchema, prompt, { effort: 'medium', image: image ?? undefined }))
+    ?.data;
   const rules = text ? extractListByRules(text, today) : [];
   if (llm) {
     const byPhone = new Map(rules.map((r) => [digits(r.phone), r]));
@@ -504,10 +555,73 @@ Return one entry per customer. Copy each phone number's digits exactly as writte
   return { customers: rules, source: 'rules' as AiSource };
 }
 
+// ------------------------------------------------------------------ chat
+
+const ChatMessage = z.object({
+  role: z.enum(['user', 'assistant']),
+  content: z.string().min(1).max(4000),
+});
+
+/** The snapshot as compact JSON, trimmed so free models' small limits fit. */
+function snapshotForPrompt(s: AssistantSnapshot, budget = 24_000) {
+  const copy: AssistantSnapshot = { ...s };
+  let text = JSON.stringify(copy);
+  // Drop the furthest bookings and the oldest enquiries first.
+  for (let n = s.bookings.length; text.length > budget && n > 20;) {
+    n = Math.floor(n * 0.75);
+    copy.bookings = s.bookings.slice(0, n);
+    copy.open_enquiries = s.open_enquiries.slice(0, Math.max(20, Math.floor(n / 2)));
+    text = JSON.stringify(copy);
+  }
+  return text;
+}
+
+async function chat(c: Caller, messages: z.infer<typeof ChatMessage>[]) {
+  const { data, error } = await c.client.rpc('assistant_snapshot');
+  if (error || !data) {
+    console.error('assistant_snapshot', error);
+    return null;
+  }
+  const snap = data as AssistantSnapshot;
+  const question = messages[messages.length - 1]!.content;
+  const rules = answerByRules(question, snap);
+  const weekday = new Date(`${snap.today}T00:00:00Z`).toLocaleDateString('en-IN', {
+    weekday: 'long',
+    timeZone: 'UTC',
+  });
+  const history = messages
+    .slice(-9, -1)
+    .map((m) => `${m.role === 'user' ? 'Staff' : 'Assistant'}: ${m.content}`)
+    .join('\n');
+  const llm = await ask(
+    AnswerSchema,
+    `You are the venue's dashboard assistant. Answer the staff member's question using ONLY the venue data below.
+Today is ${weekday}, ${snap.today} (India). "Kal" means tomorrow when asking ahead. Shifts: full_day blocks a space all day; other shifts (breakfast, lunch, high_tea, dinner) can share a day.
+A space is free on a date if no booking for it is listed that day. Bookings listed run from a week ago to about six months ahead; say so if asked outside that range.
+${snap.can_see_money ? '' : 'This user may not see money figures: never state amounts.\n'}Reply in the language and style of the question (Hinglish if they wrote Hinglish). Be brief and concrete: names, dates, spaces, amounts in ₹ with Indian commas. Use short lines or "• " bullets, no markdown headings or tables. If the data doesn't answer it, say so and suggest which page to check.
+
+Venue data (JSON):
+${snapshotForPrompt(snap)}
+
+Built-in calculation for this question (correct for the data, use it if relevant):
+${rules}
+${history ? `\nConversation so far:\n${history}\n` : ''}
+Question: ${question}`,
+    { effort: 'low', timeoutMs: 25_000, maxTokens: 1500 },
+  );
+  return {
+    answer: llm?.data.answer.trim() || rules,
+    source: (llm ? 'llm' : 'rules') as AiSource,
+    via: llm?.via ?? null,
+    as_of: snap.generated_at,
+  };
+}
+
 // ------------------------------------------------------------------ handler
 
 const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('status') }),
+  z.object({ action: z.literal('chat'), messages: z.array(ChatMessage).min(1).max(20) }),
   z.object({ action: z.literal('extract'), text: z.string().min(1).max(8000) }),
   z.object({
     action: z.literal('draft_reply'),
@@ -535,20 +649,28 @@ Deno.serve(async (req) => {
   if (req.method !== 'POST') return fail('method_not_allowed', 405);
   const caller = await getCaller(req);
   if (!caller) return fail('not_signed_in', 401);
-  if (caller.role === 'viewer') return fail('not_allowed', 403);
 
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return fail('bad_request', 400);
   const b = parsed.data;
+  // Viewers may ask questions (they see what RLS lets them) but not write.
+  if (caller.role === 'viewer' && b.action !== 'chat' && b.action !== 'status')
+    return fail('not_allowed', 403);
 
   switch (b.action) {
     case 'status':
       return json({
-        llm: !!PROVIDER,
-        provider: PROVIDER,
-        model: MODELS[0] ?? null,
+        llm: PROVIDERS.length > 0,
+        provider: PROVIDERS[0] ?? null,
+        providers: PROVIDERS,
+        model: PROVIDERS[0] ? modelsFor(PROVIDERS[0])[0] : null,
         last_error: caller.role === 'owner' ? lastError : undefined,
       });
+    case 'chat': {
+      if (b.messages[b.messages.length - 1]!.role !== 'user') return fail('bad_request', 400);
+      const r = await chat(caller, b.messages);
+      return r ? json(r) : fail('no_data', 500);
+    }
     case 'extract':
       return json(await extract(caller, b.text));
     case 'extract_list': {

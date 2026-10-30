@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { APP_NAME } from '@/config';
+import { AssistantLauncher } from '@/features/assistant/AssistantPanel';
 import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
 import { useAuth } from './auth';
@@ -95,9 +96,10 @@ export function AppLayout() {
           </Button>
           <span className="truncate font-semibold">{APP_NAME}</span>
         </header>
-        <main className="flex-1 p-3 sm:p-6">
+        <main className="flex-1 p-3 pb-20 sm:p-6 sm:pb-20">
           <Outlet />
         </main>
+        <AssistantLauncher />
       </div>
     </div>
   );

@@ -19,6 +19,7 @@ import {
   MessageCircle,
   Monitor,
   Plus,
+  Sparkles,
   UserPlus,
   Wallet,
   type LucideIcon,
@@ -34,6 +35,7 @@ import { ContactButtons, FollowUpBadge, StageBadge } from '@/features/leads/Lead
 import { useEventSpaces } from '@/features/leads/api';
 import { QuickAddDialog } from '@/features/leads/QuickAddDialog';
 import { config } from '@/config';
+import { openAssistant } from '@/features/assistant/open';
 import { NewBookingDialog, type BookingPrefill } from '@/features/bookings/NewBookingDialog';
 import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
@@ -96,6 +98,10 @@ export function DashboardPage() {
           <p className="text-sm text-muted-foreground">{formatEventDate(todayIST())}</p>
         </div>
         <div className="flex flex-wrap gap-2">
+          <Button variant="outline" onClick={() => openAssistant()}>
+            <Sparkles className="h-4 w-4" />
+            {t.assistant.askDashboard}
+          </Button>
           <Button asChild variant="outline">
             <Link to="/tv">
               <Monitor className="h-4 w-4" />
