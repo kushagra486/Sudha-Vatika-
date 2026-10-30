@@ -32,7 +32,7 @@ export async function openLeadFor(
   admin: Admin,
   orgId: string,
   guestId: string,
-  source: 'whatsapp' | 'call',
+  source: 'whatsapp' | 'call' | 'web',
 ) {
   const { data: open } = await admin
     .from('leads')

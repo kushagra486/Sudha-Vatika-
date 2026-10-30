@@ -133,6 +133,8 @@ function VenueCard() {
     tax_percent: '',
     min_advance: '',
     address: '',
+    google_review_url: '',
+    upi_id: '',
   });
   const [error, setError] = useState<string | null>(null);
 
@@ -145,6 +147,8 @@ function VenueCard() {
       tax_percent: String(org.tax_percent),
       min_advance: String(org.min_advance),
       address: outlet?.address ?? '',
+      google_review_url: org.google_review_url ?? '',
+      upi_id: org.upi_id ?? '',
     });
   }, [details.data]);
 
@@ -158,6 +162,10 @@ function VenueCard() {
     const advance = Number(form.min_advance);
     if (!form.name.trim()) return setError(t.bookings.form.required);
     if (!(tax >= 0 && tax <= 100) || !(advance >= 0)) return setError(t.bookings.form.wholeRupees);
+    const review = form.google_review_url.trim();
+    const upi = form.upi_id.trim();
+    if (review && !/^https:\/\/\S+$/.test(review)) return setError(S.venue.badReviewUrl);
+    if (upi && !/^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+$/.test(upi)) return setError(S.venue.badUpi);
     setError(null);
     save.mutate(
       {
@@ -167,6 +175,8 @@ function VenueCard() {
           gst_number: form.gst_number.trim() || null,
           tax_percent: tax,
           min_advance: advance,
+          google_review_url: review || null,
+          upi_id: upi || null,
         },
         outlet: details.data.outlet
           ? { id: details.data.outlet.id, address: form.address.trim() || null }
@@ -218,6 +228,26 @@ function VenueCard() {
             <Field label={S.venue.address} htmlFor="v-addr">
               <Input id="v-addr" value={form.address} onChange={set('address')} />
             </Field>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Field label={S.venue.reviewUrl} htmlFor="v-review" hint={S.venue.reviewHint}>
+                <Input
+                  id="v-review"
+                  type="url"
+                  inputMode="url"
+                  value={form.google_review_url}
+                  onChange={set('google_review_url')}
+                  placeholder="https://g.page/r/…/review"
+                />
+              </Field>
+              <Field label={S.venue.upiId} htmlFor="v-upi" hint={S.venue.upiHint}>
+                <Input
+                  id="v-upi"
+                  value={form.upi_id}
+                  onChange={set('upi_id')}
+                  autoCapitalize="none"
+                />
+              </Field>
+            </div>
             <Status ok={save.isSuccess} error={error}>
               {S.venue.saved}
             </Status>

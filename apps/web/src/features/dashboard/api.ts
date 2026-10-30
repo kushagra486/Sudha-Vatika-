@@ -68,7 +68,7 @@ export function useFollowUpsDue() {
         .from('leads')
         .select(
           'id, stage, source, event_type, event_date, guest_count, next_follow_up_at, created_at, ' +
-            'guest:guests!inner(id, full_name, phone_e164, whatsapp_opt_in), preferred_unit:units(id, name)',
+            'guest:guests!inner(id, full_name, phone_e164, whatsapp_e164, whatsapp_opt_in), preferred_unit:units(id, name)',
         )
         .in('stage', [...OPEN_LEAD_STAGES])
         .lt('next_follow_up_at', endOfToday)

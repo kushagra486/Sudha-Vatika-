@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { answerByRules, questionDate, type AssistantSnapshot } from './assistant.ts';
+import {
+  answerByRules,
+  describeDraft,
+  detectAddEnquiry,
+  questionDate,
+  type AssistantSnapshot,
+} from './assistant.ts';
 
 const snap: AssistantSnapshot = {
   today: '2026-10-30', // a Friday
@@ -136,4 +142,36 @@ describe('Hindi questions', () => {
 
 it('summary for today is a summary, not just events', () => {
   expect(answerByRules('Summary for today', snap)).toContain('Follow-ups');
+});
+
+describe('detectAddEnquiry', () => {
+  it('reads an add-enquiry request', () => {
+    const d = detectAddEnquiry(
+      'add enquiry for Sharma ji 14 Feb 300 log wedding 98765 43210',
+      snap.today,
+    );
+    expect(d).toMatchObject({
+      full_name: 'Sharma',
+      phone: '9876543210',
+      event_type: 'Wedding',
+      event_date: '2027-02-14',
+      guest_count: 300,
+    });
+  });
+  it('works in Hinglish and Hindi, with honorifics', () => {
+    expect(
+      detectAddEnquiry('naya enquiry daalo Mr Khan birthday 60 log', snap.today)?.full_name,
+    ).toBe('Mr Khan');
+    expect(detectAddEnquiry('नई पूछताछ जोड़ो 9811100000 शादी', snap.today)?.phone).toBe(
+      '9811100000',
+    );
+  });
+  it('ignores ordinary questions', () => {
+    expect(detectAddEnquiry('how many new enquiries this week?', snap.today)).toBeNull();
+    expect(detectAddEnquiry('Neha ki booking', snap.today)).toBeNull();
+  });
+  it('describes the draft', () => {
+    const d = detectAddEnquiry('add enquiry for Sharma ji 14 Feb 300 log', snap.today)!;
+    expect(describeDraft(d)).toMatch(/Sharma.*14 Feb 2027.*300 guests.*phone number/);
+  });
 });

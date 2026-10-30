@@ -2,6 +2,7 @@ import type { Role } from '@bm/shared';
 import type { LucideIcon } from 'lucide-react';
 import {
   BedDouble,
+  BellRing,
   CalendarCheck,
   CalendarDays,
   FileText,
@@ -39,6 +40,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
     icon: UserSearch,
     roles: [...MANAGEMENT, 'sales', 'viewer'],
   },
+  { path: '/followups', labelKey: 'followups', icon: BellRing, roles: ALL },
   { path: '/calls', labelKey: 'calls', icon: PhoneCall, roles: [...MANAGEMENT, 'sales'] },
   { path: '/chats', labelKey: 'chats', icon: MessageCircle, roles: [...MANAGEMENT, 'sales'] },
   { path: '/guests', labelKey: 'guests', icon: Users, roles: [...MANAGEMENT, 'sales', 'viewer'] },

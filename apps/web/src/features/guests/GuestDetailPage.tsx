@@ -40,7 +40,12 @@ function Detail({ g }: { g: GuestDetail }) {
             {formatPhone(g.phone_e164)} · {G.since(formatDateTime(g.created_at))}
           </p>
         </div>
-        <ContactButtons phone={g.phone_e164} whatsappAllowed={g.whatsapp_opt_in} size="sm" />
+        <ContactButtons
+          phone={g.phone_e164}
+          whatsapp={g.whatsapp_e164}
+          whatsappAllowed={g.whatsapp_opt_in}
+          size="sm"
+        />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-2">

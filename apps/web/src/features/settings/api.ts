@@ -8,6 +8,8 @@ export interface OrgDetails {
   gst_number: string | null;
   tax_percent: number;
   min_advance: number;
+  google_review_url: string | null;
+  upi_id: string | null;
 }
 
 export interface OutletDetails {
@@ -30,7 +32,10 @@ export function useOrgDetails() {
     queryFn: async () => {
       const sb = requireSupabase();
       const [org, outlets] = await Promise.all([
-        sb.from('organizations').select('id, name, gst_number, tax_percent, min_advance').single(),
+        sb
+          .from('organizations')
+          .select('id, name, gst_number, tax_percent, min_advance, google_review_url, upi_id')
+          .single(),
         sb.from('outlets').select('id, name, address').order('created_at').limit(1),
       ]);
       if (org.error) throw org.error;
@@ -51,7 +56,16 @@ export function useSaveVenue() {
   const qc = useQueryClient();
   return useMutation({
     mutationFn: async (input: {
-      org: Pick<OrgDetails, 'id' | 'name' | 'gst_number' | 'tax_percent' | 'min_advance'>;
+      org: Pick<
+        OrgDetails,
+        | 'id'
+        | 'name'
+        | 'gst_number'
+        | 'tax_percent'
+        | 'min_advance'
+        | 'google_review_url'
+        | 'upi_id'
+      >;
       outlet: Pick<OutletDetails, 'id' | 'address'> | null;
     }) => {
       const sb = requireSupabase();

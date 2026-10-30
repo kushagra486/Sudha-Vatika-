@@ -17,6 +17,7 @@ export interface LeadGuest {
   id: string;
   full_name: string | null;
   phone_e164: string;
+  whatsapp_e164?: string | null;
   whatsapp_opt_in: boolean;
 }
 
@@ -73,7 +74,7 @@ export interface LeadFilters {
 
 const LIST_COLUMNS =
   'id, stage, source, event_type, event_date, guest_count, next_follow_up_at, created_at, ' +
-  'guest:guests!inner(id, full_name, phone_e164, whatsapp_opt_in), preferred_unit:units(id, name)';
+  'guest:guests!inner(id, full_name, phone_e164, whatsapp_e164, whatsapp_opt_in), preferred_unit:units(id, name)';
 
 const DETAIL_COLUMNS = `${LIST_COLUMNS}, budget_min, budget_max, preferred_unit_id, lost_reason, owner_id`;
 

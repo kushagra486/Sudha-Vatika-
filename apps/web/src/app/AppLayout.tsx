@@ -96,7 +96,7 @@ export function AppLayout() {
           </Button>
           <span className="truncate font-semibold">{APP_NAME}</span>
         </header>
-        <main className="flex-1 p-3 pb-20 sm:p-6 sm:pb-20">
+        <main className="flex-1 p-3 pb-36 sm:p-6 sm:pb-36">
           <Outlet />
         </main>
         <AssistantLauncher />

@@ -23,6 +23,7 @@ import { AppLayout } from './AppLayout';
 import { RequireAuth, RequireRole } from './guards';
 import { LoginPage } from './LoginPage';
 import { NAV_ITEMS, type NavItem } from './nav';
+import { FollowupsPage } from '@/features/followups/FollowupsPage';
 import { ComingSoonPage, NotFoundPage } from './pages';
 
 // Modules that have been built. Everything else in the nav shows ComingSoonPage.
@@ -45,6 +46,7 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
   services: [{ path: 'services', element: <ServicesPage /> }],
   packages: [{ path: 'packages', element: <PackagesPage /> }],
   calls: [{ path: 'calls', element: <CallsPage /> }],
+  followups: [{ path: 'followups', element: <FollowupsPage /> }],
   chats: [
     { path: 'chats', element: <ChatsPage /> },
     { path: 'chats/:guestId', element: <ChatThreadPage /> },
