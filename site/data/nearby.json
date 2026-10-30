@@ -1,0 +1,120 @@
+{
+  "venue": {
+    "name": "Sudha Vatika",
+    "lat": 25.4490316,
+    "lon": 81.7775213,
+    "address": "58 A/31 Dhoomanganj, Old N.H.-02 (Kanpur Road), near Dhoomanganj Police Station, Prayagraj (Allahabad) 211011",
+    "maps_url": "https://maps.app.goo.gl/UULQUpDEhLZk1mDw8"
+  },
+  "source": "Positions from OpenStreetMap; road distances from OSRM driving routes (approximate).",
+  "groups": [
+    {
+      "title": "Getting here",
+      "icon": "✈️",
+      "places": [
+        {
+          "name": "Subedarganj railway station",
+          "lat": 25.4394077,
+          "lon": 81.7903042,
+          "km": 2.7
+        },
+        {
+          "name": "Prayagraj Junction (railway station)",
+          "lat": 25.4454322,
+          "lon": 81.825958,
+          "km": 7.1
+        },
+        {
+          "name": "Prayagraj Airport",
+          "lat": 25.4368983,
+          "lon": 81.7342102,
+          "km": 8.2
+        },
+        {
+          "name": "Prayagraj Rambagh railway station",
+          "lat": 25.4396813,
+          "lon": 81.8492933,
+          "km": 9.5
+        },
+        {
+          "name": "Civil Lines bus stand",
+          "lat": 25.4487162,
+          "lon": 81.8385513,
+          "km": 9.4
+        }
+      ]
+    },
+    {
+      "title": "City",
+      "icon": "🏙️",
+      "places": [
+        {
+          "name": "Allahabad High Court",
+          "lat": 25.4533136,
+          "lon": 81.8207936,
+          "km": 6.7
+        },
+        {
+          "name": "Khusro Bagh",
+          "lat": 25.4430994,
+          "lon": 81.8205926,
+          "km": 7.4
+        },
+        {
+          "name": "Civil Lines (city centre)",
+          "lat": 25.4523026,
+          "lon": 81.8329887,
+          "km": 8.0
+        }
+      ]
+    },
+    {
+      "title": "Places to visit",
+      "icon": "🛕",
+      "places": [
+        {
+          "name": "Chandra Shekhar Azad Park",
+          "lat": 25.457828,
+          "lon": 81.8474982,
+          "km": 10.3
+        },
+        {
+          "name": "Allahabad Museum",
+          "lat": 25.4567938,
+          "lon": 81.8491507,
+          "km": 10.4
+        },
+        {
+          "name": "Anand Bhawan",
+          "lat": 25.4594191,
+          "lon": 81.8600339,
+          "km": 12.0
+        },
+        {
+          "name": "New Yamuna Bridge",
+          "lat": 25.4252323,
+          "lon": 81.8614927,
+          "km": 12.2
+        },
+        {
+          "name": "Bade Hanuman Mandir",
+          "lat": 25.4335836,
+          "lon": 81.879161,
+          "km": 12.9
+        },
+        {
+          "name": "Allahabad Fort",
+          "lat": 25.4317475,
+          "lon": 81.8751163,
+          "km": 13.8
+        },
+        {
+          "name": "Triveni Sangam",
+          "lat": 25.4222299,
+          "lon": 81.8923259,
+          "km": 16.5
+        }
+      ]
+    }
+  ]
+}

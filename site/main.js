@@ -1,4 +1,4 @@
-/* global document, window, navigator, HTMLAnchorElement */
+/* global document, window, navigator, fetch, HTMLAnchorElement */
 // Mobile menu, footer year, hero video and the photo lightbox.
 
 const toggle = document.querySelector('.menu-toggle');
@@ -99,5 +99,118 @@ if (links.length) {
     const dx = e.changedTouches[0].clientX - startX;
     if (Math.abs(dx) > 50) show(dx < 0 ? i + 1 : i - 1);
     startX = null;
+  });
+}
+
+// Location page: venue and nearby places on an OpenStreetMap map (Leaflet).
+const mapEl = document.getElementById('venue-map');
+if (mapEl) {
+  const start = () => {
+    const L = window.L;
+    if (!L) return;
+    fetch(mapEl.dataset.nearby)
+      .then((r) => r.json())
+      .then((d) => {
+        const v = d.venue;
+        const map = L.map(mapEl, { scrollWheelZoom: false }).setView([v.lat, v.lon], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          attribution: '© OpenStreetMap contributors',
+        }).addTo(map);
+        const venueIcon = L.divIcon({
+          className: 'pin pin-venue',
+          html: '<img src="images/logo-ganesh-sm.png" alt="" />',
+          iconSize: [44, 44],
+          iconAnchor: [22, 44],
+        });
+        L.marker([v.lat, v.lon], { icon: venueIcon, zIndexOffset: 1000 })
+          .addTo(map)
+          .bindPopup(`<strong>${v.name}</strong><br>${v.address}`)
+          .openPopup();
+        const pts = [[v.lat, v.lon]];
+        d.groups.forEach((g) =>
+          g.places.forEach((p) => {
+            const icon = L.divIcon({
+              className: 'pin',
+              html: `<span>${g.icon}</span>`,
+              iconSize: [30, 30],
+              iconAnchor: [15, 15],
+            });
+            L.marker([p.lat, p.lon], { icon })
+              .addTo(map)
+              .bindPopup(`<strong>${p.name}</strong><br>About ${Math.round(p.km)} km by road`);
+            pts.push([p.lat, p.lon]);
+          }),
+        );
+        map.fitBounds(pts, { padding: [24, 24] });
+      })
+      .catch(() => {
+        mapEl.textContent = 'The map could not load. Use “Open in Google Maps” above.';
+      });
+  };
+  if (window.L) start();
+  else window.addEventListener('load', start);
+}
+
+// Enquiry form: sends to the dashboard (Supabase function `site-enquiry`).
+const form = document.getElementById('enquiry-form');
+if (form) {
+  const ENDPOINT = 'https://iccdwtjefhwvptohbkha.supabase.co/functions/v1/site-enquiry';
+  const startedAt = Date.now();
+  const errorEl = form.querySelector('.form-error');
+  const done = document.querySelector('.enquiry-done');
+  const button = form.querySelector('button[type="submit"]');
+  const showError = (msg) => {
+    errorEl.textContent = msg;
+    errorEl.hidden = false;
+  };
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorEl.hidden = true;
+    const fd = new window.FormData(form);
+    const phone = String(fd.get('phone') || '').replace(/\D/g, '');
+    if (String(fd.get('name') || '').trim().length < 2) return showError('Please enter your name.');
+    if (!/^(91)?[6-9]\d{9}$/.test(phone.replace(/^0/, '')))
+      return showError('Please enter a 10-digit mobile number.');
+    if (!fd.get('event_type')) return showError('Please choose the event type.');
+    const body = {
+      name: String(fd.get('name')).trim(),
+      phone,
+      email: String(fd.get('email') || '').trim(),
+      event_type: String(fd.get('event_type')),
+      event_date: String(fd.get('event_date') || ''),
+      flexible_date: fd.get('flexible_date') === 'on',
+      guests: fd.get('guests') ? Number(fd.get('guests')) : '',
+      budget: fd.get('budget') ? Number(fd.get('budget')) : '',
+      space: String(fd.get('space') || ''),
+      time_of_day: String(fd.get('time_of_day') || ''),
+      rooms: String(fd.get('rooms') || ''),
+      services: fd.getAll('services').map(String),
+      heard_from: String(fd.get('heard_from') || ''),
+      call_time: String(fd.get('call_time') || ''),
+      site_visit: fd.get('site_visit') === 'on',
+      questions: String(fd.get('questions') || '').trim(),
+      company: String(fd.get('company') || ''),
+      started_at: startedAt,
+    };
+    button.disabled = true;
+    button.textContent = 'Sending…';
+    try {
+      const r = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      if (r.status === 429)
+        throw new Error('Too many enquiries from this connection. Please call or WhatsApp us.');
+      if (!r.ok) throw new Error('Something went wrong. Please call or WhatsApp us.');
+      form.hidden = true;
+      done.hidden = false;
+      done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (err) {
+      showError(err.message || 'Could not send. Please call or WhatsApp us.');
+      button.disabled = false;
+      button.textContent = 'Send enquiry';
+    }
   });
 }

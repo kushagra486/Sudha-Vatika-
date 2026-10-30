@@ -79,7 +79,7 @@ SPACES.append(
         "capacity": "Stay for large groups",
         "kicker": "Stay with us",
         "intro": (
-            "Budget-friendly group stay at the venue for the baraat and large families: big halls "
+            "Comfortable group stay at the venue for the baraat and large families: big halls "
             "and rooms with beds, fresh linen and blankets, fans, and shared washrooms close by."
         ),
         "facts": ["Large groups", "Beds with fresh linen", "Blankets", "Shared washrooms"],
@@ -119,7 +119,7 @@ HEADER = """    <a class="skip" href="#main">Skip to content</a>
     <header class="site-header">
       <div class="wrap header-row">
         <a href="index.html" class="brand" aria-label="Sudha Vatika home">
-          <span class="brand-mark" aria-hidden="true">SV</span>
+          <img class="brand-logo" src="images/logo-ganesh-sm.png" alt="" width="34" height="46" />
           <span class="brand-name">Sudha Vatika</span>
         </a>
         <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
@@ -127,9 +127,7 @@ HEADER = """    <a class="skip" href="#main">Skip to content</a>
         </button>
         <nav id="nav" class="nav" aria-label="Main">
 {links}
-          <a href="index.html#gallery">Gallery</a>
-          <a href="index.html#contact">Contact</a>
-          <a href="index.html#enquire" class="btn btn-gold nav-cta">Check your date</a>
+          <a href="enquiry.html" class="btn btn-gold nav-cta">Check your date</a>
         </nav>
       </div>
     </header>"""
@@ -160,7 +158,7 @@ def photos_html(key, photos):
 
 
 def nav(current):
-    links = [(o["file"], o["name"]) for o in SPACES] + [("decor.html", "Decor")]
+    links = [(o["file"], o["name"]) for o in SPACES] + [("decor.html", "Decor"), ("about.html", "About"), ("location.html", "Location"), ("contact.html", "Contact")]
     cur = ' aria-current="page"'
     return HEADER.replace(
         "{links}",
@@ -241,6 +239,7 @@ def shell(p, hero, first_anchor, body, cards):
       rel="stylesheet"
     />
     <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
   </head>
   <body>
 {nav(p['file'])}
@@ -253,7 +252,7 @@ def shell(p, hero, first_anchor, body, cards):
           <p class="cap-chip">{escape(p['capacity'])}</p>
           <p class="lead">{escape(p['intro'])}</p>
           <div class="hero-actions">
-            <a href="index.html#enquire" class="btn btn-gold">Check your date</a>
+            <a href="enquiry.html" class="btn btn-gold">Check your date</a>
             <a href="#{first_anchor}" class="btn btn-ghost">Watch &amp; see photos</a>
           </div>
         </div>
@@ -273,7 +272,7 @@ def shell(p, hero, first_anchor, body, cards):
           <div>
             <h2>Planning an event?</h2>
             <p class="muted">Tell us the date and guest count, and we'll check availability for you.</p>
-            <a href="index.html#enquire" class="btn btn-maroon">Check your date</a>
+            <a href="enquiry.html" class="btn btn-maroon">Check your date</a>
           </div>
           <div class="other-spaces">
 {cards}
@@ -282,17 +281,108 @@ def shell(p, hero, first_anchor, body, cards):
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="wrap footer-row">
-        <p><strong>Sudha Vatika</strong> · Banquet, Lawn &amp; Stay</p>
-        <p>© <span id="year">2026</span> Sudha Vatika</p>
-      </div>
-    </footer>
+{FOOTER}
 
     <script src="main.js" defer></script>
   </body>
 </html>
 """
+
+
+FOOTER = """    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-brand">
+            <img src="images/logo-ganesh-sm.png" alt="" width="28" height="38" /> Sudha Vatika
+          </p>
+          <p>Celebrating weddings, parties, events, functions, meetings and more.</p>
+        </div>
+        <div>
+          <p class="footer-head">Visit</p>
+          <p>58 A/31 Dhoomanganj, Old N.H.-02 (Kanpur Road),<br />Prayagraj (Allahabad) 211011</p>
+          <p><a href="location.html">Map &amp; nearby places →</a></p>
+        </div>
+        <div>
+          <p class="footer-head">Call or WhatsApp</p>
+          <p>
+            <a href="tel:+919451636524">94516 36524</a> (WhatsApp) ·
+            <a href="tel:+919889344818">98893 44818</a><br />
+            <a href="mailto:sudhavatika@gmail.com">sudhavatika@gmail.com</a><br />
+            <a href="https://www.instagram.com/sudha.vatika/">Instagram @sudha.vatika</a> ·
+            <a href="contact.html">All contacts →</a>
+          </p>
+        </div>
+      </div>
+      <div class="wrap footer-row">
+        <p>© <span id="year">2026</span> Sudha Vatika</p>
+      </div>
+    </footer>"""
+
+NEARBY = json.loads((SITE / "data" / "nearby.json").read_text())
+
+
+def location_page():
+    v = NEARBY["venue"]
+    directions = f"https://www.google.com/maps/dir/?api=1&destination={v['lat']},{v['lon']}"
+    groups = []
+    for g in NEARBY["groups"]:
+        items = "\n".join(
+            f"""              <li>
+                <span class="near-name">{escape(p['name'])}</span>
+                <span class="near-km">{p['km']:.0f} km</span>
+                <a class="near-route" href="https://www.google.com/maps/dir/?api=1&origin={v['lat']},{v['lon']}&destination={p['lat']},{p['lon']}" target="_blank" rel="noopener">Route</a>
+              </li>"""
+            for p in sorted(g["places"], key=lambda p: p["km"])
+        )
+        groups.append(f"""          <div class="near-group">
+            <h3><span aria-hidden="true">{g['icon']}</span> {escape(g['title'])}</h3>
+            <ul class="near-list">
+{items}
+            </ul>
+          </div>""")
+    body = f"""      <section id="map" class="section">
+        <div class="wrap">
+          <p class="eyebrow">Location</p>
+          <h2>Find us in Prayagraj</h2>
+          <p class="muted">{escape(v['address'])}</p>
+          <div class="hero-actions">
+            <a class="btn btn-maroon" href="{v['maps_url']}" target="_blank" rel="noopener">Open in Google Maps</a>
+            <a class="btn btn-ghost-dark" href="{directions}" target="_blank" rel="noopener">Get directions</a>
+          </div>
+          <iframe class="gmap" title="Sudha Vatika on Google Maps" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=25.4490316,81.7775213&z=16&output=embed"></iframe>
+          <h3 class="map-sub">Stations, airport and places to visit around us</h3>
+          <div id="venue-map" class="venue-map" data-nearby="data/nearby.json" role="img"
+            aria-label="Map of Sudha Vatika with nearby stations, the airport and places to visit"></div>
+        </div>
+      </section>
+      <section id="nearby" class="section section-alt">
+        <div class="wrap">
+          <p class="eyebrow">Nearby</p>
+          <h2>How far is everything?</h2>
+          <p class="muted">Approximate distances by road from Sudha Vatika.</p>
+          <div class="near-grid">
+{chr(10).join(groups)}
+          </div>
+        </div>
+      </section>
+"""
+    page = {
+        "file": "location.html",
+        "name": "Location",
+        "kicker": "Dhoomanganj, Prayagraj",
+        "capacity": "On Old N.H.-02 (Kanpur Road)",
+        "intro": (
+            "On the old Kanpur Road (N.H.-02) in Dhoomanganj, near Dhoomanganj Police Station: "
+            "about 3 km from Subedarganj station and 7 km from Prayagraj Junction."
+        ),
+        "facts": ["3 km from Subedarganj station", "7 km from Prayagraj Junction", "8 km from the airport", "8 km from Civil Lines"],
+    }
+    out = shell(page, "images/passage/passage-01.jpg", "map", body, other_cards(""))
+    return out.replace("</head>", """    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin="" defer></script>
+  </head>""", 1)
 
 
 for s in SPACES:
@@ -307,3 +397,276 @@ body = "".join(
 )
 (SITE / DECOR["file"]).write_text(shell(DECOR, DECOR["hero_url"], "passages", body, other_cards("")))
 print("wrote", DECOR["file"])
+
+(SITE / "location.html").write_text(location_page())
+print("wrote location.html")
+
+
+# ------------------------------------------------------------------ about, contact, enquiry
+
+WA = "https://wa.me/message/2NBASVQH2K5EJ1"  # official WhatsApp Business chat link (from their QR)
+IG = "https://www.instagram.com/sudha.vatika/"
+MAPS = "https://maps.app.goo.gl/UULQUpDEhLZk1mDw8"
+DIRECTIONS = "https://www.google.com/maps/dir/?api=1&destination=25.4490316,81.7775213"
+ADDRESS = (
+    "58 A/31 Dhoomanganj, Old N.H.-02 (Kanpur Road), near Dhoomanganj Police Station, "
+    "Prayagraj (Allahabad), Uttar Pradesh 211011"
+)
+
+
+def about_page():
+    cards = "\n".join(
+        f"""            <a class="about-space" href="{o['file']}">
+              <img src="images/{o['key']}/{o['hero']}-sm.jpg" alt="" loading="lazy" />
+              <span><strong>{escape(o['name'])}</strong><br />{escape(o['capacity'])}</span>
+            </a>"""
+        for o in SPACES
+    )
+    body = f"""      <section id="story" class="section">
+        <div class="wrap two-col">
+          <div>
+            <p class="eyebrow">About us</p>
+            <h2>One venue for every part of your celebration</h2>
+            <p>
+              Sudha Vatika is a family-run wedding and event venue on the old Kanpur Road (N.H.-02)
+              in Dhoomanganj, Prayagraj. Weddings, receptions, engagements, birthdays, family functions
+              and corporate meetings are all hosted here, from an intimate gathering to a grand
+              wedding of 1,500 guests.
+            </p>
+            <p>
+              Everything is in one place: a grand pandaal, the air-conditioned Ashoka Hall, an open
+              lawn, a meeting and conference hall, VIP rooms and a dormitory for the baraat and
+              family. Our decor team dresses the entrance, the passages and the stage to your theme.
+            </p>
+            <p>
+              Talk to <strong>Atin Gupta</strong> to plan your function: visit us, call, or send a
+              WhatsApp message any time.
+            </p>
+            <div class="hero-actions">
+              <a href="enquiry.html" class="btn btn-maroon">Send an enquiry</a>
+              <a href="{WA}" class="btn btn-ghost-dark" target="_blank" rel="noopener">WhatsApp us</a>
+            </div>
+          </div>
+          <a href="pandaal.html" class="stay-photo"><img src="images/pandaal/pandaal-04-sm.jpg" alt="The pandaal under golden drapes" loading="lazy" /></a>
+        </div>
+      </section>
+      <section class="section section-alt">
+        <div class="wrap">
+          <p class="eyebrow">What we host</p>
+          <h2>Celebrating weddings, parties, events, functions and meetings</h2>
+          <ul class="features">
+            <li><span class="icon" aria-hidden="true">💍</span>Weddings &amp; receptions</li>
+            <li><span class="icon" aria-hidden="true">💐</span>Engagement, haldi &amp; mehendi</li>
+            <li><span class="icon" aria-hidden="true">🎶</span>Sangeet &amp; DJ nights</li>
+            <li><span class="icon" aria-hidden="true">🎂</span>Birthdays &amp; anniversaries</li>
+            <li><span class="icon" aria-hidden="true">🪔</span>Family &amp; religious functions</li>
+            <li><span class="icon" aria-hidden="true">💼</span>Meetings &amp; seminars</li>
+          </ul>
+        </div>
+      </section>
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">Our spaces</p>
+          <h2>Halls, lawn, pandaal and rooms</h2>
+          <div class="about-spaces">
+{cards}
+          </div>
+        </div>
+      </section>
+      <section class="section section-alt">
+        <div class="wrap">
+          <p class="eyebrow">Why families choose us</p>
+          <h2>Easy for you and your guests</h2>
+          <ul class="ticks why">
+            <li><strong>Everything in one place:</strong> the function, the decor and the stay.</li>
+            <li><strong>Rooms for the family and the baraat</strong>, right at the venue.</li>
+            <li><strong>Easy to reach:</strong> on the main Kanpur Road, about 3 km from Subedarganj station and 7 km from Prayagraj Junction.</li>
+            <li><strong>Decor by our own team</strong>, from the entrance gate to the stage.</li>
+          </ul>
+        </div>
+      </section>
+"""
+    page = {
+        "file": "about.html",
+        "name": "About Sudha Vatika",
+        "kicker": "Our story",
+        "capacity": "Dhoomanganj, Prayagraj",
+        "intro": "A family-run venue for weddings, parties, events, functions and meetings in Prayagraj.",
+        "facts": ["Weddings & receptions", "Up to 1,500 guests", "Rooms & dormitory", "Decor by our team"],
+    }
+    return shell(page, "images/pandaal/pandaal-02.jpg", "story", body, other_cards(""))
+
+
+def qr(img, title, sub, href):
+    return f"""            <a class="qr-card" href="{href}" target="_blank" rel="noopener">
+              <img src="images/qr/{img}" alt="QR code: {escape(title)}" width="160" height="160" />
+              <strong>{escape(title)}</strong>
+              <span>{escape(sub)}</span>
+            </a>"""
+
+
+def contact_page():
+    body = f"""      <section id="reach" class="section">
+        <div class="wrap two-col contact-top">
+          <div class="contact-card">
+            <p class="eyebrow">Contact</p>
+            <h2>Sudha Vatika</h2>
+            <p class="contact-person">Atin Gupta</p>
+            <address>{escape(ADDRESS)}</address>
+            <ul class="contact-lines">
+              <li>📞 <a href="tel:+919451636524">+91 94516 36524</a> <span class="tag">WhatsApp</span></li>
+              <li>📞 <a href="tel:+919889344818">+91 98893 44818</a></li>
+              <li>✉️ <a href="mailto:sudhavatika@gmail.com">sudhavatika@gmail.com</a></li>
+              <li>📷 <a href="{IG}" target="_blank" rel="noopener">@sudha.vatika</a> on Instagram</li>
+            </ul>
+            <div class="contact-buttons">
+              <a class="btn btn-gold" href="{WA}" target="_blank" rel="noopener">💬 WhatsApp chat</a>
+              <a class="btn btn-maroon" href="tel:+919451636524">📞 Call now</a>
+              <a class="btn btn-ghost-dark" href="{IG}" target="_blank" rel="noopener">📷 Instagram</a>
+              <a class="btn btn-ghost-dark" href="{DIRECTIONS}" target="_blank" rel="noopener">🧭 Directions</a>
+              <a class="btn btn-ghost-dark" href="sudha-vatika.vcf" download="Atin Gupta (SUDHA VATIKA).vcf">👤 Save contact</a>
+            </div>
+          </div>
+          <iframe class="gmap" title="Sudha Vatika on Google Maps" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=25.4490316,81.7775213&z=16&output=embed"></iframe>
+        </div>
+      </section>
+      <section id="scan" class="section section-alt">
+        <div class="wrap">
+          <p class="eyebrow">Scan with your phone</p>
+          <h2>QR codes</h2>
+          <p class="muted">Point your phone camera at a code, or tap it.</p>
+          <div class="qr-grid">
+{qr("whatsapp-official.png", "WhatsApp chat", "+91 94516 36524", WA)}
+{qr("instagram-official.png", "Instagram", "@sudha.vatika", IG)}
+{qr("maps.svg", "Google Maps", "Location & directions", MAPS)}
+{qr("contact.svg", "Save contact", "Atin Gupta (SUDHA VATIKA)", "sudha-vatika.vcf")}
+          </div>
+        </div>
+      </section>
+"""
+    page = {
+        "file": "contact.html",
+        "name": "Contact us",
+        "kicker": "Call · WhatsApp · Visit",
+        "capacity": "+91 94516 36524 · +91 98893 44818",
+        "intro": "Call, WhatsApp or visit us at Dhoomanganj on the old Kanpur Road, Prayagraj.",
+        "facts": ["WhatsApp 94516 36524", "Call 98893 44818", "sudhavatika@gmail.com", "@sudha.vatika"],
+    }
+    out = shell(page, "images/passage/passage-01.jpg", "reach", body, other_cards(""))
+    return out.replace('class="btn btn-ghost">Watch &amp; see photos', 'class="btn btn-ghost">Address &amp; map')
+
+
+def enquiry_page():
+    spaces = "".join(f'<option>{escape(o["name"])}</option>' for o in SPACES)
+    body = f"""      <section id="form" class="section">
+        <div class="wrap enquiry-wrap">
+          <form id="enquiry-form" class="enquiry enquiry-big" novalidate>
+            <h2>Tell us about your celebration</h2>
+            <p class="muted">Takes about a minute. We will call you back, usually the same day.</p>
+            <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+            <fieldset>
+              <legend>About you</legend>
+              <div class="row">
+                <label>Your name *<input name="name" autocomplete="name" required minlength="2" /></label>
+                <label>Phone (WhatsApp) *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="98765 43210" /></label>
+              </div>
+              <label>Email <span class="opt">(optional)</span><input name="email" type="email" autocomplete="email" /></label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Your event</legend>
+              <div class="row">
+                <label>Event type *
+                  <select name="event_type" required>
+                    <option value="">Choose…</option>
+                    <option>Wedding</option><option>Reception</option><option>Engagement / Roka</option>
+                    <option>Haldi / Mehendi / Sangeet</option><option>Birthday</option><option>Anniversary</option>
+                    <option>Family / religious function</option><option>Meeting / Seminar</option><option>Other</option>
+                  </select>
+                </label>
+                <label>Event date<input name="event_date" type="date" /></label>
+              </div>
+              <label class="check"><input type="checkbox" name="flexible_date" /> My date is flexible</label>
+              <div class="row">
+                <label>Number of guests<input name="guests" type="number" min="1" max="5000" inputmode="numeric" placeholder="e.g. 300" /></label>
+                <label>Time of day
+                  <select name="time_of_day"><option value="">Any</option><option>Morning</option><option>Lunch</option><option>Evening</option><option>Dinner</option><option>Full day</option></select>
+                </label>
+              </div>
+              <div class="row">
+                <label>Preferred space
+                  <select name="space"><option>Not sure</option>{spaces}</select>
+                </label>
+                <label>Your budget in mind (₹) <span class="opt">(optional)</span>
+                  <input name="budget" type="number" min="0" step="1000" inputmode="numeric" placeholder="e.g. 200000" />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>What would you like?</legend>
+              <div class="chips">
+                <label class="chip"><input type="checkbox" name="services" value="Decor" /> Decor</label>
+                <label class="chip"><input type="checkbox" name="services" value="Catering" /> Catering</label>
+                <label class="chip"><input type="checkbox" name="services" value="DJ & music" /> DJ &amp; music</label>
+                <label class="chip"><input type="checkbox" name="services" value="Photography" /> Photography</label>
+                <label class="chip"><input type="checkbox" name="services" value="Stage" /> Stage</label>
+                <label class="chip"><input type="checkbox" name="services" value="Lighting" /> Lighting</label>
+              </div>
+              <label>Stay for guests
+                <select name="rooms"><option value="">Not needed</option><option>VIP rooms</option><option>Dormitory</option><option>Rooms and dormitory</option></select>
+              </label>
+              <label class="check"><input type="checkbox" name="site_visit" /> I would like to visit the venue first</label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Anything else?</legend>
+              <label>Your questions<textarea name="questions" rows="4" maxlength="1500" placeholder="Ask us anything: dates, decor ideas, parking, rooms…"></textarea></label>
+              <div class="row">
+                <label>Best time to call
+                  <select name="call_time"><option value="">Any time</option><option>Morning (9–12)</option><option>Afternoon (12–4)</option><option>Evening (4–8)</option></select>
+                </label>
+                <label>How did you hear about us?
+                  <select name="heard_from"><option value="">Choose…</option><option>Instagram</option><option>Google</option><option>Friends / family</option><option>Attended an event here</option><option>Passing by</option><option>Other</option></select>
+                </label>
+              </div>
+            </fieldset>
+
+            <p class="form-error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-gold btn-big">Send enquiry</button>
+            <p class="muted small">We use your details only to reply to this enquiry.</p>
+          </form>
+          <div class="enquiry-done" hidden>
+            <p class="done-mark" aria-hidden="true">🙏</p>
+            <h2>Thank you! We have your enquiry.</h2>
+            <p>We will call you back soon. For a quicker reply, message us on WhatsApp.</p>
+            <a class="btn btn-gold" href="{WA}" target="_blank" rel="noopener">💬 WhatsApp us</a>
+          </div>
+          <aside class="enquiry-side">
+            <img src="images/stages/stages-04-sm.jpg" alt="" loading="lazy" />
+            <p><strong>Prefer to talk?</strong></p>
+            <p>📞 <a href="tel:+919451636524">94516 36524</a><br />📞 <a href="tel:+919889344818">98893 44818</a></p>
+            <a class="btn btn-maroon" href="{WA}" target="_blank" rel="noopener">WhatsApp chat</a>
+          </aside>
+        </div>
+      </section>
+"""
+    page = {
+        "file": "enquiry.html",
+        "name": "Plan your celebration",
+        "kicker": "Enquiry",
+        "capacity": "We reply quickly, usually the same day",
+        "intro": "Share a few details about your event and we will call you back to talk about dates, spaces, decor and stay.",
+        "facts": ["Free site visit", "Help with decor ideas", "Rooms for your guests"],
+    }
+    out = shell(page, "images/stages/stages-03.jpg", "form", body, other_cards(""))
+    return out.replace('class="btn btn-ghost">Watch &amp; see photos', 'class="btn btn-ghost">Fill the form').replace(
+        '<a href="enquiry.html" class="btn btn-gold">Check your date</a>', '<a href="#form" class="btn btn-gold">Check your date</a>', 1)
+
+
+for name, fn in [("about.html", about_page), ("contact.html", contact_page), ("enquiry.html", enquiry_page)]:
+    (SITE / name).write_text(fn())
+    print("wrote", name)

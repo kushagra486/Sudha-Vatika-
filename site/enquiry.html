@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- TODO at launch: remove this line so Google can list the site. -->
+    <meta name="robots" content="noindex" />
+    <title>Plan your celebration | Sudha Vatika</title>
+    <meta
+      name="description"
+      content="Share a few details about your event and we will call you back to talk about dates, spaces, decor and stay."
+    />
+    <meta name="theme-color" content="#6b1d2a" />
+    <meta property="og:image" content="images/stages/stages-03.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="favicon.png" />
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="wrap header-row">
+        <a href="index.html" class="brand" aria-label="Sudha Vatika home">
+          <img class="brand-logo" src="images/logo-ganesh-sm.png" alt="" width="34" height="46" />
+          <span class="brand-name">Sudha Vatika</span>
+        </a>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav id="nav" class="nav" aria-label="Main">
+          <a href="pandaal.html">Pandaal</a>
+          <a href="ashoka-hall.html">Ashoka Hall</a>
+          <a href="lawn.html">Lawn</a>
+          <a href="conference.html">Conference</a>
+          <a href="rooms.html">VIP Rooms</a>
+          <a href="dormitory.html">Dormitory</a>
+          <a href="decor.html">Decor</a>
+          <a href="about.html">About</a>
+          <a href="location.html">Location</a>
+          <a href="contact.html">Contact</a>
+          <a href="enquiry.html" class="btn btn-gold nav-cta">Check your date</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="space-hero" style="--hero: url('images/stages/stages-03.jpg')">
+        <div class="wrap space-hero-content">
+          <p class="eyebrow">Enquiry</p>
+          <h1>Plan your celebration</h1>
+          <p class="cap-chip">We reply quickly, usually the same day</p>
+          <p class="lead">
+            Share a few details about your event and we will call you back to talk about dates,
+            spaces, decor and stay.
+          </p>
+          <div class="hero-actions">
+            <a href="#form" class="btn btn-gold">Check your date</a>
+            <a href="#form" class="btn btn-ghost">Fill the form</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-tight">
+        <div class="wrap">
+          <ul class="fact-list" aria-label="At a glance">
+            <li>Free site visit</li>
+            <li>Help with decor ideas</li>
+            <li>Rooms for your guests</li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="form" class="section">
+        <div class="wrap enquiry-wrap">
+          <form id="enquiry-form" class="enquiry enquiry-big" novalidate>
+            <h2>Tell us about your celebration</h2>
+            <p class="muted">Takes about a minute. We will call you back, usually the same day.</p>
+            <input
+              type="text"
+              name="company"
+              class="hp"
+              tabindex="-1"
+              autocomplete="off"
+              aria-hidden="true"
+            />
+
+            <fieldset>
+              <legend>About you</legend>
+              <div class="row">
+                <label
+                  >Your name *<input name="name" autocomplete="name" required minlength="2"
+                /></label>
+                <label
+                  >Phone (WhatsApp) *<input
+                    name="phone"
+                    type="tel"
+                    inputmode="tel"
+                    autocomplete="tel"
+                    required
+                    placeholder="98765 43210"
+                /></label>
+              </div>
+              <label
+                >Email <span class="opt">(optional)</span
+                ><input name="email" type="email" autocomplete="email"
+              /></label>
+            </fieldset>
+
+            <fieldset>
+              <legend>Your event</legend>
+              <div class="row">
+                <label
+                  >Event type *
+                  <select name="event_type" required>
+                    <option value="">Choose…</option>
+                    <option>Wedding</option>
+                    <option>Reception</option>
+                    <option>Engagement / Roka</option>
+                    <option>Haldi / Mehendi / Sangeet</option>
+                    <option>Birthday</option>
+                    <option>Anniversary</option>
+                    <option>Family / religious function</option>
+                    <option>Meeting / Seminar</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+                <label>Event date<input name="event_date" type="date" /></label>
+              </div>
+              <label class="check"
+                ><input type="checkbox" name="flexible_date" /> My date is flexible</label
+              >
+              <div class="row">
+                <label
+                  >Number of guests<input
+                    name="guests"
+                    type="number"
+                    min="1"
+                    max="5000"
+                    inputmode="numeric"
+                    placeholder="e.g. 300"
+                /></label>
+                <label
+                  >Time of day
+                  <select name="time_of_day">
+                    <option value="">Any</option>
+                    <option>Morning</option>
+                    <option>Lunch</option>
+                    <option>Evening</option>
+                    <option>Dinner</option>
+                    <option>Full day</option>
+                  </select>
+                </label>
+              </div>
+              <div class="row">
+                <label
+                  >Preferred space
+                  <select name="space">
+                    <option>Not sure</option>
+                    <option>Pandaal</option>
+                    <option>Ashoka Hall</option>
+                    <option>Lawn</option>
+                    <option>Meeting &amp; Conference Hall</option>
+                    <option>VIP Rooms</option>
+                    <option>Dormitory</option>
+                  </select>
+                </label>
+                <label
+                  >Your budget in mind (₹) <span class="opt">(optional)</span>
+                  <input
+                    name="budget"
+                    type="number"
+                    min="0"
+                    step="1000"
+                    inputmode="numeric"
+                    placeholder="e.g. 200000"
+                  />
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>What would you like?</legend>
+              <div class="chips">
+                <label class="chip"
+                  ><input type="checkbox" name="services" value="Decor" /> Decor</label
+                >
+                <label class="chip"
+                  ><input type="checkbox" name="services" value="Catering" /> Catering</label
+                >
+                <label class="chip"
+                  ><input type="checkbox" name="services" value="DJ & music" /> DJ &amp;
+                  music</label
+                >
+                <label class="chip"
+                  ><input type="checkbox" name="services" value="Photography" /> Photography</label
+                >
+                <label class="chip"
+                  ><input type="checkbox" name="services" value="Stage" /> Stage</label
+                >
+                <label class="chip"
+                  ><input type="checkbox" name="services" value="Lighting" /> Lighting</label
+                >
+              </div>
+              <label
+                >Stay for guests
+                <select name="rooms">
+                  <option value="">Not needed</option>
+                  <option>VIP rooms</option>
+                  <option>Dormitory</option>
+                  <option>Rooms and dormitory</option>
+                </select>
+              </label>
+              <label class="check"
+                ><input type="checkbox" name="site_visit" /> I would like to visit the venue
+                first</label
+              >
+            </fieldset>
+
+            <fieldset>
+              <legend>Anything else?</legend>
+              <label
+                >Your questions<textarea
+                  name="questions"
+                  rows="4"
+                  maxlength="1500"
+                  placeholder="Ask us anything: dates, decor ideas, parking, rooms…"
+                ></textarea>
+              </label>
+              <div class="row">
+                <label
+                  >Best time to call
+                  <select name="call_time">
+                    <option value="">Any time</option>
+                    <option>Morning (9–12)</option>
+                    <option>Afternoon (12–4)</option>
+                    <option>Evening (4–8)</option>
+                  </select>
+                </label>
+                <label
+                  >How did you hear about us?
+                  <select name="heard_from">
+                    <option value="">Choose…</option>
+                    <option>Instagram</option>
+                    <option>Google</option>
+                    <option>Friends / family</option>
+                    <option>Attended an event here</option>
+                    <option>Passing by</option>
+                    <option>Other</option>
+                  </select>
+                </label>
+              </div>
+            </fieldset>
+
+            <p class="form-error" role="alert" hidden></p>
+            <button type="submit" class="btn btn-gold btn-big">Send enquiry</button>
+            <p class="muted small">We use your details only to reply to this enquiry.</p>
+          </form>
+          <div class="enquiry-done" hidden>
+            <p class="done-mark" aria-hidden="true">🙏</p>
+            <h2>Thank you! We have your enquiry.</h2>
+            <p>We will call you back soon. For a quicker reply, message us on WhatsApp.</p>
+            <a
+              class="btn btn-gold"
+              href="https://wa.me/message/2NBASVQH2K5EJ1"
+              target="_blank"
+              rel="noopener"
+              >💬 WhatsApp us</a
+            >
+          </div>
+          <aside class="enquiry-side">
+            <img src="images/stages/stages-04-sm.jpg" alt="" loading="lazy" />
+            <p><strong>Prefer to talk?</strong></p>
+            <p>
+              📞 <a href="tel:+919451636524">94516 36524</a><br />📞
+              <a href="tel:+919889344818">98893 44818</a>
+            </p>
+            <a
+              class="btn btn-maroon"
+              href="https://wa.me/message/2NBASVQH2K5EJ1"
+              target="_blank"
+              rel="noopener"
+              >WhatsApp chat</a
+            >
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section-alt">
+        <div class="wrap cta-band">
+          <div>
+            <h2>Planning an event?</h2>
+            <p class="muted">
+              Tell us the date and guest count, and we'll check availability for you.
+            </p>
+            <a href="enquiry.html" class="btn btn-maroon">Check your date</a>
+          </div>
+          <div class="other-spaces">
+            <a class="other-space" href="pandaal.html">
+              <img src="images/pandaal/pandaal-04-sm.jpg" alt="" loading="lazy" />
+              <span>See <strong>Pandaal</strong> →</span>
+            </a>
+            <a class="other-space" href="ashoka-hall.html">
+              <img src="images/ashoka/ashoka-01-sm.jpg" alt="" loading="lazy" />
+              <span>See <strong>Ashoka Hall</strong> →</span>
+            </a>
+            <a class="other-space" href="lawn.html">
+              <img src="images/lawn/lawn-01-sm.jpg" alt="" loading="lazy" />
+              <span>See <strong>Lawn</strong> →</span>
+            </a>
+            <a class="other-space" href="conference.html">
+              <img src="images/conference/conference-01-sm.jpg" alt="" loading="lazy" />
+              <span>See <strong>Meeting &amp; Conference Hall</strong> →</span>
+            </a>
+            <a class="other-space" href="rooms.html">
+              <img src="images/rooms/rooms-02-sm.jpg" alt="" loading="lazy" />
+              <span>See <strong>VIP Rooms</strong> →</span>
+            </a>
+            <a class="other-space" href="dormitory.html">
+              <img src="images/dorm/dorm-01-sm.jpg" alt="" loading="lazy" />
+              <span>See <strong>Dormitory</strong> →</span>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-grid">
+        <div>
+          <p class="footer-brand">
+            <img src="images/logo-ganesh-sm.png" alt="" width="28" height="38" /> Sudha Vatika
+          </p>
+          <p>Celebrating weddings, parties, events, functions, meetings and more.</p>
+        </div>
+        <div>
+          <p class="footer-head">Visit</p>
+          <p>58 A/31 Dhoomanganj, Old N.H.-02 (Kanpur Road),<br />Prayagraj (Allahabad) 211011</p>
+          <p><a href="location.html">Map &amp; nearby places →</a></p>
+        </div>
+        <div>
+          <p class="footer-head">Call or WhatsApp</p>
+          <p>
+            <a href="tel:+919451636524">94516 36524</a> (WhatsApp) ·
+            <a href="tel:+919889344818">98893 44818</a><br />
+            <a href="mailto:sudhavatika@gmail.com">sudhavatika@gmail.com</a><br />
+            <a href="https://www.instagram.com/sudha.vatika/">Instagram @sudha.vatika</a> ·
+            <a href="contact.html">All contacts →</a>
+          </p>
+        </div>
+      </div>
+      <div class="wrap footer-row">
+        <p>© <span id="year">2026</span> Sudha Vatika</p>
+      </div>
+    </footer>
+
+    <script src="main.js" defer></script>
+  </body>
+</html>
