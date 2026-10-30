@@ -23,7 +23,7 @@ insert into public.units (id, org_id, outlet_id, name, kind, floating_capacity, 
   ('00000000-0000-4000-a000-000000000206', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', 'Pool',                       'pool',       null, 1, true,  'Pool for functions'),
   ('00000000-0000-4000-a000-000000000207', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', 'Restaurant',                 'restaurant', 50,   1, true,  null),
   ('00000000-0000-4000-a000-000000000208', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', 'Dormitory',                  'dormitory',  50,   6, false, '6 rooms, 50 beds in total'),
-  ('00000000-0000-4000-a000-000000000209', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', 'Hotel rooms',                'room',       null, 3, false, '15 rooms planned; 3 open now, the rest upcoming')
+  ('00000000-0000-4000-a000-000000000209', '00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000101', 'Hotel rooms',                'room',       null, 8, false, '15 rooms planned; 8 open now, 7 upcoming')
 on conflict (id) do nothing;
 
 insert into public.service_categories (id, org_id, name) values
