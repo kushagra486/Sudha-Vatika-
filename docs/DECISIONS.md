@@ -293,3 +293,33 @@ Files go into the private `media` bucket under `<org_id>/…`, which is what the
 - **How translation works:** `hi.ts` translates the main screens, and any key it lacks falls back to English (deep merge). New screens therefore work before their Hindi is written.
 - **Where to choose:** the choice is per device, in Settings → Language, and the app reloads to apply it.
 - **Keeping it correct:** a test fails if `hi.ts` uses a key that doesn't exist in English.
+
+### D41. iPhone calls come in through Recents screenshots
+
+- **Why screenshots:** iOS lets no app read the call log, and the owners ruled out paid telephony, call forwarding and moving the SIM.
+- **What staff do:** once a day, screenshot **Phone → Recents** and pick the images on the **Calls** page.
+- **How the images are read:**
+  - **Text reading:** the browser reads them with tesseract.js. It's free, runs on the device, and the image is never uploaded; only the English model (~4 MB) is downloaded once.
+  - **Rows:** every Recents row is anchored on its time or day on the right, and name words on the left join the nearest anchor. This copes with the name sitting higher than the time and with the ⓘ button being read as noise.
+  - **Missed calls:** detected by measuring red ink on the original colours.
+  - **Dark mode:** the image is mapped to dark-on-white per channel before reading.
+- **Filing calls:**
+  - Calls go into `call_inbox`, deduplicated by number (or contact name), date and time, so overlapping screenshots are harmless.
+  - Numbers or saved names in `phone_directory` (family/personal, staff, vendor, spam), and India's 140-series telemarketers, are put away automatically.
+- **Pushing a call:** staff flag an enquiry and type what the caller wanted. `push_call` then:
+  - creates or reuses the guest
+  - joins the guest's open enquiry, or opens a new one with a follow-up tomorrow at 11 am
+  - stores the description as a call note and in call history
+  - lets the AI fill empty enquiry fields from the description
+- **Known limits:** Recents shows a name for saved contacts, so their number must be typed when pushing. Call duration isn't on the list.
+
+### D42. Free AI providers and customer lists
+
+- **Provider:** the `ai` function uses whichever key is set: `GROQ_API_KEY`, `OPENROUTER_API_KEY` or `ANTHROPIC_API_KEY`.
+  - OpenRouter uses free Gemma 4 with backup free models, which it tries in order.
+  - Free models don't all follow schemas strictly, so replies are parsed and checked against the same Zod schemas, and fall back to the rules on any mismatch.
+  - Free tiers may use what they are sent to improve their models. Only enquiry text is sent, never the database.
+- **Customer lists:** `extract_list` reads a typed list or a photo of a handwritten page into customers.
+  - Typed lists also work without any key, using the rules (one customer per line, or per blank-line block, wherever there's a phone number).
+  - Photos need an AI model.
+  - Each customer becomes an enquiry, or updates the guest's open enquiry if they already have one.
