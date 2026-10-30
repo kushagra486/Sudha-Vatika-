@@ -63,6 +63,10 @@ const MODELS = PROVIDER
     : DEFAULT_MODELS[PROVIDER]
   : [];
 
+// Last model failure on this instance, shown by `status` so owners can see why
+// answers fell back to the rules (rate limit, bad output…). Never holds keys.
+let lastError: string | null = null;
+
 const anthropic =
   PROVIDER === 'anthropic'
     ? new Anthropic({ apiKey: keyFor('anthropic'), maxRetries: 1, timeout: 45_000 })
@@ -205,10 +209,15 @@ async function askOpenAiCompatible<T extends z.ZodType>(
     ],
     response_format: { type: 'json_object' },
     temperature: 0.2,
-    max_tokens: image ? 4000 : 2000,
+    max_tokens: image ? 6000 : 4000,
   };
-  if (PROVIDER === 'openrouter' && MODELS.length > 1) body.models = MODELS;
-  else body.model = MODELS[0];
+  if (PROVIDER === 'openrouter') {
+    // Free models are often busy, so OpenRouter tries the list in order. Some
+    // backups "think" first and can spend the whole budget on it: turn that off.
+    body.reasoning = { enabled: false };
+    if (MODELS.length > 1) body.models = MODELS;
+    else body.model = MODELS[0];
+  } else body.model = MODELS[0];
 
   const res = await fetch(url, {
     method: 'POST',
@@ -223,7 +232,8 @@ async function askOpenAiCompatible<T extends z.ZodType>(
     signal: AbortSignal.timeout(image ? 90_000 : 40_000),
   });
   if (!res.ok) {
-    console.error('ai http', res.status, (await res.text()).slice(0, 300));
+    lastError = `HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`;
+    console.error('ai http', lastError);
     return null;
   }
   const data = await res.json();
@@ -231,10 +241,14 @@ async function askOpenAiCompatible<T extends z.ZodType>(
   // Some models wrap JSON in prose or code fences; take the outermost object.
   const start = text.indexOf('{');
   const end = text.lastIndexOf('}');
-  if (start < 0 || end <= start) return null;
+  if (start < 0 || end <= start) {
+    lastError = `no JSON in reply: ${text.slice(0, 200)}`;
+    return null;
+  }
   const parsed = schema.safeParse(JSON.parse(text.slice(start, end + 1)));
   if (!parsed.success) {
-    console.warn('ai output did not match schema', parsed.error.issues.slice(0, 3));
+    lastError = `reply did not match schema: ${JSON.stringify(parsed.error.issues.slice(0, 3))}`;
+    console.warn('ai', lastError);
     return null;
   }
   return parsed.data;
@@ -253,6 +267,7 @@ async function ask<T extends z.ZodType>(
       ? await askClaude(schema, prompt, effort, image)
       : await askOpenAiCompatible(schema, prompt, image);
   } catch (e) {
+    lastError = e instanceof Error ? `${e.name}: ${e.message}`.slice(0, 300) : String(e);
     if (e instanceof Anthropic.APIError) console.error('ai api error', e.status, e.message);
     else console.error('ai error', e);
     return null;
@@ -503,7 +518,12 @@ Deno.serve(async (req) => {
 
   switch (b.action) {
     case 'status':
-      return json({ llm: !!PROVIDER, provider: PROVIDER, model: MODELS[0] ?? null });
+      return json({
+        llm: !!PROVIDER,
+        provider: PROVIDER,
+        model: MODELS[0] ?? null,
+        last_error: caller.role === 'owner' ? lastError : undefined,
+      });
     case 'extract':
       return json(await extract(caller, b.text));
     case 'extract_list': {
