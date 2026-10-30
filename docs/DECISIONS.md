@@ -369,3 +369,4 @@ Files go into the private `media` bucket under `<org_id>/…`, which is what the
   - payment: `useRecordPayment` (the first payment counts as the advance)
   - bill lines: `booking_items`
 - **Without the AI model:** typed text and text files are still read for customers and price lines, including offline. Photos need the model.
+- **Groq models.** Groq retires models and answered "model does not exist" for `llama-3.3-70b-versatile`. The function now reads Groq's `/models` list once per instance and uses the preferred models that exist for the key (currently gpt-oss-120b and gpt-oss-20b). Owners can see the choice in `status`. This key has no Groq vision model, so images rely on OpenRouter; text is read on the phone when no model answers.
