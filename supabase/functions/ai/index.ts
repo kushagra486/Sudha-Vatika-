@@ -75,7 +75,7 @@ const anthropic =
 // Stable instructions first so repeated calls reuse the prompt cache.
 const SYSTEM = `You assist the staff of an Indian banquet and resort venue. Guests write in English, Hindi or Hinglish, often informally over WhatsApp or as call notes.
 Be accurate: never invent facts. Leave a field null when the text doesn't say it.
-Only fill a date when a specific day is written ("14 Feb", "12/03"); vague times like "next month" or "after Diwali" stay null and go in the notes.
+Dates: when a day and month are written ("14 Feb", "12/03", "8 Dec") give the next such date after today as YYYY-MM-DD. Vague times like "next month" or "after Diwali" stay null and go in the notes.
 Money is in Indian rupees. "Lakh" = 100,000; "k" = 1,000. Dates are day-first (12/01 = 12 January).`;
 
 // ------------------------------------------------------------------ schemas
@@ -330,6 +330,18 @@ async function freeSpacesOn(c: Caller, date: string | null, guests: number | nul
 
 // ------------------------------------------------------------------ actions
 
+/**
+ * Free models sometimes leave out a field that is plainly written. The rules
+ * read explicit dates, guest counts and budgets reliably, so they fill gaps.
+ */
+function fillGaps<T extends object>(llm: T, rules: Partial<T>, keys: (keyof T)[]): T {
+  const out = { ...llm };
+  for (const k of keys) if (out[k] == null && rules[k] != null) out[k] = rules[k] as T[keyof T];
+  return out;
+}
+
+const digits = (p: string | null) => (p ?? '').replace(/\D/g, '').slice(-10);
+
 async function extract(c: Caller, text: string) {
   const today = todayIST();
   const spaces = await loadSpaces(c);
@@ -339,12 +351,17 @@ async function extract(c: Caller, text: string) {
     `Today is ${today}. Venue spaces: ${names.join(', ')}.\n\nExtract the enquiry details from this message:\n"""\n${text}\n"""`,
     'low',
   );
+  const rules = extractEnquiryByRules(text, today, names);
   const extraction: EnquiryExtraction = llm
-    ? {
-        ...llm,
-        preferred_space: names.includes(llm.preferred_space ?? '') ? llm.preferred_space : null,
-      }
-    : extractEnquiryByRules(text, today, names);
+    ? fillGaps(
+        {
+          ...llm,
+          preferred_space: names.includes(llm.preferred_space ?? '') ? llm.preferred_space : null,
+        },
+        rules,
+        ['event_date', 'guest_count', 'budget_min', 'budget_max', 'preferred_space', 'event_type'],
+      )
+    : rules;
   const space = spaces.find((s) => s.name === extraction.preferred_space);
   return {
     extraction,
@@ -474,9 +491,17 @@ async function extractList(text: string | null, image: string | null) {
   const prompt = `Today is ${today}. Venue staff wrote this list of customers (typed or handwritten, English or Hindi).
 Return one entry per customer. Copy each phone number's digits exactly as written. Use null for anything not written.${text ? `\n\n"""\n${text}\n"""` : ''}`;
   const llm = await ask(ListSchema, prompt, 'medium', image ?? undefined);
-  if (llm) return { customers: llm.customers as ListedCustomer[], source: 'llm' as AiSource };
+  const rules = text ? extractListByRules(text, today) : [];
+  if (llm) {
+    const byPhone = new Map(rules.map((r) => [digits(r.phone), r]));
+    const customers = (llm.customers as ListedCustomer[]).map((c) => {
+      const r = byPhone.get(digits(c.phone));
+      return r ? fillGaps(c, r, ['event_date', 'guest_count', 'budget_max', 'event_type']) : c;
+    });
+    return { customers, source: 'llm' as AiSource };
+  }
   if (!text) return null; // a photo can only be read by an AI model
-  return { customers: extractListByRules(text, today), source: 'rules' as AiSource };
+  return { customers: rules, source: 'rules' as AiSource };
 }
 
 // ------------------------------------------------------------------ handler
