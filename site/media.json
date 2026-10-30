@@ -167,6 +167,7 @@
         },
         {
           "file": "pandaal-video-06",
+          "hidden": true,
           "duration": 9.24,
           "orientation": "portrait",
           "score": 76.9,
