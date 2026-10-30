@@ -202,9 +202,11 @@ export function AssistantLauncher() {
                     {m.source === 'offline' && <WifiOff className="h-3 w-3" aria-hidden />}
                     {m.source === 'llm'
                       ? A.byLlm
-                      : m.source === 'offline'
-                        ? `${A.offline}${m.asOf ? ` ${formatDateTime(m.asOf)}` : ''}`
-                        : A.byRules}
+                      : m.analysis
+                        ? A.docs.readLocally
+                        : m.source === 'offline'
+                          ? `${A.offline}${m.asOf ? ` ${formatDateTime(m.asOf)}` : ''}`
+                          : A.byRules}
                   </p>
                 )}
               </div>

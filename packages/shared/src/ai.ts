@@ -97,7 +97,8 @@ export function findDate(text: string, today: string): string | null {
 /** "300 guests", "300 log", "300 pax", "around 250 people". */
 export function findGuestCount(text: string): number | null {
   const m = text.match(
-    /\b(\d{2,4})\s*(?:\+\s*)?(guests?|people|persons?|pax|log|logon|members|jan|admi)\b/i,
+    // "jan" (people) only when it can't be January: "150 jan", not "22 Jan".
+    /\b(\d{2,4})\s*(?:\+\s*)?(guests?|people|persons?|pax|log|logon|members|admi|jan(?=\s*(?:aayenge|honge|hai|hain|$)))\b/i,
   );
   return m ? Number(m[1]) : null;
 }
@@ -270,7 +271,9 @@ export interface ListedCustomer {
   notes: string | null;
 }
 
-export const PHONE_IN_TEXT = /(?:\+?91[\s-]?)?0?[6-9]\d{4}[\s-]?\d{5}\b/;
+// 98765 43210, 9876543210, +91-98765-43210, 7007 123456, 941 501 2345
+export const PHONE_IN_TEXT =
+  /(?:\+?91[\s-]?)?0?[6-9](?:\d{9}|\d{4}[\s-]\d{5}|\d{3}[\s-]\d{6}|\d{2}[\s-]\d{3}[\s-]\d{4}|\d{3}[\s-]\d{3}[\s-]\d{3})\b/;
 
 /**
  * A typed list of customers -> one entry per customer. Each line (or each

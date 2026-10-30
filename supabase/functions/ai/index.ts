@@ -71,10 +71,43 @@ const DEFAULT_MODELS: Record<Provider, string[]> = {
     'google/gemma-4-26b-a4b-it:free',
     'nvidia/nemotron-3.5-super-vl:free',
   ],
-  groq: ['llama-3.3-70b-versatile', 'openai/gpt-oss-120b'],
+  // Preferred Groq models, best first. Groq retires models, so the list is
+  // checked against the models this key can use (see groqModels).
+  groq: ['openai/gpt-oss-120b', 'llama-3.3-70b-versatile', 'openai/gpt-oss-20b'],
   anthropic: ['claude-opus-5-5'],
 };
-const GROQ_VISION = 'meta-llama/llama-4-scout-17b-16e-instruct';
+const GROQ_VISION = [
+  'meta-llama/llama-4-scout-17b-16e-instruct',
+  'meta-llama/llama-4-maverick-17b-128e-instruct',
+];
+
+let groqAvailable: Promise<string[] | null> | null = null;
+
+/** Model ids this Groq key can use, fetched once per instance (null if unknown). */
+function groqAvailableModels(): Promise<string[] | null> {
+  groqAvailable ??= fetch('https://api.groq.com/openai/v1/models', {
+    headers: { Authorization: `Bearer ${keyFor('groq')}` },
+    signal: AbortSignal.timeout(8_000),
+  })
+    .then(async (r) => (r.ok ? ((await r.json()).data as { id: string }[]).map((m) => m.id) : null))
+    .catch(() => null);
+  return groqAvailable;
+}
+
+/** Preferred Groq models that exist for this key; any chat or vision model if none do. */
+async function groqModels(vision: boolean): Promise<string[]> {
+  const preferred = vision ? GROQ_VISION : modelsFor('groq');
+  const have = await groqAvailableModels();
+  if (!have) return preferred;
+  const ok = preferred.filter((m) => have.includes(m));
+  if (ok.length) return ok;
+  const guess = have.filter((m) =>
+    vision
+      ? /scout|maverick|vision/i.test(m)
+      : /gpt-oss|llama|qwen|kimi/i.test(m) && !/guard|whisper|tts|vision/i.test(m),
+  );
+  return guess.slice(0, 2);
+}
 
 function modelsFor(p: Provider): string[] {
   const override = Deno.env.get('AI_MODEL');
@@ -361,12 +394,13 @@ async function tryProvider<T extends z.ZodType>(
   o: AskOptions,
 ): Promise<z.infer<T> | null> {
   if (p === 'anthropic') return askClaude(schema, prompt, o);
-  const models = modelsFor(p);
-  if (p === 'openrouter')
+  if (p === 'openrouter') {
+    const models = modelsFor(p);
     return askOpenAiCompatible(p, models.length > 1 ? models : models[0]!, schema, prompt, o);
+  }
   // Groq takes one model per call: images need its vision model, otherwise
   // fall through the list (a busy or retired model returns an error).
-  for (const m of o.images?.length ? [GROQ_VISION] : models) {
+  for (const m of await groqModels(!!o.images?.length)) {
     const r = await askOpenAiCompatible(p, m, schema, prompt, o);
     if (r) return r;
   }
@@ -661,6 +695,7 @@ ${text ? `\nDocument text:\n"""\n${text.slice(0, 30_000)}\n"""` : ''}`;
       effort: 'medium',
       images: images.length ? images : undefined,
       maxTokens: 8000,
+      timeoutMs: 60_000,
     })
   )?.data;
   const rules = text ? analyzeTextByRules(`${message ?? ''}\n${text}`, today) : null;
@@ -821,6 +856,10 @@ Deno.serve(async (req) => {
         providers: PROVIDERS,
         model: PROVIDERS[0] ? modelsFor(PROVIDERS[0])[0] : null,
         last_error: caller.role === 'owner' ? lastError : undefined,
+        groq_models:
+          caller.role === 'owner' && keyFor('groq')
+            ? { using: await groqModels(false), vision: await groqModels(true) }
+            : undefined,
       });
     case 'chat': {
       if (b.messages[b.messages.length - 1]!.role !== 'user') return fail('bad_request', 400);

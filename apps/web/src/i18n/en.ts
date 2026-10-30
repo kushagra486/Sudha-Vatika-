@@ -656,6 +656,8 @@ export const en = {
       needsAi:
         'Photos and scanned pages need the AI model, which is busy or offline right now. Try again in a minute, or type the details.',
       nothing: 'Nothing to add was found in this file.',
+      readLocally:
+        'Read by the built-in helper because the AI is busy. It catches names, phone numbers and prices; check the details.',
       enquiries: (n: number) => `Customers / enquiries (${n})`,
       addEnquiries: (n: number) => `Add ${n} as enquir${n === 1 ? 'y' : 'ies'}`,
       noName: 'No name',

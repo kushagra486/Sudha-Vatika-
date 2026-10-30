@@ -23,3 +23,15 @@ describe('documents by rules', () => {
     expect(analyzeTextByRules('hello there', '2026-10-30').kind).toBe('other');
   });
 });
+
+describe('list reading fixes', () => {
+  it('does not read "22 Jan" as 22 guests, and reads split phone numbers', () => {
+    const a = analyzeTextByRules(
+      '1. Neha Agarwal 98390 12345 - engagement 22 Jan, 150 people\n3. Pooja Singh 7007 123456 shaadi 5 March 2027 400 log',
+      '2026-10-30',
+    );
+    expect(a.enquiries).toHaveLength(2);
+    expect(a.enquiries[0]).toMatchObject({ guest_count: 150, event_date: '2027-01-22' });
+    expect(a.enquiries[1]).toMatchObject({ phone: '7007123456', guest_count: 400 });
+  });
+});
