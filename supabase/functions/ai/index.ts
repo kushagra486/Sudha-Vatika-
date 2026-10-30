@@ -29,7 +29,13 @@ import {
   type ListedCustomer,
   type UpsellIdea,
 } from '../../../packages/shared/src/ai.ts';
-import { answerByRules, type AssistantSnapshot } from '../../../packages/shared/src/assistant.ts';
+import {
+  answerByRules,
+  describeDraft,
+  detectAddEnquiry,
+  type AssistantSnapshot,
+  type EnquiryDraft,
+} from '../../../packages/shared/src/assistant.ts';
 import { formatEventDate, todayIST } from '../../../packages/shared/src/dates.ts';
 import { formatINR } from '../../../packages/shared/src/money.ts';
 import { corsHeaders, fail, getCaller, json, type Caller } from '../_shared/http.ts';
@@ -111,8 +117,21 @@ const ExtractionSchema = z.object({
 
 const ReplySchema = z.object({ reply: z.string() });
 
+const DraftSchema = z.object({
+  full_name: z.string().nullable(),
+  phone: z.string().nullable().describe('Digits exactly as written'),
+  event_type: z.string().nullable().describe('Short English label, e.g. Wedding'),
+  event_date: z.string().nullable().describe('YYYY-MM-DD'),
+  guest_count: z.number().int().nullable(),
+  budget_max: z.number().nullable().describe('Rupees'),
+  notes: z.string().nullable(),
+});
+
 const AnswerSchema = z.object({
   answer: z.string().describe('The reply shown to the staff member. Plain text, short lines.'),
+  add_enquiry: DraftSchema.nullable().describe(
+    'Only when the staff member asks to add / create / note a NEW enquiry: its details. Otherwise null.',
+  ),
 });
 
 const ListSchema = z.object({
@@ -584,7 +603,8 @@ async function chat(c: Caller, messages: z.infer<typeof ChatMessage>[]) {
   }
   const snap = data as AssistantSnapshot;
   const question = messages[messages.length - 1]!.content;
-  const rules = answerByRules(question, snap);
+  const draft = detectAddEnquiry(question, snap.today);
+  const rules = draft ? describeDraft(draft) : answerByRules(question, snap);
   const weekday = new Date(`${snap.today}T00:00:00Z`).toLocaleDateString('en-IN', {
     weekday: 'long',
     timeZone: 'UTC',
@@ -599,6 +619,7 @@ async function chat(c: Caller, messages: z.infer<typeof ChatMessage>[]) {
 Today is ${weekday}, ${snap.today} (India). "Kal" means tomorrow when asking ahead. Shifts: full_day blocks a space all day; other shifts (breakfast, lunch, high_tea, dinner) can share a day.
 A space is free on a date if no booking for it is listed that day. Bookings listed run from a week ago to about six months ahead; say so if asked outside that range.
 ${snap.can_see_money ? '' : 'This user may not see money figures: never state amounts.\n'}Reply in the language and style of the question (Hinglish if they wrote Hinglish). Be brief and concrete: names, dates, spaces, amounts in ₹ with Indian commas. Use short lines or "• " bullets, no markdown headings or tables. If the data doesn't answer it, say so and suggest which page to check.
+If they ask you to add a new enquiry, fill add_enquiry (null for anything not given) and in answer say in one line what will be added and to check it and tap Add. You cannot change any data yourself; staff confirm every change.
 
 Venue data (JSON):
 ${snapshotForPrompt(snap)}
@@ -609,11 +630,26 @@ ${history ? `\nConversation so far:\n${history}\n` : ''}
 Question: ${question}`,
     { effort: 'low', timeoutMs: 25_000, maxTokens: 1500 },
   );
+  // The rules read explicit dates, numbers and phones reliably: they fill gaps
+  // in the model's draft, and stand in when the model missed the request.
+  let action: EnquiryDraft | null = llm?.data.add_enquiry ?? null;
+  if (action && draft)
+    action = fillGaps(action, draft, [
+      'full_name',
+      'phone',
+      'event_type',
+      'event_date',
+      'guest_count',
+      'budget_max',
+    ]);
+  action = action ?? draft;
+  if (action && !action.notes) action = { ...action, notes: question };
   return {
-    answer: llm?.data.answer.trim() || rules,
+    answer: (llm && (llm.data.add_enquiry || !draft) ? llm.data.answer.trim() : '') || rules,
     source: (llm ? 'llm' : 'rules') as AiSource,
     via: llm?.via ?? null,
     as_of: snap.generated_at,
+    action: action ? { type: 'add_enquiry' as const, draft: action } : null,
   };
 }
 

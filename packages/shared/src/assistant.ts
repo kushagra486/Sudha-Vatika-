@@ -3,7 +3,7 @@
 // replies: no key, rate limit, timeout, or the phone is offline. The rules
 // cover the everyday questions in English and Hinglish; anything else gets a
 // short list of what can be asked.
-import { findDate } from './ai.ts';
+import { extractEnquiryByRules, findDate, PHONE_IN_TEXT } from './ai.ts';
 import { addDays, formatEventDate } from './dates.ts';
 import { formatINR } from './money.ts';
 
@@ -238,7 +238,8 @@ const HINDI: [RegExp, string][] = [
   [/खाली|उपलब्ध/g, 'free'],
   [/रेट|दाम|कीमत|पैकेज/g, 'price'],
   [/पूछताछ|इंक्वायरी/g, 'enquiries'],
-  [/नई|नए/g, 'new'],
+  [/नई|नए|नया/g, 'new'],
+  [/जोड़ो|जोड़ें|जोड़|डालो|डालें|लिखो|बनाओ/g, 'add'],
   [/हॉल/g, 'hall'],
   [/लॉन/g, 'lawn'],
   [/इवेंट|कार्यक्रम|शादी/g, 'events'],
@@ -379,4 +380,65 @@ export function answerByRules(rawQuestion: string, s: AssistantSnapshot): string
   }
 
   return HELP;
+}
+
+// ------------------------------------------------------------------ actions
+
+/** An enquiry the assistant proposes to add. Staff check it and tap Add. */
+export interface EnquiryDraft {
+  full_name: string | null;
+  phone: string | null; // as written; the app turns it into +91…
+  event_type: string | null;
+  event_date: string | null; // YYYY-MM-DD
+  guest_count: number | null;
+  budget_max: number | null;
+  notes: string | null;
+}
+
+const ADD_WORDS = /\b(add|create|save|enter|daalo|dalo|daal|likho|jodo|banao)\b/;
+// "new enquiry: Sharma ji…" is a request; "how many new enquiries?" is a question.
+const NEW_WORDS = /\b(new|naya|nayi|nai)\b/;
+const ASKING = /\?|\b(how|kitn\w*|kaun\w*|which|what|show|list|batao|dikhao)\b/;
+const HONORIFIC = /\b((?:mr|mrs|ms|dr|shri|smt)\.?\s+[A-Za-z][A-Za-z.]*)/i;
+const ENQUIRY_WORDS = /\b(enquir(y|ies)|inquir(y|ies)|leads?|customers?|guest)\b/;
+const MONTH_LIKE = /^(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)/i;
+const NAME =
+  /\b(?:for|of|naam|name|customer|guest)\s*[:-]?\s+((?:mr|mrs|ms|dr|shri|smt)\.?\s+)?([A-Za-z][A-Za-z.]*(?:\s+(?!ji\b)[A-Z][A-Za-z.]*)?)(\s+ji)?\b/i;
+
+/** "add enquiry for Sharma ji 14 Feb 300 log 98xxxxxx" -> a draft, or null if not asked. */
+export function detectAddEnquiry(question: string, today: string): EnquiryDraft | null {
+  const q = normalizeQuestion(question);
+  const wantsAdd = ADD_WORDS.test(q) || (NEW_WORDS.test(q) && !ASKING.test(q));
+  if (!wantsAdd || !ENQUIRY_WORDS.test(q)) return null;
+  const phone = question.match(PHONE_IN_TEXT)?.[0].replace(/[\s-]/g, '') ?? null;
+  const rules = extractEnquiryByRules(question, today, []);
+  const m = question.match(NAME);
+  let name: string | null = null;
+  if (m && !MONTH_LIKE.test(m[2]!) && !ENQUIRY_WORDS.test(m[2]!.toLowerCase()))
+    name = `${m[1] ?? ''}${m[2]}`.replace(/\s+/g, ' ').trim();
+  else name = question.match(HONORIFIC)?.[1]?.replace(/\s+/g, ' ') ?? null;
+  return {
+    full_name: name ?? rules.full_name,
+    phone,
+    event_type: rules.event_type,
+    event_date: rules.event_date,
+    guest_count: rules.guest_count,
+    budget_max: rules.budget_max,
+    notes: question.trim(),
+  };
+}
+
+/** One line describing a draft, for the assistant's reply. */
+export function describeDraft(d: EnquiryDraft): string {
+  const bits = [
+    d.full_name,
+    d.event_type,
+    d.event_date ? formatEventDate(d.event_date) : null,
+    d.guest_count ? `${d.guest_count} guests` : null,
+    d.budget_max ? `budget ${formatINR(d.budget_max)}` : null,
+    d.phone,
+  ].filter(Boolean);
+  return `New enquiry ready: ${bits.join(', ') || 'no details yet'}.${
+    d.phone ? '' : ' Add the phone number,'
+  } Check the details below and tap Add.`;
 }

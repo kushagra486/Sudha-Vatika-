@@ -270,7 +270,7 @@ export interface ListedCustomer {
   notes: string | null;
 }
 
-const PHONE_IN_TEXT = /(?:\+?91[\s-]?)?0?[6-9]\d{4}[\s-]?\d{5}\b/;
+export const PHONE_IN_TEXT = /(?:\+?91[\s-]?)?0?[6-9]\d{4}[\s-]?\d{5}\b/;
 
 /**
  * A typed list of customers -> one entry per customer. Each line (or each

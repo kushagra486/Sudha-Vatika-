@@ -1,4 +1,12 @@
-import { answerByRules, todayIST, type AiSource, type AssistantSnapshot } from '@bm/shared';
+import {
+  answerByRules,
+  describeDraft,
+  detectAddEnquiry,
+  todayIST,
+  type AiSource,
+  type AssistantSnapshot,
+  type EnquiryDraft,
+} from '@bm/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { requireSupabase } from '@/lib/supabase';
 
@@ -15,6 +23,8 @@ export interface ChatTurn {
   source?: AiSource | 'offline';
   /** When the data behind an offline answer was fetched. */
   asOf?: string;
+  /** A change the assistant proposes; staff check it and confirm. */
+  action?: { type: 'add_enquiry'; draft: EnquiryDraft } | null;
 }
 
 function readCache(): AssistantSnapshot | null {
@@ -64,8 +74,16 @@ function answerOffline(question: string, fresh?: AssistantSnapshot): ChatTurn | 
   const snap = fresh ?? readCache();
   if (!snap) return null;
   // Relative words ("today", "kal") mean the real today, not the snapshot's.
-  const content = answerByRules(question, { ...snap, today: todayIST() });
-  return { role: 'assistant', content, source: 'offline', asOf: snap.generated_at };
+  const today = todayIST();
+  const draft = detectAddEnquiry(question, today);
+  const content = draft ? describeDraft(draft) : answerByRules(question, { ...snap, today });
+  return {
+    role: 'assistant',
+    content,
+    source: 'offline',
+    asOf: snap.generated_at,
+    action: draft ? { type: 'add_enquiry', draft } : null,
+  };
 }
 
 async function askServer(messages: ChatTurn[]): Promise<ChatTurn> {
@@ -80,8 +98,8 @@ async function askServer(messages: ChatTurn[]): Promise<ChatTurn> {
   );
   const { data, error } = await Promise.race([call, timeout]);
   if (error) throw error;
-  const r = data as { answer: string; source: AiSource };
-  return { role: 'assistant', content: r.answer, source: r.source };
+  const r = data as { answer: string; source: AiSource; action?: ChatTurn['action'] };
+  return { role: 'assistant', content: r.answer, source: r.source, action: r.action ?? null };
 }
 
 /**

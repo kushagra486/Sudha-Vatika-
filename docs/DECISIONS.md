@@ -330,3 +330,20 @@ Files go into the private `media` bucket under `<org_id>/…`, which is what the
 - The `ai` function's `chat` action sends that snapshot to the model, along with a built-in calculation of the answer, so small free models stay accurate. Viewers may use `chat`.
 - Providers are tried in turn: OpenRouter, then Groq, then Claude (AI_PROVIDER goes first). If none answers, `answerByRules()` replies. It handles English, Hinglish and Hindi.
 - The web app saves the latest snapshot on the device. When the phone is offline, or the server doesn't reply within 40 seconds, the app answers from that copy and labels the answer with when the data was saved. The copy is deleted on sign-out.
+
+## D44 — Assistant actions, balance reminders, feedback
+
+- **The assistant proposes; staff confirm.** "Add enquiry for Sharma ji 14 Feb 300 log" makes the `chat` action return an `add_enquiry` draft.
+  - The draft is filled by the model, with the rules filling in dates, numbers and phone numbers it misses. The rules alone are used when the model is busy, and also offline.
+  - The app shows the draft as an editable card. Tapping Add calls `create_enquiry` with the person's own access rights and sets a follow-up for tomorrow at 11:00.
+  - The model never writes data.
+- **`booking_touches`** logs every balance reminder, feedback request and guest rating, so the lists show who was contacted and when.
+  - Only owner, manager and ops can log balance reminders.
+  - Sales can also log feedback.
+- **`balance_reminders(days)`** lists upcoming events with money due. It is for money roles only, because sales can't read payments, so their balance figures would be wrong.
+- **`feedback_queue(days)`** lists events held in the last N days.
+- **Venue settings** gain two fields:
+  - `google_review_url`, which must start with https.
+  - `upi_id`, checked against the UPI ID format.
+
+  They go into the ready-made WhatsApp messages, sent by click-to-chat as with all messages.

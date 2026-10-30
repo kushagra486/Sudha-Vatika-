@@ -12,6 +12,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { t } from '@/i18n';
 import { cn } from '@/lib/utils';
+import { AddEnquiryCard } from './ActionCard';
 import { useAskAssistant, useAssistantSnapshot, type ChatTurn } from './api';
 import { OPEN_EVENT } from './open';
 
@@ -125,6 +126,9 @@ export function AssistantLauncher() {
                 )}
               >
                 {m.content}
+                {m.action?.type === 'add_enquiry' && (
+                  <AddEnquiryCard draft={m.action.draft} onDone={() => setOpen(false)} />
+                )}
                 {m.role === 'assistant' && m.source && (
                   <p className="mt-1 flex items-center gap-1 text-[11px] text-muted-foreground">
                     {m.source === 'offline' && <WifiOff className="h-3 w-3" aria-hidden />}
