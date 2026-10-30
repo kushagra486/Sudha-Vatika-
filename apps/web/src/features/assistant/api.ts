@@ -1,10 +1,12 @@
 import {
+  analyzeTextByRules,
   answerByRules,
   describeDraft,
   detectAddEnquiry,
   todayIST,
   type AiSource,
   type AssistantSnapshot,
+  type DocumentAnalysis,
   type EnquiryDraft,
 } from '@bm/shared';
 import { useMutation, useQuery } from '@tanstack/react-query';
@@ -25,6 +27,10 @@ export interface ChatTurn {
   asOf?: string;
   /** A change the assistant proposes; staff check it and confirm. */
   action?: { type: 'add_enquiry'; draft: EnquiryDraft } | null;
+  /** Names of files attached to a user turn. */
+  files?: string[];
+  /** What the assistant read from attached files, for staff to confirm. */
+  analysis?: DocumentAnalysis | null;
 }
 
 function readCache(): AssistantSnapshot | null {
@@ -121,6 +127,59 @@ export function useAskAssistant(fresh?: AssistantSnapshot) {
       } catch (e) {
         const local = answerOffline(question, fresh);
         if (local) return local;
+        throw e;
+      }
+    },
+  });
+}
+
+const ANALYZE_TIMEOUT_MS = 150_000; // images on free models can be slow
+
+export class NeedsAiError extends Error {}
+
+/**
+ * Reads attached files with the AI model. Text can still be read on the
+ * device (customers with phone numbers, price lines) when offline or when no
+ * model answers; images need the model.
+ */
+export function useAnalyzeFiles() {
+  return useMutation({
+    mutationFn: async (input: {
+      message: string;
+      text: string;
+      images: string[];
+    }): Promise<ChatTurn> => {
+      const local = (): ChatTurn | null => {
+        if (!input.text) return null;
+        const a = analyzeTextByRules(`${input.message}\n${input.text}`, todayIST());
+        return { role: 'assistant', content: a.summary, source: 'offline', analysis: a };
+      };
+      if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+        const l = local();
+        if (l) return l;
+        throw new NeedsAiError('offline');
+      }
+      const call = requireSupabase().functions.invoke('ai', {
+        body: {
+          action: 'analyze',
+          message: input.message || null,
+          text: input.text || null,
+          images: input.images,
+        },
+      });
+      const timeout = new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('timeout')), ANALYZE_TIMEOUT_MS),
+      );
+      try {
+        const { data, error } = await Promise.race([call, timeout]);
+        if (error) throw error;
+        const a = data as DocumentAnalysis & { source: AiSource };
+        return { role: 'assistant', content: a.summary, source: a.source, analysis: a };
+      } catch (e) {
+        const l = local();
+        if (l) return l;
+        const status = (e as { context?: Response }).context?.status;
+        if (status === 409) throw new NeedsAiError('needs_ai');
         throw e;
       }
     },

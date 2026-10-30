@@ -8,6 +8,7 @@ import { addDays, formatEventDate } from './dates.ts';
 import { formatINR } from './money.ts';
 
 export interface SnapshotBooking {
+  id?: string;
   date: string;
   shift: string;
   space: string;

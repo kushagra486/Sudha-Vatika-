@@ -7,3 +7,4 @@ export * from './templates.ts';
 export * from './ai.ts';
 export * from './assistant.ts';
 export * from './followups.ts';
+export * from './documents.ts';

@@ -347,3 +347,25 @@ Files go into the private `media` bucket under `<org_id>/…`, which is what the
   - `upi_id`, checked against the UPI ID format.
 
   They go into the ready-made WhatsApp messages, sent by click-to-chat as with all messages.
+
+## D45: Assistant reads photos, PDFs, documents and screenshots
+
+- **What you can attach:** up to 4 files per message, using 📎 in the assistant chat.
+- **How each file is read, in the browser:**
+  - Photos and screenshots are shrunk to JPEGs (long side 1600px).
+  - PDFs are read with pdf.js, up to 8 pages. Scanned pages, which have no text layer, are sent as images.
+  - Word `.docx` files are read with mammoth.
+  - `.txt` and `.csv` files are read as plain text.
+  - pdf.js and mammoth load only when a file of their type is picked.
+- **The `ai` function's `analyze` action** works out what kind of document it is and returns, for staff to confirm:
+  - enquiries
+  - price-list services
+  - a payment
+  - bill lines
+- **Matching to an event:** the caller's upcoming bookings, now with their ids (migration `snapshot_booking_ids`), are sent along. A receipt or bill can then name its booking; any id we didn't list is dropped.
+- **Saving:** every part is saved by the existing hooks, with the person's own access rights:
+  - enquiries: `useAddListCustomers` (new enquiry, or a note on the guest's open one)
+  - services: `useSaveService` (names already in Services are skipped)
+  - payment: `useRecordPayment` (the first payment counts as the advance)
+  - bill lines: `booking_items`
+- **Without the AI model:** typed text and text files are still read for customers and price lines, including offline. Photos need the model.

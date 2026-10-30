@@ -6,6 +6,8 @@
 //   extract_list  typed list or photo of a written page -> customers
 //   draft_reply   a ready-to-send WhatsApp reply for a lead
 //   upsell        services and packages worth offering a lead
+//   analyze       photos / PDFs / documents / screenshots -> enquiries, prices,
+//                 payments or bill lines for staff to confirm
 //
 // Every provider with a key is tried in turn until one answers (AI_PROVIDER
 // goes first, otherwise this order):
@@ -36,6 +38,10 @@ import {
   type AssistantSnapshot,
   type EnquiryDraft,
 } from '../../../packages/shared/src/assistant.ts';
+import {
+  analyzeTextByRules,
+  type DocumentAnalysis,
+} from '../../../packages/shared/src/documents.ts';
 import { formatEventDate, todayIST } from '../../../packages/shared/src/dates.ts';
 import { formatINR } from '../../../packages/shared/src/money.ts';
 import { corsHeaders, fail, getCaller, json, type Caller } from '../_shared/http.ts';
@@ -150,6 +156,50 @@ const ListSchema = z.object({
     .max(100),
 });
 
+const AnalyzeSchema = z.object({
+  kind: z
+    .enum(['enquiries', 'price_list', 'payment', 'invoice', 'event_details', 'other'])
+    .describe(
+      'enquiries = list of leads / phone numbers / event requests; price_list = menu or rate card; payment = receipt or UPI/bank screenshot; invoice = bill or quotation with lines for one event; event_details = one guest describing their event',
+    ),
+  summary: z.string().describe('One or two short lines for the staff: what this is'),
+  booking_id: z
+    .string()
+    .nullable()
+    .describe('id copied exactly from the bookings list when the document is about one of them'),
+  enquiries: ListSchema.shape.customers.describe(
+    'People to add as enquiries (also for event_details: the one guest)',
+  ),
+  services: z
+    .array(
+      z.object({
+        name: z.string(),
+        price: z.number().describe('Rupees'),
+        pricing_unit: z.enum(['fixed', 'per_guest', 'per_day']).describe('per plate = per_guest'),
+        group: z.string().nullable().describe('Section heading, e.g. Catering, Decor'),
+      }),
+    )
+    .max(150),
+  payment: z
+    .object({
+      amount: z.number().describe('Rupees received'),
+      method: z.enum(['cash', 'upi', 'card', 'bank', 'other']),
+      reference: z.string().nullable().describe('UTR / transaction id / cheque no.'),
+      date: z.string().nullable().describe('YYYY-MM-DD'),
+      payer: z.string().nullable(),
+    })
+    .nullable(),
+  line_items: z
+    .array(
+      z.object({
+        description: z.string(),
+        quantity: z.number().int().min(1),
+        unit_price: z.number().describe('Rupees per unit'),
+      }),
+    )
+    .max(100),
+});
+
 const UpsellSchema = z.object({
   ideas: z
     .array(
@@ -166,7 +216,8 @@ const UpsellSchema = z.object({
 
 interface AskOptions {
   effort: 'low' | 'medium';
-  image?: string;
+  /** data:image/...;base64 URLs: photos, screenshots, scanned PDF pages. */
+  images?: string[];
   /** Per-provider time limit; the whole chain can take a multiple of it. */
   timeoutMs?: number;
   maxTokens?: number;
@@ -186,7 +237,7 @@ async function askClaude<T extends z.ZodType>(
   prompt: string,
   o: AskOptions,
 ): Promise<z.infer<T> | null> {
-  const img = o.image ? splitDataUrl(o.image) : null;
+  const imgs = (o.images ?? []).map(splitDataUrl).filter((x) => !!x);
   const res = await anthropic!.beta.messages.parse(
     {
       model: modelsFor('anthropic')[0]!,
@@ -197,13 +248,13 @@ async function askClaude<T extends z.ZodType>(
       messages: [
         {
           role: 'user',
-          content: img
+          content: imgs.length
             ? [
-                {
-                  type: 'image',
-                  source: { type: 'base64', media_type: img.mediaType, data: img.data },
-                },
-                { type: 'text', text: prompt },
+                ...imgs.map((img) => ({
+                  type: 'image' as const,
+                  source: { type: 'base64' as const, media_type: img.mediaType, data: img.data },
+                })),
+                { type: 'text' as const, text: prompt },
               ]
             : prompt,
         },
@@ -243,17 +294,17 @@ async function askOpenAiCompatible<T extends z.ZodType>(
       },
       {
         role: 'user',
-        content: o.image
+        content: o.images?.length
           ? [
               { type: 'text', text: prompt },
-              { type: 'image_url', image_url: { url: o.image } },
+              ...o.images.map((url) => ({ type: 'image_url', image_url: { url } })),
             ]
           : prompt,
       },
     ],
     response_format: { type: 'json_object' },
     temperature: 0.2,
-    max_tokens: o.maxTokens ?? (o.image ? 6000 : 4000),
+    max_tokens: o.maxTokens ?? (o.images?.length ? 6000 : 4000),
   };
   if (Array.isArray(model)) body.models = model;
   else body.model = model;
@@ -270,7 +321,7 @@ async function askOpenAiCompatible<T extends z.ZodType>(
       'X-Title': 'Banquet Manager',
     },
     body: JSON.stringify(body),
-    signal: AbortSignal.timeout(o.timeoutMs ?? (o.image ? 90_000 : 40_000)),
+    signal: AbortSignal.timeout(o.timeoutMs ?? (o.images?.length ? 90_000 : 40_000)),
   });
   if (!res.ok) {
     note(provider, `HTTP ${res.status}: ${(await res.text()).slice(0, 300)}`);
@@ -315,7 +366,7 @@ async function tryProvider<T extends z.ZodType>(
     return askOpenAiCompatible(p, models.length > 1 ? models : models[0]!, schema, prompt, o);
   // Groq takes one model per call: images need its vision model, otherwise
   // fall through the list (a busy or retired model returns an error).
-  for (const m of o.image ? [GROQ_VISION] : models) {
+  for (const m of o.images?.length ? [GROQ_VISION] : models) {
     const r = await askOpenAiCompatible(p, m, schema, prompt, o);
     if (r) return r;
   }
@@ -559,8 +610,9 @@ async function extractList(text: string | null, image: string | null) {
   const today = todayIST();
   const prompt = `Today is ${today}. Venue staff wrote this list of customers (typed or handwritten, English or Hindi).
 Return one entry per customer. Copy each phone number's digits exactly as written. Use null for anything not written.${text ? `\n\n"""\n${text}\n"""` : ''}`;
-  const llm = (await ask(ListSchema, prompt, { effort: 'medium', image: image ?? undefined }))
-    ?.data;
+  const llm = (
+    await ask(ListSchema, prompt, { effort: 'medium', images: image ? [image] : undefined })
+  )?.data;
   const rules = text ? extractListByRules(text, today) : [];
   if (llm) {
     const byPhone = new Map(rules.map((r) => [digits(r.phone), r]));
@@ -572,6 +624,60 @@ Return one entry per customer. Copy each phone number's digits exactly as writte
   }
   if (!text) return null; // a photo can only be read by an AI model
   return { customers: rules, source: 'rules' as AiSource };
+}
+
+/**
+ * Photos, scanned or text PDFs, documents and screenshots -> what to add.
+ * The caller's upcoming bookings are listed so a receipt or bill can be
+ * matched to its event. Returns null when only an AI model could read it.
+ */
+async function analyze(
+  c: Caller,
+  message: string | null,
+  text: string | null,
+  images: string[],
+): Promise<(DocumentAnalysis & { source: AiSource }) | null> {
+  const today = todayIST();
+  const { data: snap } = await c.client.rpc('assistant_snapshot');
+  const s = snap as AssistantSnapshot | null;
+  const bookings = (s?.bookings ?? [])
+    .filter((b) => b.id && b.date >= today)
+    .slice(0, 80)
+    .map((b) => ({
+      id: b.id,
+      date: b.date,
+      guest: b.guest,
+      phone: b.phone,
+      event: b.event,
+      space: b.space,
+    }));
+  const prompt = `Today is ${today}. Venue staff shared ${images.length ? `${images.length} image(s)` : 'a document'}${message ? ` with this note: "${message}"` : ''}.
+Work out what it is and pull out everything useful for the venue's records. Copy phone digits, amounts and names exactly as written; use null or empty lists for anything not present. Never invent details.
+Upcoming bookings (match booking_id only when the guest name, phone or date clearly matches):
+${JSON.stringify(bookings)}
+${text ? `\nDocument text:\n"""\n${text.slice(0, 30_000)}\n"""` : ''}`;
+  const llm = (
+    await ask(AnalyzeSchema, prompt, {
+      effort: 'medium',
+      images: images.length ? images : undefined,
+      maxTokens: 8000,
+    })
+  )?.data;
+  const rules = text ? analyzeTextByRules(`${message ?? ''}\n${text}`, today) : null;
+  if (!llm) return rules ? { ...rules, source: 'rules' } : null;
+
+  // Keep only a booking we actually listed; fill gaps the rules can read.
+  const ids = new Set(bookings.map((b) => b.id));
+  const byPhone = new Map((rules?.enquiries ?? []).map((r) => [digits(r.phone), r]));
+  return {
+    ...llm,
+    booking_id: llm.booking_id && ids.has(llm.booking_id) ? llm.booking_id : null,
+    enquiries: (llm.enquiries as ListedCustomer[]).map((e) => {
+      const r = byPhone.get(digits(e.phone));
+      return r ? fillGaps(e, r, ['event_date', 'guest_count', 'budget_max', 'event_type']) : e;
+    }),
+    source: 'llm',
+  };
 }
 
 // ------------------------------------------------------------------ chat
@@ -674,6 +780,20 @@ const Body = z.discriminatedUnion('action', [
       .nullish(),
   }),
   z.object({
+    action: z.literal('analyze'),
+    message: z.string().max(2000).nullish(),
+    text: z.string().max(60_000).nullish(),
+    images: z
+      .array(
+        z
+          .string()
+          .max(6_000_000)
+          .regex(/^data:image\/(jpeg|png|webp|gif);base64,/),
+      )
+      .max(4)
+      .default([]),
+  }),
+  z.object({
     action: z.literal('upsell'),
     lead_id: z.string().uuid().nullish(),
     booking_id: z.string().uuid().nullish(),
@@ -712,6 +832,11 @@ Deno.serve(async (req) => {
     case 'extract_list': {
       if (!b.text?.trim() && !b.image) return fail('bad_request', 400);
       const r = await extractList(b.text?.trim() || null, b.image ?? null);
+      return r ? json(r) : fail('needs_ai', 409);
+    }
+    case 'analyze': {
+      if (!b.text?.trim() && !b.images.length) return fail('bad_request', 400);
+      const r = await analyze(caller, b.message?.trim() || null, b.text?.trim() || null, b.images);
       return r ? json(r) : fail('needs_ai', 409);
     }
     case 'draft_reply': {
