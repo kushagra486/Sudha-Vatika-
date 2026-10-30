@@ -1,8 +1,9 @@
-// AI assistant for the venue team. Three actions, all scoped to the caller's
+// AI assistant for the venue team. Every action is scoped to the caller's
 // organization through their own JWT (RLS applies to every read):
-//   extract      WhatsApp / call text -> enquiry fields
-//   draft_reply  a ready-to-send WhatsApp reply for a lead
-//   upsell       services and packages worth offering a lead
+//   extract       WhatsApp / call text -> enquiry fields
+//   extract_list  typed list or photo of a written page -> customers
+//   draft_reply   a ready-to-send WhatsApp reply for a lead
+//   upsell        services and packages worth offering a lead
 //
 // Provider is picked from whichever key is set (or AI_PROVIDER):
 //   GROQ_API_KEY        Groq (free tier)            default model openai/gpt-oss-120b
@@ -126,7 +127,6 @@ const UpsellSchema = z.object({
 
 // ------------------------------------------------------------------ model calls
 
-/** Claude: structured outputs, with the server-side refusal fallback. */
 /** "data:image/jpeg;base64,..." -> media type and base64 data. */
 function splitDataUrl(url: string) {
   const m = url.match(/^data:(image\/(?:jpeg|png|webp|gif));base64,(.+)$/);
@@ -135,6 +135,7 @@ function splitDataUrl(url: string) {
     : null;
 }
 
+/** Claude: structured outputs, with the server-side refusal fallback. */
 async function askClaude<T extends z.ZodType>(
   schema: T,
   prompt: string,
