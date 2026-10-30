@@ -140,6 +140,7 @@ export const en = {
       booked: 'Booked',
       upcoming: 'Opening soon',
       created: 'Enquiry received',
+      whatsappNumber: 'WhatsApp number',
       clearFollowUp: 'Clear',
     },
     lostReasons: [

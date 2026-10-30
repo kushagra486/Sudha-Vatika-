@@ -51,19 +51,14 @@
     <main id="main">
       <!-- Hero -->
       <section id="top" class="hero">
-        <!-- Silent loop of the pandaal aisle; the poster shows while it loads or when motion is reduced. -->
-        <video
-          class="hero-media hero-video"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="metadata"
-          poster="videos/pandaal-video-01.jpg"
-          aria-hidden="true"
-        >
-          <source src="videos/hero-loop.mp4" type="video/mp4" />
-        </video>
+        <img
+          class="hero-media hero-photo"
+          src="images/cover.jpg"
+          alt="The pandaal at Sudha Vatika: golden drapes, hanging-flower chandeliers and the floral stage"
+          fetchpriority="high"
+          width="1200"
+          height="1600"
+        />
         <div class="hero-overlay"></div>
         <div class="wrap hero-content">
           <p class="eyebrow">Weddings · Parties · Events · Functions · Meetings</p>
@@ -89,8 +84,8 @@
       <section class="stats" aria-label="At a glance">
         <div class="wrap stats-row">
           <div><strong>1,500</strong><span>guests in the pandaal</span></div>
-          <div><strong>3</strong><span>event spaces open now</span></div>
-          <div><strong>8</strong><span>hotel rooms</span></div>
+          <div><strong>4</strong><span>event spaces</span></div>
+          <div><strong>3</strong><span>hotel rooms</span></div>
           <div><strong>6</strong><span>dormitory rooms</span></div>
         </div>
       </section>
@@ -101,16 +96,24 @@
           <div>
             <p class="eyebrow">About us</p>
             <h2>A venue for your family's biggest days</h2>
-            <!-- TODO: about text: history, family, what makes Sudha Vatika special. -->
-            <p class="todo-text">
-              About text coming soon: the story of Sudha Vatika, how long we have been hosting
-              celebrations, and what guests love about us.
+            <p>
+              Sudha Vatika is a family-run venue on the old Kanpur Road in Dhoomanganj, Prayagraj,
+              celebrating weddings, parties, events, functions and meetings. Everything is in one
+              place: a grand pandaal, an air-conditioned hall, an open lawn, rooms and a dormitory
+              for your guests (our guest house), and a decor team to dress it all for your function.
             </p>
-            <p class="todo-text">A second paragraph on hospitality, food and service.</p>
+            <p>
+              <a href="about.html" class="btn btn-ghost-dark" style="margin-left: 0"
+                >More about us</a
+              >
+            </p>
           </div>
-          <div class="ph ph-tall todo" aria-hidden="true">
-            <span>Photo: entrance / family</span>
-          </div>
+          <a href="pandaal.html" class="stay-photo"
+            ><img
+              src="images/pandaal/pandaal-04-sm.jpg"
+              alt="The pandaal under golden drapes"
+              loading="lazy"
+          /></a>
         </div>
       </section>
 
@@ -133,7 +136,7 @@
               <div class="card-body">
                 <h3><a href="pandaal.html">Pandaal</a></h3>
                 <p class="cap">Up to 1,500 guests</p>
-                <p class="todo-text">For grand weddings and receptions.</p>
+                <p>For grand weddings and receptions.</p>
               </div>
             </article>
             <article class="card">
@@ -149,7 +152,7 @@
               <div class="card-body">
                 <h3><a href="ashoka-hall.html">Ashoka Hall</a></h3>
                 <p class="cap">Up to 300 guests</p>
-                <p class="todo-text">Indoor hall for receptions, engagements and parties.</p>
+                <p>Indoor hall for receptions, engagements and parties.</p>
               </div>
             </article>
             <article class="card">
@@ -165,7 +168,7 @@
               <div class="card-body">
                 <h3><a href="lawn.html">Lawn</a></h3>
                 <p class="cap">Up to 300 guests</p>
-                <p class="todo-text">Open-air functions: haldi, mehendi, sangeet.</p>
+                <p>Open-air functions: haldi, mehendi, sangeet.</p>
               </div>
             </article>
             <article class="card">
@@ -178,23 +181,7 @@
               <div class="card-body">
                 <h3><a href="conference.html">Meeting &amp; Conference Hall</a></h3>
                 <p class="cap">Up to 200 guests</p>
-                <p class="todo-text">Corporate meetings, seminars and small gatherings.</p>
-              </div>
-            </article>
-            <article class="card soon">
-              <div class="ph todo" aria-hidden="true"><span>Photo: Poolside Hall</span></div>
-              <div class="card-body">
-                <h3>Poolside Hall <span class="badge">Opening soon</span></h3>
-                <p class="cap">Up to 200 guests</p>
-              </div>
-            </article>
-            <article class="card soon">
-              <div class="ph todo" aria-hidden="true">
-                <span>Photo: Pool &amp; Restaurant</span>
-              </div>
-              <div class="card-body">
-                <h3>Pool &amp; Restaurant <span class="badge">Opening soon</span></h3>
-                <p class="cap">Restaurant for 50 guests</p>
+                <p>Corporate meetings, seminars and small gatherings.</p>
               </div>
             </article>
           </div>
@@ -214,7 +201,7 @@
             <p class="eyebrow">Stay</p>
             <h2>Rooms for the family and the baraat</h2>
             <p>
-              Keep everyone together: <strong>8 hotel rooms</strong> and
+              Keep everyone together: <strong>3 hotel rooms</strong> and
               <strong>6 dormitory rooms</strong> right at the venue, booked along with your event.
             </p>
             <ul class="ticks">
@@ -272,7 +259,6 @@
         <div class="wrap">
           <p class="eyebrow">Facilities</p>
           <h2>Everything in one place</h2>
-          <!-- TODO: confirm and complete this list (catering, decor, DJ, parking, power backup…). -->
           <ul class="features">
             <li><span class="icon" aria-hidden="true">🏛️</span>Banquet halls</li>
             <li><span class="icon" aria-hidden="true">🌿</span>Open lawn</li>
@@ -280,14 +266,9 @@
             <li><span class="icon" aria-hidden="true">🛏️</span>Hotel rooms</li>
             <li><span class="icon" aria-hidden="true">🏠</span>Dormitory</li>
             <li><span class="icon" aria-hidden="true">💼</span>Conference hall</li>
-            <li class="todo-text">
-              <span class="icon" aria-hidden="true">🍽️</span>Catering (to confirm)
-            </li>
-            <li class="todo-text">
-              <span class="icon" aria-hidden="true">💐</span>Decor (to confirm)
-            </li>
-            <li class="todo-text">
-              <span class="icon" aria-hidden="true">🚗</span>Parking (to confirm)
+            <li>
+              <span class="icon" aria-hidden="true">🎊</span
+              ><a href="decor.html">Decor &amp; stages</a>
             </li>
           </ul>
         </div>
@@ -370,27 +351,6 @@
             <a href="ashoka-hall.html" class="btn btn-maroon">Ashoka Hall photos &amp; videos</a>
             <a href="lawn.html" class="btn btn-maroon">Lawn photos &amp; videos</a>
           </p>
-        </div>
-      </section>
-
-      <!-- Reviews -->
-      <section id="reviews" class="section section-alt">
-        <div class="wrap">
-          <p class="eyebrow">Reviews</p>
-          <h2>What families say</h2>
-          <!-- TODO: real guest reviews (with permission) and the Google review link. -->
-          <div class="quotes">
-            <blockquote class="todo-text">
-              “A guest review will go here.”<cite>Guest name, event</cite>
-            </blockquote>
-            <blockquote class="todo-text">
-              “A guest review will go here.”<cite>Guest name, event</cite>
-            </blockquote>
-            <blockquote class="todo-text">
-              “A guest review will go here.”<cite>Guest name, event</cite>
-            </blockquote>
-          </div>
-          <a href="#reviews" class="btn btn-maroon todo">Read our reviews on Google</a>
         </div>
       </section>
 

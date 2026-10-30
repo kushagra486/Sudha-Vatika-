@@ -30,11 +30,14 @@ export function FollowUpBadge({ at }: { at: string | null }) {
 
 export function ContactButtons({
   phone,
+  whatsapp,
   whatsappAllowed,
   size = 'icon',
   className,
 }: {
   phone: string;
+  /** The guest's WhatsApp number when it differs from their phone. */
+  whatsapp?: string | null;
   whatsappAllowed: boolean;
   size?: 'icon' | 'sm';
   className?: string;
@@ -51,7 +54,7 @@ export function ContactButtons({
       {whatsappAllowed && (
         <Button asChild variant="outline" size={size} aria-label={t.common.whatsapp}>
           <a
-            href={whatsappHref(phone)}
+            href={whatsappHref(whatsapp || phone)}
             target="_blank"
             rel="noreferrer"
             onClick={(e) => e.stopPropagation()}

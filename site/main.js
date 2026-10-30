@@ -159,6 +159,21 @@ if (form) {
   const startedAt = Date.now();
   const errorEl = form.querySelector('.form-error');
   const done = document.querySelector('.enquiry-done');
+  // "WhatsApp number is the same": skip the extra field and copy the phone number into it.
+  const phoneInput = form.querySelector('input[name="phone"]');
+  const sameBox = form.querySelector('input[name="whatsapp_same"]');
+  const waField = form.querySelector('.wa-field');
+  const waInput = form.querySelector('input[name="whatsapp"]');
+  const syncWhatsapp = () => {
+    const same = sameBox.checked;
+    waField.hidden = same;
+    waInput.required = !same;
+    if (same) waInput.value = phoneInput.value;
+    else if (waInput.value === phoneInput.value) waInput.value = '';
+  };
+  sameBox.addEventListener('change', syncWhatsapp);
+  phoneInput.addEventListener('input', () => sameBox.checked && (waInput.value = phoneInput.value));
+  syncWhatsapp();
   const button = form.querySelector('button[type="submit"]');
   const showError = (msg) => {
     errorEl.textContent = msg;
@@ -172,10 +187,16 @@ if (form) {
     if (String(fd.get('name') || '').trim().length < 2) return showError('Please enter your name.');
     if (!/^(91)?[6-9]\d{9}$/.test(phone.replace(/^0/, '')))
       return showError('Please enter a 10-digit mobile number.');
+    const same = sameBox.checked;
+    const wa = same ? phone : String(fd.get('whatsapp') || '').replace(/\D/g, '');
+    if (!same && !/^(91)?[6-9]\d{9}$/.test(wa.replace(/^0/, '')))
+      return showError('Please enter your 10-digit WhatsApp number, or tick "same as phone".');
     if (!fd.get('event_type')) return showError('Please choose the event type.');
     const body = {
       name: String(fd.get('name')).trim(),
       phone,
+      whatsapp_same: same,
+      whatsapp: same ? '' : wa,
       email: String(fd.get('email') || '').trim(),
       event_type: String(fd.get('event_type')),
       event_date: String(fd.get('event_date') || ''),

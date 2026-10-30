@@ -154,6 +154,7 @@ function LeadRow({ lead }: { lead: LeadListItem }) {
       </Link>
       <ContactButtons
         phone={lead.guest.phone_e164}
+        whatsapp={lead.guest.whatsapp_e164}
         whatsappAllowed={lead.guest.whatsapp_opt_in}
         className="shrink-0 flex-col sm:flex-row"
       />

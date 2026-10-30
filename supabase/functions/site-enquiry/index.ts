@@ -5,9 +5,13 @@
 // minimum time on the form, and per-connection / daily caps.
 import { z } from 'npm:zod@4.6.7';
 import { findOrCreateGuest, openLeadFor } from '../_shared/guests.ts';
+import { enquiryMail, sendMail } from '../_shared/email.ts';
 import { adminClient } from '../_shared/http.ts';
 
+// Where staff open the lead from the email. Override with the DASHBOARD_URL secret.
+const DASHBOARD_URL = Deno.env.get('DASHBOARD_URL') ?? 'https://sudha-vatika.netlify.app';
 const ALLOWED = [
+  'https://kushagra486.github.io',
   'https://sudhavatika.netlify.app',
   'http://localhost:8765',
   'http://127.0.0.1:8765',
@@ -27,6 +31,9 @@ function cors(origin: string | null) {
 const Form = z.object({
   name: z.string().trim().min(2).max(80),
   phone: z.string().trim().min(8).max(20),
+  // WhatsApp number; empty or "same" = the phone number above.
+  whatsapp_same: z.boolean().optional(),
+  whatsapp: z.string().trim().max(20).optional().or(z.literal('')),
   email: z.string().trim().email().max(120).optional().or(z.literal('')),
   event_type: z.string().trim().max(40),
   event_date: z
@@ -85,6 +92,10 @@ Deno.serve(async (req) => {
   const phone = indianPhone(f.phone);
   if (!phone) return reply({ error: 'invalid', fields: ['phone'] }, 400);
 
+  const sameWhatsapp = f.whatsapp_same !== false || !f.whatsapp;
+  const whatsapp = sameWhatsapp ? phone : indianPhone(f.whatsapp!);
+  if (!whatsapp) return reply({ error: 'invalid', fields: ['whatsapp'] }, 400);
+
   const admin = adminClient();
   const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const who = await hash(`${ip}|${Deno.env.get('SUPABASE_URL')}`);
@@ -124,6 +135,11 @@ Deno.serve(async (req) => {
   if (!guestId) return reply({ error: 'save_failed' }, 500);
   if (f.email)
     await admin.from('guests').update({ email: f.email }).eq('id', guestId).is('email', null);
+  // The number they want WhatsApp messages on (the dashboard's WhatsApp buttons use it).
+  await admin
+    .from('guests')
+    .update({ whatsapp_e164: whatsapp === phone ? null : whatsapp })
+    .eq('id', guestId);
   const leadId = await openLeadFor(admin, orgId, guestId, 'web');
   if (!leadId) return reply({ error: 'save_failed' }, 500);
 
@@ -163,6 +179,7 @@ Deno.serve(async (req) => {
   const lines = [
     'Website enquiry',
     `Name: ${f.name}`,
+    whatsapp === phone ? 'WhatsApp: same as phone' : `WhatsApp: ${whatsapp}`,
     `Event: ${f.event_type}${f.event_date ? ` on ${f.event_date}` : ''}${f.flexible_date ? ' (date flexible)' : ''}`,
     f.guests ? `Guests: about ${f.guests}` : null,
     f.budget ? `Budget in mind: Rs ${Number(f.budget).toLocaleString('en-IN')}` : null,
@@ -185,5 +202,47 @@ Deno.serve(async (req) => {
     body: lines.join('\n'),
     status: 'received',
   });
+
+  // Tell the team by email. Best effort: the enquiry is already saved, and a
+  // failure is recorded (inbound_events 'site_email') so it can be seen and fixed.
+  const row = (k: string, v: string | number | null | undefined): [string, string][] =>
+    v === null || v === undefined || v === '' ? [] : [[k, String(v)]];
+  const mail = enquiryMail({
+    name: f.name,
+    phone,
+    whatsapp,
+    email: f.email || undefined,
+    rows: [
+      ...row('Event', f.event_type),
+      ...row(
+        'Date',
+        f.event_date
+          ? `${f.event_date}${f.flexible_date ? ' (flexible)' : ''}`
+          : f.flexible_date
+            ? 'Flexible'
+            : '',
+      ),
+      ...row('Guests', f.guests ? `about ${f.guests}` : ''),
+      ...row('Budget in mind', f.budget ? `Rs ${Number(f.budget).toLocaleString('en-IN')}` : ''),
+      ...row('Space', f.space && f.space !== 'Not sure' ? f.space : ''),
+      ...row('Time of day', f.time_of_day),
+      ...row('Stay', f.rooms),
+      ...row('Interested in', f.services?.join(', ')),
+      ...row('Site visit', f.site_visit ? 'Yes, would like to visit' : ''),
+      ...row('Best time to call', f.call_time),
+      ...row('Heard about us', f.heard_from),
+    ],
+    questions: f.questions || undefined,
+    leadUrl: `${DASHBOARD_URL}/leads/${leadId}`,
+  });
+  const failure = await sendMail(mail, f.email || undefined);
+  await admin.from('inbound_events').insert({
+    provider: 'site_email',
+    external_id: `${leadId}:${Date.now()}`,
+    payload: { to_count: 2, ok: !failure },
+    error: failure,
+    processed_at: new Date().toISOString(),
+  });
+  if (failure) console.error('enquiry email failed', failure);
   return reply({ ok: true });
 });

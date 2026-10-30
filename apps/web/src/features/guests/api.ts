@@ -7,6 +7,7 @@ export interface GuestRow {
   id: string;
   full_name: string | null;
   phone_e164: string;
+  whatsapp_e164?: string | null;
   email: string | null;
   whatsapp_opt_in: boolean;
   notes: string | null;
@@ -73,7 +74,7 @@ export function useGuest(id: string) {
       const { data, error } = await requireSupabase()
         .from('guests')
         .select(
-          'id, full_name, phone_e164, email, whatsapp_opt_in, notes, created_at, ' +
+          'id, full_name, phone_e164, whatsapp_e164, email, whatsapp_opt_in, notes, created_at, ' +
             'leads(id, stage, event_type, event_date, created_at), ' +
             'bookings(id, event_date, shift, status, event_type, unit:units(name)), ' +
             'stays:room_stays(id, check_in, check_out, rooms, status, unit:units(name))',

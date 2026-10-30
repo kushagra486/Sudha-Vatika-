@@ -96,7 +96,7 @@
                   >Your name *<input name="name" autocomplete="name" required minlength="2"
                 /></label>
                 <label
-                  >Phone (WhatsApp) *<input
+                  >Phone number *<input
                     name="phone"
                     type="tel"
                     inputmode="tel"
@@ -105,6 +105,20 @@
                     placeholder="98765 43210"
                 /></label>
               </div>
+              <label class="check"
+                ><input type="checkbox" name="whatsapp_same" checked /> My WhatsApp number is the
+                same as this phone number</label
+              >
+              <label class="wa-field" hidden
+                >WhatsApp number *
+                <input
+                  name="whatsapp"
+                  type="tel"
+                  inputmode="tel"
+                  autocomplete="off"
+                  placeholder="98765 43210"
+                />
+              </label>
               <label
                 >Email <span class="opt">(optional)</span
                 ><input name="email" type="email" autocomplete="email"
@@ -190,7 +204,8 @@
                   ><input type="checkbox" name="services" value="Decor" /> Decor</label
                 >
                 <label class="chip"
-                  ><input type="checkbox" name="services" value="Catering" /> Catering</label
+                  ><input type="checkbox" name="services" value="Catering" /> Catering (on
+                  request)</label
                 >
                 <label class="chip"
                   ><input type="checkbox" name="services" value="DJ & music" /> DJ &amp;

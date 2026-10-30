@@ -59,14 +59,14 @@ SPACES.append(
         "file": "rooms.html",
         "key": "rooms",
         "name": "VIP Rooms",
-        "capacity": "8 rooms at the venue",
+        "capacity": "3 rooms now · more opening soon",
         "kicker": "Stay with us",
         "intro": (
             "Clean, comfortable rooms right at the venue so the family and the baraat can stay "
             "together: double beds, extra beds for families, attached bathrooms with hot water and a "
             "quiet sitting area."
         ),
-        "facts": ["8 rooms", "Attached bathrooms", "Hot water", "Extra beds for families", "AC rooms available"],
+        "facts": ["3 rooms", "More rooms opening soon", "Attached bathrooms", "Hot water", "Extra beds for families", "AC rooms available"],
         "hero": "rooms-02",
     }
 )
@@ -406,6 +406,7 @@ print("wrote location.html")
 
 WA = "https://wa.me/message/2NBASVQH2K5EJ1"  # official WhatsApp Business chat link (from their QR)
 IG = "https://www.instagram.com/sudha.vatika/"
+SITE_URL = "https://kushagra486.github.io/Sudha-Vatika-/"
 MAPS = "https://maps.app.goo.gl/UULQUpDEhLZk1mDw8"
 DIRECTIONS = "https://www.google.com/maps/dir/?api=1&destination=25.4490316,81.7775213"
 ADDRESS = (
@@ -470,6 +471,34 @@ def about_page():
           <h2>Halls, lawn, pandaal and rooms</h2>
           <div class="about-spaces">
 {cards}
+          </div>
+        </div>
+      </section>
+      <section id="guest-house" class="section section-alt">
+        <div class="wrap two-col">
+          <a href="rooms.html" class="stay-photo"><img src="images/rooms/rooms-02-sm.jpg" alt="A VIP room in the Sudha Vatika guest house" loading="lazy" /></a>
+          <div>
+            <p class="eyebrow">The Guest House</p>
+            <h2>A comfortable stay, right at the venue</h2>
+            <p>
+              Our guest house keeps the family and the baraat together under one roof, a few steps
+              from the function. Guests can rest, freshen up and get ready without travelling
+              across the city between ceremonies.
+            </p>
+            <ul class="ticks">
+              <li><strong>VIP rooms:</strong> 3 rooms ready now, with more opening soon.</li>
+              <li><strong>Comfortable rooms:</strong> double beds, extra beds for families, attached bathrooms with hot water.</li>
+              <li><strong>Dormitory:</strong> shared stay for larger groups and relatives.</li>
+              <li><strong>Easy and quiet:</strong> a calm sitting area, away from the noise of the function.</li>
+            </ul>
+            <p class="note-small">
+              Meals are not included with the stay. Food and catering are arranged only on your
+              request, so you choose what suits your function.
+            </p>
+            <div class="hero-actions">
+              <a href="rooms.html" class="btn btn-maroon">See the rooms</a>
+              <a href="dormitory.html" class="btn btn-ghost-dark">See the dormitory</a>
+            </div>
           </div>
         </div>
       </section>
@@ -571,8 +600,12 @@ def enquiry_page():
               <legend>About you</legend>
               <div class="row">
                 <label>Your name *<input name="name" autocomplete="name" required minlength="2" /></label>
-                <label>Phone (WhatsApp) *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="98765 43210" /></label>
+                <label>Phone number *<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required placeholder="98765 43210" /></label>
               </div>
+              <label class="check"><input type="checkbox" name="whatsapp_same" checked /> My WhatsApp number is the same as this phone number</label>
+              <label class="wa-field" hidden>WhatsApp number *
+                <input name="whatsapp" type="tel" inputmode="tel" autocomplete="off" placeholder="98765 43210" />
+              </label>
               <label>Email <span class="opt">(optional)</span><input name="email" type="email" autocomplete="email" /></label>
             </fieldset>
 
@@ -610,7 +643,7 @@ def enquiry_page():
               <legend>What would you like?</legend>
               <div class="chips">
                 <label class="chip"><input type="checkbox" name="services" value="Decor" /> Decor</label>
-                <label class="chip"><input type="checkbox" name="services" value="Catering" /> Catering</label>
+                <label class="chip"><input type="checkbox" name="services" value="Catering" /> Catering (on request)</label>
                 <label class="chip"><input type="checkbox" name="services" value="DJ & music" /> DJ &amp; music</label>
                 <label class="chip"><input type="checkbox" name="services" value="Photography" /> Photography</label>
                 <label class="chip"><input type="checkbox" name="services" value="Stage" /> Stage</label>

@@ -93,10 +93,16 @@ function LeadDetail({ lead }: { lead: Lead }) {
             {formatPhone(lead.guest.phone_e164)} · {t.leadSources[lead.source]} · {D.created}{' '}
             {formatDateTime(lead.created_at)}
           </p>
+          {lead.guest.whatsapp_e164 && lead.guest.whatsapp_e164 !== lead.guest.phone_e164 && (
+            <p className="text-sm text-muted-foreground">
+              {D.whatsappNumber}: {formatPhone(lead.guest.whatsapp_e164)}
+            </p>
+          )}
         </div>
         <div className="flex flex-wrap gap-2">
           <ContactButtons
             phone={lead.guest.phone_e164}
+            whatsapp={lead.guest.whatsapp_e164}
             whatsappAllowed={lead.guest.whatsapp_opt_in}
             size="sm"
           />
