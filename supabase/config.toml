@@ -1,0 +1,29 @@
+# Supabase CLI config for local development (`supabase start`).
+# Only settings that differ from CLI defaults are listed.
+project_id = "banquet-manager"
+
+[api]
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+
+[db]
+major_version = 15
+
+[db.seed]
+enabled = true
+sql_paths = ["./seed.sql"]
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173"]
+# Closed signup: owners invite staff (dashboard or admin API). Magic links
+# still work for invited users. See docs/DECISIONS.md.
+enable_signup = false
+
+[auth.email]
+enable_signup = false
+double_confirm_changes = true
+enable_confirmations = false
+
+[storage]
+file_size_limit = "16MiB"
