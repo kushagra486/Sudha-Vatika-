@@ -323,3 +323,10 @@ Files go into the private `media` bucket under `<org_id>/…`, which is what the
   - Typed lists also work without any key, using the rules (one customer per line, or per blank-line block, wherever there's a phone number).
   - Photos need an AI model.
   - Each customer becomes an enquiry, or updates the guest's open enquiry if they already have one.
+
+## D43 — Dashboard assistant, offline answers, provider chain
+
+- One RPC, `assistant_snapshot()`, gives the assistant everything it knows as compact JSON. It is SECURITY INVOKER, so RLS decides what each person sees: sales get only their own enquiries and no money.
+- The `ai` function's `chat` action sends that snapshot to the model, along with a built-in calculation of the answer, so small free models stay accurate. Viewers may use `chat`.
+- Providers are tried in turn: OpenRouter, then Groq, then Claude (AI_PROVIDER goes first). If none answers, `answerByRules()` replies. It handles English, Hinglish and Hindi.
+- The web app saves the latest snapshot on the device. When the phone is offline, or the server doesn't reply within 40 seconds, the app answers from that copy and labels the answer with when the data was saved. The copy is deleted on sign-out.
