@@ -34,6 +34,7 @@ export const hi: Translation = {
   nav: {
     dashboard: 'डैशबोर्ड',
     leads: 'पूछताछ',
+    calls: 'कॉल',
     chats: 'चैट',
     guests: 'मेहमान',
     bookings: 'बुकिंग',

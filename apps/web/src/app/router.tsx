@@ -13,6 +13,7 @@ import { CampaignsPage } from '@/features/messaging/CampaignsPage';
 import { ChatsPage, ChatThreadPage } from '@/features/messaging/ChatsPage';
 import { TemplatesPage } from '@/features/messaging/TemplatesPage';
 import { UpsellPage } from '@/features/ai/UpsellPage';
+import { CallsPage } from '@/features/calls/CallsPage';
 import { MediaPage } from '@/features/media/MediaPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
@@ -43,6 +44,7 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
   inventory: [{ path: 'inventory', element: <InventoryPage /> }],
   services: [{ path: 'services', element: <ServicesPage /> }],
   packages: [{ path: 'packages', element: <PackagesPage /> }],
+  calls: [{ path: 'calls', element: <CallsPage /> }],
   chats: [
     { path: 'chats', element: <ChatsPage /> },
     { path: 'chats/:guestId', element: <ChatThreadPage /> },
