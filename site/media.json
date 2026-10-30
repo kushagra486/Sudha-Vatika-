@@ -770,6 +770,47 @@
         }
       ],
       "videos": []
+    },
+    "conference": {
+      "photos": [
+        {
+          "file": "conference-01",
+          "hash": "9f1c47e49c9d7c24",
+          "score": 87.8,
+          "width": 1206,
+          "height": 552,
+          "alt": "Theatre-style seating for a meeting, with a head table",
+          "source": "90157436-image.jpg"
+        },
+        {
+          "file": "conference-02",
+          "hash": "be96818b83411913",
+          "score": 77.5,
+          "width": 1206,
+          "height": 537,
+          "alt": "Rows of covered chairs set up for a seminar",
+          "source": "a2d08ab7-image.jpg"
+        },
+        {
+          "file": "conference-03",
+          "hash": "4d64aaa9796b3935",
+          "score": 91.7,
+          "width": 1206,
+          "height": 792,
+          "alt": "Round-table setup with sofas under crystal chandeliers",
+          "source": "ff8fe408-image.jpg"
+        },
+        {
+          "file": "conference-04",
+          "hash": "524d6fcfa9c61d39",
+          "score": 93.2,
+          "width": 1206,
+          "height": 801,
+          "alt": "Round tables, sofa seating and a stage for a function",
+          "source": "f55b4cc3-image.jpg"
+        }
+      ],
+      "videos": []
     }
   }
 }

@@ -87,6 +87,23 @@ SPACES.append(
     }
 )
 
+SPACES.insert(
+    3,
+    {
+        "file": "conference.html",
+        "key": "conference",
+        "name": "Meeting & Conference Hall",
+        "capacity": "Up to 200 guests",
+        "kicker": "Meetings · Seminars · Corporate events",
+        "intro": (
+            "An air-conditioned hall for meetings, seminars and corporate events: theatre-style "
+            "rows with a head table, or round tables with sofa seating, set up to suit your programme."
+        ),
+        "facts": ["Up to 200 guests", "Air-conditioned", "Theatre or round-table seating", "Head table & stage"],
+        "hero": "conference-01",
+    },
+)
+
 MEDIA = json.loads((SITE / "media.json").read_text())["spaces"]
 PAGES = [s["file"] for s in SPACES]
 
@@ -148,7 +165,7 @@ def nav(current):
     return HEADER.replace(
         "{links}",
         "\n".join(
-            f'          <a href="{f}"{cur if f == current else ""}>{escape(n)}</a>' for f, n in links
+            f'          <a href="{f}"{cur if f == current else ""}>{escape(n.replace("Meeting & Conference Hall", "Conference"))}</a>' for f, n in links
         ),
     )
 
