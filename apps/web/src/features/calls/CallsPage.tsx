@@ -182,7 +182,8 @@ function Who({ call }: { call: InboxCall }) {
         {call.call_at
           ? call.call_label?.includes(':')
             ? formatDateTime(call.call_at)
-            : formatEventDate(call.call_at.slice(0, 10))
+            : // Midnight India time is the previous day in UTC: read the date in IST.
+              formatEventDate(todayIST(new Date(call.call_at)))
           : call.call_label}
       </p>
     </div>
