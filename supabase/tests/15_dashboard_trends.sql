@@ -1,6 +1,10 @@
 -- Month comparison and tonight's rooms.
 begin;
 
+-- Leads from the seed and other fixtures are stamped with the real clock; move them out of the
+-- months under test so this file passes whenever it runs.
+update leads set created_at = '2026-01-15 10:00+05:30';
+
 -- Pin data: two leads this month (Nov 2026), one last month, one booking and payment.
 insert into leads (org_id, guest_id, source, created_at) values
   ('00000000-0000-4000-a000-000000000001', '00000000-0000-4000-a000-000000000701', 'call', '2026-11-03 10:00+05:30'),
