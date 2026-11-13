@@ -1,0 +1,44 @@
+# Builds the Sudha Vatika dashboard Android app (a wrapper around the live dashboard) and
+# uploads the APK as a downloadable artifact on the run page.
+name: Build Android dashboard app
+
+on:
+  push:
+    paths: ['android-dashboard/**', '.github/workflows/android-dashboard.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: android-dashboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - name: Install
+        run: npm install --no-audit --no-fund
+      - name: Create the Android project
+        run: npx cap add android
+      - name: App icons
+        run: npx capacitor-assets generate --android --assetPath assets
+      - name: Sync config
+        run: npx cap sync android
+      - name: Build the APK
+        working-directory: android-dashboard/android
+        run: ./gradlew assembleDebug --no-daemon
+      - name: Rename
+        run: cp android/app/build/outputs/apk/debug/app-debug.apk sudha-vatika-dashboard.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sudha-vatika-dashboard-apk
+          path: android-dashboard/sudha-vatika-dashboard.apk

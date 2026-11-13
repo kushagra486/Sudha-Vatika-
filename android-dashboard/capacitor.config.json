@@ -1,0 +1,13 @@
+{
+  "appId": "in.sudhavatika.dashboard",
+  "appName": "Sudha Vatika Dashboard",
+  "webDir": "www",
+  "server": {
+    "url": "https://sudha-vatika.vercel.app/",
+    "cleartext": false,
+    "allowNavigation": ["sudha-vatika.vercel.app"]
+  },
+  "android": {
+    "backgroundColor": "#ffffff"
+  }
+}
