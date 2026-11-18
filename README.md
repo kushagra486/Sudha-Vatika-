@@ -2,6 +2,17 @@
 
 Lead, booking and WhatsApp management for banquet halls and lawns in India. The product name is configurable with `VITE_APP_NAME`.
 
+## Live links
+
+| What                                    | Link                                         |
+| --------------------------------------- | -------------------------------------------- |
+| **Sudha Vatika website** (GitHub Pages) | https://kushagra486.github.io/Sudha-Vatika-/ |
+| **Staff dashboard** (sign-in required)  | https://sudha-vatika.vercel.app              |
+
+[![Sudha Vatika website](docs/images/website-home.jpg)](https://kushagra486.github.io/Sudha-Vatika-/)
+
+The public website lives in [`site/`](site/) and is published to the `gh-pages` branch by `.github/workflows/website.yml`. Enquiries from its form go straight into the dashboard as leads.
+
 - **Frontend:** React 18, TypeScript, Vite, Tailwind, TanStack Query (`apps/web`)
 - **Backend:** Supabase only: Postgres with Row Level Security, Auth, Storage, and Edge Functions. There is no separate server.
 - **Shared:** enums, Zod schemas, and phone, money and date helpers (`packages/shared`)
@@ -14,7 +25,7 @@ cp .env.example .env      # fill in VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY
 npm run dev
 ```
 
-See [docs/RUNBOOK.md](docs/RUNBOOK.md) for local Supabase setup, creating the first owner, and deploying. The live database is the Supabase project `Sudha-Vatika-Dashboard` (Mumbai) and the site is at https://sudha-vatika.netlify.app.
+See [docs/RUNBOOK.md](docs/RUNBOOK.md) for local Supabase setup, creating the first owner, and deploying. The live database is the Supabase project `Sudha-Vatika-Dashboard` (Mumbai) and the dashboard is at https://sudha-vatika.vercel.app.
 
 ## Scripts
 
