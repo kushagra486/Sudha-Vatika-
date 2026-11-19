@@ -26,3 +26,4 @@ Each page link has the original file, author and licence text.
 - iskcon: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - university: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - library: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- oldnaini: photo supplied by the owner (original photographer not known), used with the owner's permission.
