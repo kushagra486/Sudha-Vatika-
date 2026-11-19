@@ -149,6 +149,11 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  nightmarket: {
+    file: 'places/nightmarket.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   colonelganj: {
     file: 'places/colonelganj.jpg',
     credit: 'supplied by the owner',

@@ -485,6 +485,26 @@ window.PLACE_TEXT = {
     dur: '1 to 2 hours',
     dd: '1 से 2 घंटे',
   },
+  nightmarket: {
+    ab: 'The Civil Lines Night Market is an evening street-food market, where many small stalls open after dark and families, students and friends sit at open tables under the trees. It is lively and informal, and a good way to try a mix of snacks and street food in one place. Stalls and timings change often, so please check with Reception.',
+    ah: 'सिविल लाइंस नाइट मार्केट शाम का स्ट्रीट-फ़ूड बाज़ार है, जहाँ अँधेरा होने के बाद कई छोटे स्टॉल खुलते हैं और परिवार, छात्र और दोस्त पेड़ों के नीचे खुली मेज़ों पर बैठते हैं। माहौल जीवंत और बेफ़िक्र है, और एक ही जगह कई तरह का नाश्ता और स्ट्रीट फ़ूड चखने का अच्छा तरीका है। स्टॉल और समय अक्सर बदलते हैं, इसलिए रिसेप्शन से पूछ लें।',
+    hl: [
+      'Many street-food stalls in one place',
+      'Open tables under the trees',
+      'Lively at night, popular with families and students',
+      'In Civil Lines, close to the main square',
+    ],
+    hh: [
+      'एक ही जगह कई स्ट्रीट-फ़ूड स्टॉल',
+      'पेड़ों के नीचे खुली मेज़ें',
+      'रात को रौनक, परिवारों और छात्रों में लोकप्रिय',
+      'सिविल लाइंस में, मुख्य चौराहे के पास',
+    ],
+    bt: 'Evening and night, after about 7 PM. Weekends are crowded. Keep your valuables safe, and choose clean stalls with fresh food.',
+    bh: 'शाम और रात, लगभग 7 बजे के बाद। सप्ताहांत में भीड़ रहती है। अपना सामान संभालकर रखें और साफ़-सुथरे स्टॉल व ताज़ा खाना चुनें।',
+    dur: '1 to 2 hours',
+    dd: '1 से 2 घंटे',
+  },
   colonelganj: {
     ab: 'The streets around Katra and Colonelganj are an old-city food area, best known for kachori and sabzi, and for chaat. Netram Moolchand & Sons is known for desi ghee kachori-sabzi. Pandit Ji Ki Chaat serves tamatar chaat, aloo tikki, dahi vada and papdi chaat. Chandralok Kachori serves kachori and sabzi. It makes a good breakfast or snack stop.',
     ah: 'कटरा और कर्नलगंज के आसपास की गलियाँ पुराने शहर का खाने का इलाका है, जो कचौड़ी-सब्ज़ी और चाट के लिए सबसे मशहूर है। नेतराम मूलचंद एंड संस देसी घी की कचौड़ी-सब्ज़ी के लिए जाना जाता है। पंडित जी की चाट में टमाटर चाट, आलू टिक्की, दही वड़ा और पापड़ी चाट मिलती है। चंद्रलोक कचौड़ी में कचौड़ी और सब्ज़ी मिलती है। नाश्ते या हल्का खाने के लिए अच्छी जगह है।',

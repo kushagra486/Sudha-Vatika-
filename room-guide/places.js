@@ -328,6 +328,16 @@ window.PLACES = [
     dh: 'चौक की पुरानी खाने की गली, समोसे, लस्सी, जलेबी, चाट और मिठाइयों के लिए मशहूर।',
   },
   {
+    id: 'nightmarket',
+    c: 'food',
+    lat: 25.44966,
+    lon: 81.83502,
+    en: 'Civil Lines Night Market',
+    hi: 'सिविल लाइंस नाइट मार्केट',
+    de: 'An evening street-food market in Civil Lines, with many stalls under the trees.',
+    dh: 'सिविल लाइंस का शाम का स्ट्रीट-फ़ूड बाज़ार, पेड़ों के नीचे कई ठेले और स्टॉल।',
+  },
+  {
     id: 'colonelganj',
     c: 'food',
     lat: 25.45529,

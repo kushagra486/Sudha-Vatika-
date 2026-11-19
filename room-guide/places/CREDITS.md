@@ -42,3 +42,4 @@ Each page link has the original file, author and licence text.
 - loknath: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - colonelganj: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - elchico: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- nightmarket: photo supplied by the owner (original photographer not known), used with the owner's permission. It carries a text caption; replace with a clean photo when available.
