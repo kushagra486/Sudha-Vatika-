@@ -1,0 +1,13 @@
+{
+  "appId": "in.sudhavatika.app",
+  "appName": "Sudha Vatika",
+  "webDir": "www",
+  "server": {
+    "url": "https://kushagra486.github.io/Sudha-Vatika-/",
+    "cleartext": false,
+    "allowNavigation": ["kushagra486.github.io"]
+  },
+  "android": {
+    "backgroundColor": "#6b1d2a"
+  }
+}
