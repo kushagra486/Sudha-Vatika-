@@ -39,6 +39,11 @@ window.PLACE_IMG = {
     license: "used with the owner's permission",
     pos: 'center 40%',
   },
+  shivalaya: {
+    file: 'places/shivalaya.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   nagvasuki: {
     file: 'places/nagvasuki.jpg',
     credit: '21GauriGuptaa',
@@ -87,6 +92,11 @@ window.PLACE_IMG = {
     license: 'CC BY-SA 4.0',
     url: 'https://commons.wikimedia.org/wiki/File:Victoria_Memorial_Allahabad.jpg',
   },
+  minto: {
+    file: 'places/minto.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   highcourt: {
     file: 'places/highcourt.jpg',
     credit: 'Vroomtrapit at English Wikipedia',
@@ -100,9 +110,8 @@ window.PLACE_IMG = {
   },
   bridge: {
     file: 'places/bridge.jpg',
-    credit: 'Bhartrihari Pandiya',
-    license: 'CC BY-SA 4.0',
-    url: 'https://commons.wikimedia.org/wiki/File:Naini_Bridge_@_Allahabad.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   library: {
     file: 'places/library.jpg',
@@ -119,6 +128,11 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
     pos: 'center 30%',
+  },
+  trivenipushp: {
+    file: 'places/trivenipushp.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   civillines: {
     file: 'places/civillines.jpg',
@@ -174,11 +188,6 @@ window.PLACE_IMG = {
   },
   zerobus: {
     file: 'places/zerobus.jpg',
-    credit: 'supplied by the owner',
-    license: "used with the owner's permission",
-  },
-  minto: {
-    file: 'places/minto.jpg',
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },

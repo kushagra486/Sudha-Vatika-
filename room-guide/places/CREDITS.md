@@ -12,7 +12,7 @@ Each page link has the original file, author and licence text.
 - khusro: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - cathedral: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - nagvasuki: 21GauriGuptaa, CC0, https://commons.wikimedia.org/wiki/File:NaagvasukiTemple.jpg
-- bridge: Bhartrihari Pandiya, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Naini_Bridge_@_Allahabad.jpg
+- bridge: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - airport: Harshv7777, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Airport.jpg
 - chheoki: Gamerzer, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Chheoki_junction.jpg
 - junction: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
@@ -37,3 +37,5 @@ Each page link has the original file, author and licence text.
 - wparena: design visualisation of the building supplied by the owner, used with the owner's permission. Replace with a real photo when one is available.
 - museum: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - minto: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- shivalaya: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- trivenipushp: photo supplied by the owner (original photographer not known), used with the owner's permission.

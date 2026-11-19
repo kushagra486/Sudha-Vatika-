@@ -76,6 +76,16 @@ window.PLACES = [
     dh: 'पुराने शहर में शक्तिपीठ मंदिर, चौक बाज़ार के पास।',
   },
   {
+    id: 'shivalaya',
+    c: 'temple',
+    lat: 25.42096,
+    lon: 81.86608,
+    en: 'Shivalaya Park (12 Jyotirlingas)',
+    hi: 'शिवालय पार्क (12 ज्योतिर्लिंग)',
+    de: 'A temple park in Arail with large models of the 12 Jyotirlingas, built for the 2025 Maha Kumbh.',
+    dh: 'अरैल में मंदिरों का पार्क, जहाँ 12 ज्योतिर्लिंगों के बड़े प्रतिरूप हैं। 2025 महाकुंभ के लिए बना।',
+  },
+  {
     id: 'nagvasuki',
     c: 'temple',
     lat: 25.45672,
@@ -266,6 +276,16 @@ window.PLACES = [
     hi: 'लूकरगंज',
     de: 'A popular neighbourhood near Prayagraj Junction with shops, offices and a large sports ground.',
     dh: 'प्रयागराज जंक्शन के पास लोकप्रिय मोहल्ला, दुकानों, दफ़्तरों और बड़े खेल मैदान के साथ।',
+  },
+  {
+    id: 'trivenipushp',
+    c: 'area',
+    lat: 25.42044,
+    lon: 81.87781,
+    en: 'Triveni Pushp',
+    hi: 'त्रिवेणी पुष्प',
+    de: 'A riverside park with a tall tower and lawns on the Arail side, looking over the Sangam.',
+    dh: 'अरैल की ओर नदी किनारे का पार्क, जहाँ ऊँचा टावर और लॉन हैं। यहाँ से संगम का नज़ारा दिखता है।',
   },
   {
     id: 'triveniroad',
