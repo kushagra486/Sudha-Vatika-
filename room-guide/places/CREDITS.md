@@ -17,3 +17,4 @@ Each page link has the original file, author and licence text.
 - chheoki: Gamerzer, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Chheoki_junction.jpg
 - junction: Apurv013, CC0, https://commons.wikimedia.org/wiki/File:Prayagraj_Jn_Railway_Station.jpg
 - hanuman: Shri Bade Hanuman Ji (@ShriBadeHanumanji), photo supplied by the owner and used with the owner's permission (please confirm the temple's permission).
+- vimana: photo supplied by the owner (original photographer not known), used with the owner's permission.

@@ -85,4 +85,9 @@ window.PLACE_IMG = {
     license: "used with the owner's permission",
     pos: 'center 38%',
   },
+  vimana: {
+    file: 'places/vimana.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
