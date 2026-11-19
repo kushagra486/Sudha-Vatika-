@@ -70,9 +70,8 @@ window.PLACE_IMG = {
   },
   khusro: {
     file: 'places/khusro.jpg',
-    credit: 'सत्यम् मिश्र',
-    license: 'CC BY-SA 4.0',
-    url: 'https://commons.wikimedia.org/wiki/File:Tomb_of_Nisar_Begum_at_Khusro_Bagh_Allahabad.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   cathedral: {
     file: 'places/cathedral.jpg',
