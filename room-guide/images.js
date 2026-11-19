@@ -127,4 +127,9 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  library: {
+    file: 'places/library.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
