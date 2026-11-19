@@ -868,7 +868,9 @@
         return p.c === c.id;
       })
         .sort(function (a, b) {
-          return kmFromVenue(a) - kmFromVenue(b);
+          var ia = imgOf(a) ? 0 : 1;
+          var ib = imgOf(b) ? 0 : 1;
+          return ia - ib || kmFromVenue(a) - kmFromVenue(b); // pictures first, then nearest
         })
         .forEach(function (p) {
           grid.appendChild(
