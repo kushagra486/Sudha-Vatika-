@@ -91,7 +91,7 @@ A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/
 - **QR cards**: [one card for every room](https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf) (A5, English and Hindi). `node room-guide/tools/make_room_cards.mjs 101 102 103` makes a card per room with the room number filled in.
 - **Changing things**: phone numbers and links are in `room-guide/config.js`; places in `room-guide/places.js` and `room-guide/place-details.js`; restaurants, WiFi and check-out time are edited in the dashboard, no code needed.
 
-### Photos still needed (10 of 36 places)
+### Photos still needed (8 of 36 places)
 
 The room guide shows an icon tile for these places until a photo is added. Photos must be ones we may use: your own pictures, or Wikimedia Commons files with a free licence (the credit shows under the photo).
 
@@ -99,13 +99,8 @@ The room guide shows an icon tile for these places until a photo is added. Photo
 
 - Allahabad Museum (id: `museum`)
 
-**🛍️ Markets and squares**
-
-- Katra (books and shopping) (id: `katra`)
-
 **🚉 Stations and airport**
 
-- Prayagraj Sangam Station (id: `sangamstn`)
 - Subedarganj Station (id: `subedarganj`)
 
 **🛤️ Areas and paths**

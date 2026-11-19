@@ -29,3 +29,5 @@ Each page link has the original file, author and licence text.
 - oldnaini: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - civillines: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - chowk: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- katra: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- sangamstn: photo supplied by the owner (original photographer not known), used with the owner's permission.

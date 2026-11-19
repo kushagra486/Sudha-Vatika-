@@ -147,4 +147,14 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  katra: {
+    file: 'places/katra.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  sangamstn: {
+    file: 'places/sangamstn.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
