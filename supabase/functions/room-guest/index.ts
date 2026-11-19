@@ -2,7 +2,7 @@
 // room number and a name. Deploy with verify_jwt off. Actions (POST JSON, field "action"):
 //   request  a service request (reception, housekeeping, food, luggage, ...)
 //   review   a stay review
-//   info     WiFi and other details the venue wants guests to see
+//   info     WiFi, check-out time and the nearby restaurants the venue wants guests to see
 //   mine     the guest's own recent requests and where they stand
 // Spam guards: hidden honeypot field, minimum time on the page, per-connection and daily caps.
 import { z } from 'npm:zod@4.6.7';
@@ -108,7 +108,14 @@ Deno.serve(async (req) => {
       .select('wifi_name, wifi_password, checkout_time, note')
       .eq('org_id', orgId)
       .maybeSingle();
-    return reply({ ok: true, info: data ?? {} });
+    const { data: restaurants } = await admin
+      .from('room_restaurants')
+      .select('name, area, cuisine, diet, phone, hours, menu_url, note')
+      .eq('org_id', orgId)
+      .eq('active', true)
+      .order('sort')
+      .order('name');
+    return reply({ ok: true, info: data ?? {}, restaurants: restaurants ?? [] });
   }
 
   if (f.action === 'mine') {

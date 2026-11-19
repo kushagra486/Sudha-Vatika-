@@ -56,4 +56,23 @@ select tests.throws('select * from room_requests', '42501', 'anon cannot read re
 select tests.throws('select * from room_guide_settings', '42501', 'anon cannot read settings');
 reset role;
 
+-- Nearby restaurants: everyone on staff reads, only owners and managers change, bad data is refused.
+insert into room_restaurants (org_id, name, phone) values
+  ('00000000-0000-4000-a000-000000000001', 'Test Kitchen', '+919876543210');
+select tests.throws($$ insert into room_restaurants (org_id, name, phone)
+  values ('00000000-0000-4000-a000-000000000001', 'Bad', '98765') $$, '23514', 'phone must be E.164');
+select tests.throws($$ insert into room_restaurants (org_id, name, menu_url)
+  values ('00000000-0000-4000-a000-000000000001', 'Bad', 'http://x') $$, '23514', 'menu link must be https');
+select tests.login('aaaaaaaa-0000-4000-8000-000000000003');
+select tests.eq((select count(*)::int from room_restaurants), 1, 'sales reads restaurants');
+select tests.throws($$ insert into room_restaurants (name) values ('Nope') $$, '42501', 'sales cannot add restaurants');
+select tests.logout();
+select tests.login('aaaaaaaa-0000-4000-8000-000000000002');
+insert into room_restaurants (name, phone) values ('Manager Cafe', '+919812345678');
+select tests.eq((select count(*)::int from room_restaurants), 2, 'manager adds a restaurant');
+select tests.logout();
+select tests.login('bbbbbbbb-0000-4000-8000-000000000001');
+select tests.eq((select count(*)::int from room_restaurants), 0, 'other org sees no restaurants');
+select tests.logout();
+
 rollback;

@@ -7,6 +7,10 @@ window.GUIDE = {
   helpdesk: { phone: '919889344818', show: '+91 98893 44818' },
   website: 'https://kushagra486.github.io/Sudha-Vatika-/',
   maps: 'https://maps.app.goo.gl/UULQUpDEhLZk1mDw8',
+  swiggy: 'https://www.swiggy.com/city/allahabad',
+  zomato: 'https://www.zomato.com/allahabad',
+  mapsRestaurants:
+    'https://www.google.com/maps/search/restaurants+near+Sudha+Vatika+Dhoomanganj+Prayagraj/@25.449,81.7775,14z',
   instagram: 'https://www.instagram.com/sudha.vatika',
   address:
     '58 A/31 Dhoomanganj, Old N.H.-02 (Kanpur Road), near Dhoomanganj Police Station, Prayagraj, Uttar Pradesh 211011',
