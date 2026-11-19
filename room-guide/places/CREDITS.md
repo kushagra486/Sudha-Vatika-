@@ -42,4 +42,9 @@ Each page link has the original file, author and licence text.
 - loknath: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - colonelganj: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - elchico: photo supplied by the owner (original photographer not known), used with the owner's permission.
-- nightmarket: photo supplied by the owner (original photographer not known), used with the owner's permission. It carries a text caption; replace with a clean photo when available.
+- nightmarket: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- lawmuseum: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- swaraj: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- pvr: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- psquare: photo supplied by the owner (original photographer not known), used with the owner's permission. The photo looks like a design rendering or a stock image; replace it with a real photo of the place.
+- boatclub: photo supplied by the owner (original photographer not known), used with the owner's permission. The photo looks like a design rendering or a stock image; replace it with a real photo of the place.

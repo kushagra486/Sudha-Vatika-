@@ -97,6 +97,21 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  swaraj: {
+    file: 'places/swaraj.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  lawmuseum: {
+    file: 'places/lawmuseum.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  boatclub: {
+    file: 'places/boatclub.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   highcourt: {
     file: 'places/highcourt.jpg',
     credit: 'Vroomtrapit at English Wikipedia',
@@ -136,6 +151,16 @@ window.PLACE_IMG = {
   },
   civillines: {
     file: 'places/civillines.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  pvr: {
+    file: 'places/pvr.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  psquare: {
+    file: 'places/psquare.jpg',
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
