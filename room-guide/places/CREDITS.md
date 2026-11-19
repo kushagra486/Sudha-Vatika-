@@ -10,9 +10,9 @@ Each page link has the original file, author and licence text.
 - azadpark: Vyomtripathi, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Victoria_Memorial_Allahabad.jpg
 - planetarium: Dananuj, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Jawahar_Planetarium,_Allahabad_Jan_2014_AJ.jpg
 - khusro: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
-- cathedral: Ar.anujgupta, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:All_Saints_Cathedral,_Prayagraj,_Uttar_Pradesh,_India_(2018)142.jpg
+- cathedral: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - nagvasuki: 21GauriGuptaa, CC0, https://commons.wikimedia.org/wiki/File:NaagvasukiTemple.jpg
-- bridge: Bhartrihari Pandiya, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Naini_Bridge_@_Allahabad.jpg
+- bridge: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - airport: Harshv7777, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Airport.jpg
 - chheoki: Gamerzer, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Chheoki_junction.jpg
 - junction: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
@@ -36,3 +36,10 @@ Each page link has the original file, author and licence text.
 - civilbus: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - wparena: design visualisation of the building supplied by the owner, used with the owner's permission. Replace with a real photo when one is available.
 - museum: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- minto: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- shivalaya: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- trivenipushp: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- loknath: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- colonelganj: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- elchico: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- nightmarket: photo supplied by the owner (original photographer not known), used with the owner's permission. It carries a text caption; replace with a clean photo when available.

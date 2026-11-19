@@ -39,6 +39,11 @@ window.PLACE_IMG = {
     license: "used with the owner's permission",
     pos: 'center 40%',
   },
+  shivalaya: {
+    file: 'places/shivalaya.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   nagvasuki: {
     file: 'places/nagvasuki.jpg',
     credit: '21GauriGuptaa',
@@ -73,9 +78,8 @@ window.PLACE_IMG = {
   },
   cathedral: {
     file: 'places/cathedral.jpg',
-    credit: 'Ar.anujgupta',
-    license: 'CC BY-SA 4.0',
-    url: 'https://commons.wikimedia.org/wiki/File:All_Saints_Cathedral,_Prayagraj,_Uttar_Pradesh,_India_(2018)142.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   museum: {
     file: 'places/museum.jpg',
@@ -87,6 +91,11 @@ window.PLACE_IMG = {
     credit: 'Vyomtripathi',
     license: 'CC BY-SA 4.0',
     url: 'https://commons.wikimedia.org/wiki/File:Victoria_Memorial_Allahabad.jpg',
+  },
+  minto: {
+    file: 'places/minto.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   highcourt: {
     file: 'places/highcourt.jpg',
@@ -101,9 +110,8 @@ window.PLACE_IMG = {
   },
   bridge: {
     file: 'places/bridge.jpg',
-    credit: 'Bhartrihari Pandiya',
-    license: 'CC BY-SA 4.0',
-    url: 'https://commons.wikimedia.org/wiki/File:Naini_Bridge_@_Allahabad.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   library: {
     file: 'places/library.jpg',
@@ -121,6 +129,11 @@ window.PLACE_IMG = {
     license: "used with the owner's permission",
     pos: 'center 30%',
   },
+  trivenipushp: {
+    file: 'places/trivenipushp.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   civillines: {
     file: 'places/civillines.jpg',
     credit: 'supplied by the owner',
@@ -129,6 +142,26 @@ window.PLACE_IMG = {
   wparena: {
     file: 'places/wparena.jpg',
     credit: 'supplied by the owner (design visualisation)',
+    license: "used with the owner's permission",
+  },
+  loknath: {
+    file: 'places/loknath.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  nightmarket: {
+    file: 'places/nightmarket.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  colonelganj: {
+    file: 'places/colonelganj.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  elchico: {
+    file: 'places/elchico.jpg',
+    credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
   chowk: {
