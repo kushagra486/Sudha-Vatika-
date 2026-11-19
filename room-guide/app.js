@@ -694,7 +694,14 @@
   function thumb(p, cls) {
     var im = imgOf(p);
     var c = catById[p.c];
-    if (im) return h('img', { class: cls, src: im.file, alt: pName(p), loading: 'lazy' });
+    if (im)
+      return h('img', {
+        class: cls,
+        src: im.file,
+        alt: pName(p),
+        loading: 'lazy',
+        style: im.pos ? 'object-position:' + im.pos : null,
+      });
     return h('div', {
       class: cls + ' noimg',
       style: 'background:' + c.color,
@@ -1068,8 +1075,10 @@
       app.appendChild(
         h('p', { class: 'credit' }, [
           t('photoBy') + ': ' + im.credit + ' · ',
-          h('a', { href: im.url, target: '_blank', rel: 'noopener', text: im.license }),
-          ' · Wikimedia Commons',
+          im.url
+            ? h('a', { href: im.url, target: '_blank', rel: 'noopener', text: im.license })
+            : im.license,
+          im.url ? ' · Wikimedia Commons' : null,
         ]),
       );
     }

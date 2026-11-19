@@ -79,4 +79,10 @@ window.PLACE_IMG = {
     license: 'CC0',
     url: 'https://commons.wikimedia.org/wiki/File:Prayagraj_Jn_Railway_Station.jpg',
   },
+  hanuman: {
+    file: 'places/hanuman.jpg',
+    credit: 'Shri Bade Hanuman Ji (@ShriBadeHanumanji), supplied by the owner',
+    license: "used with the owner's permission",
+    pos: 'center 38%',
+  },
 };
