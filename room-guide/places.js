@@ -278,6 +278,16 @@ window.PLACES = [
     dh: 'शहर का आधुनिक केंद्र: बड़ी दुकानें, कैफ़े, शोरूम और मुख्य चौराहा।',
   },
   {
+    id: 'wparena',
+    c: 'market',
+    lat: 25.45248,
+    lon: 81.83408,
+    en: 'WP Arena Mall',
+    hi: 'डब्ल्यूपी एरिना मॉल',
+    de: 'A shopping mall on Lal Bahadur Shastri Marg in Civil Lines, with brand stores and a good place to cool off.',
+    dh: 'सिविल लाइंस में लाल बहादुर शास्त्री मार्ग पर शॉपिंग मॉल, जहाँ ब्रांड की दुकानें हैं और आराम से घूमा जा सकता है।',
+  },
+  {
     id: 'chowk',
     c: 'market',
     lat: 25.43844,

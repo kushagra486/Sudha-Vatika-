@@ -403,6 +403,26 @@ window.PLACE_TEXT = {
     dur: '1 to 2 hours',
     dd: '1 से 2 घंटे',
   },
+  wparena: {
+    ab: 'WP Arena is a shopping mall on Lal Bahadur Shastri Marg in Civil Lines. It is a comfortable place to walk around, shop at brand stores and take a break from the heat or the crowds. It is close to Subhash Chauraha and easy to reach from the hotel.',
+    ah: 'डब्ल्यूपी एरिना सिविल लाइंस में लाल बहादुर शास्त्री मार्ग पर बना शॉपिंग मॉल है। यहाँ घूमना, ब्रांड की दुकानों से खरीदारी करना और गर्मी या भीड़ से थोड़ा आराम लेना आसान है। यह सुभाष चौराहे के पास है और होटल से आसानी से पहुँचा जा सकता है।',
+    hl: [
+      'Brand stores and shopping',
+      'Air-conditioned, comfortable for families',
+      'Close to Subhash Chauraha',
+      'Good for an evening out',
+    ],
+    hh: [
+      'ब्रांड की दुकानें और खरीदारी',
+      'एयर-कंडीशन्ड, परिवारों के लिए आरामदायक',
+      'सुभाष चौराहे के पास',
+      'शाम को घूमने के लिए अच्छी जगह',
+    ],
+    bt: 'Afternoon and evening, when the shops are open. Weekends are busier. Opening times can change, so please confirm with Reception.',
+    bh: 'दोपहर और शाम, जब दुकानें खुली होती हैं। सप्ताहांत में भीड़ ज़्यादा होती है। समय बदल सकता है, इसलिए रिसेप्शन से पूछ लें।',
+    dur: '1 to 2 hours',
+    dd: '1 से 2 घंटे',
+  },
   chowk: {
     ab: 'Chowk is the old city market, a web of narrow, busy lanes. It is the place for sweets, spices, cloth, brassware, flowers and gifts, and shows the real daily life of old Prayagraj.',
     ah: 'चौक पुराने शहर का बाज़ार है, तंग और व्यस्त गलियों का जाल। यह मिठाई, मसाले, कपड़े, पीतल के बर्तन, फूल और उपहारों की जगह है, और पुराने प्रयागराज का असली रोज़मर्रा का जीवन दिखाता है।',

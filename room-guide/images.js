@@ -171,4 +171,9 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  wparena: {
+    file: 'places/wparena.jpg',
+    credit: 'supplied by the owner (design visualisation)',
+    license: "used with the owner's permission",
+  },
 };
