@@ -31,6 +31,7 @@ jobs:
           mkdir -p out/room
           rsync -a --exclude tools --exclude README.md room-guide/ out/room/
           touch out/.nojekyll
+          printf '%s\n' '{"git":{"deploymentEnabled":{"gh-pages":false}}}' > out/vercel.json
           cp out/index.html out/404.html
       - name: Push to gh-pages
         run: |

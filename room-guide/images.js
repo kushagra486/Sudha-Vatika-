@@ -133,6 +133,11 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  curzon: {
+    file: 'places/curzon.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   oldnaini: {
     file: 'places/oldnaini.jpg',
     credit: 'supplied by the owner',

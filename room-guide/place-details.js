@@ -827,6 +827,26 @@ window.PLACE_TEXT = {
     dur: '20 minutes',
     dd: '20 मिनट',
   },
+  curzon: {
+    ab: 'The Curzon Bridge is an old red iron bridge over the Ganga, joining Prayagraj with Phaphamau. It opened in 1905 for trains and road traffic and is over 900 metres long. It is no longer used for traffic, and there are plans to turn it into a museum. It is best seen from the riverbank, so please do not climb on it.',
+    ah: 'कर्ज़न ब्रिज गंगा पर बना पुराना लाल लोहे का पुल है, जो प्रयागराज को फाफामऊ से जोड़ता है। यह 1905 में रेल और सड़क यातायात के लिए खुला था और 900 मीटर से ज़्यादा लंबा है। अब इस पर यातायात नहीं चलता, और इसे संग्रहालय बनाने की योजना है। इसे नदी किनारे से देखना सबसे अच्छा है, इस पर चढ़ें नहीं।',
+    hl: [
+      'Old red iron bridge over the Ganga, opened in 1905',
+      'More than 900 metres long',
+      'Good for photos from the riverbank',
+      'Plans to make it a museum',
+    ],
+    hh: [
+      'गंगा पर पुराना लाल लोहे का पुल, 1905 में खुला',
+      '900 मीटर से ज़्यादा लंबा',
+      'नदी किनारे से फ़ोटो के लिए अच्छा',
+      'संग्रहालय बनाने की योजना',
+    ],
+    bt: 'Morning or late afternoon for the light. It is far from the city centre, so plan a short trip and check with Reception first. Do not walk on the bridge.',
+    bh: 'रोशनी के लिए सुबह या देर दोपहर। यह शहर के केंद्र से दूर है, इसलिए छोटा सफ़र बनाएँ और पहले रिसेप्शन से पूछ लें। पुल पर न चलें।',
+    dur: '30 to 45 minutes',
+    dd: '30 से 45 मिनट',
+  },
   oldnaini: {
     ab: 'The Old Naini Bridge, also called the Curzon Bridge, is a famous old iron railway bridge over the Yamuna, built in British times. It still carries trains today, and it is one of the best known engineering landmarks of the city.',
     ah: 'पुराना नैनी पुल, जिसे कर्ज़न ब्रिज भी कहते हैं, अंग्रेज़ों के समय का यमुना पर बना प्रसिद्ध पुराना लोहे का रेल पुल है। आज भी इस पर ट्रेनें चलती हैं, और यह शहर की सबसे जानी-पहचानी इंजीनियरिंग धरोहरों में से है।',
