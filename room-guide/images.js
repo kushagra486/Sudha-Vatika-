@@ -90,4 +90,9 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  akshayavat: {
+    file: 'places/akshayavat.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
