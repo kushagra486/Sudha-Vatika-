@@ -149,6 +149,16 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  colonelganj: {
+    file: 'places/colonelganj.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  elchico: {
+    file: 'places/elchico.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   chowk: {
     file: 'places/chowk.jpg',
     credit: 'supplied by the owner',
