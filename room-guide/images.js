@@ -100,4 +100,26 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  saraswati: {
+    file: 'places/saraswati.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  kalyani: {
+    file: 'places/kalyani.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+    pos: 'center 40%',
+  },
+  bharadwaj: {
+    file: 'places/bharadwaj.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+    pos: 'center 30%',
+  },
+  iskcon: {
+    file: 'places/iskcon.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };

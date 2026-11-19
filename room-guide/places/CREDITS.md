@@ -20,3 +20,7 @@ Each page link has the original file, author and licence text.
 - vimana: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - akshayavat: photo supplied by the owner (original photographer not known), used with the owner's permission. Please check it shows the right place.
 - mankameshwar: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- saraswati: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- kalyani: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- bharadwaj: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- iskcon: photo supplied by the owner (original photographer not known), used with the owner's permission.
