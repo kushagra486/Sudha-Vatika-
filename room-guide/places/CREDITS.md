@@ -16,3 +16,31 @@ Each page link has the original file, author and licence text.
 - airport: Harshv7777, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Airport.jpg
 - chheoki: Gamerzer, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Chheoki_junction.jpg
 - junction: Apurv013, CC0, https://commons.wikimedia.org/wiki/File:Prayagraj_Jn_Railway_Station.jpg
+
+## Placeholder cards (no photo yet)
+
+These places show a card supplied by the owner until a real photo is added (replace the file and give it a credit):
+
+- akshayavat
+- bharadwaj
+- chowk
+- civilbus
+- civillines
+- daraganj
+- hanuman
+- iskcon
+- johnstonganj
+- kalyani
+- katra
+- library
+- lukerganj
+- mankameshwar
+- museum
+- oldnaini
+- sangamstn
+- saraswati
+- subedarganj
+- triveniroad
+- university
+- vimana
+- zerobus
