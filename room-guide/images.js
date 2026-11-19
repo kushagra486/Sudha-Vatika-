@@ -80,6 +80,11 @@ window.PLACE_IMG = {
     license: 'CC BY-SA 4.0',
     url: 'https://commons.wikimedia.org/wiki/File:All_Saints_Cathedral,_Prayagraj,_Uttar_Pradesh,_India_(2018)142.jpg',
   },
+  museum: {
+    file: 'places/museum.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   azadpark: {
     file: 'places/azadpark.jpg',
     credit: 'Vyomtripathi',

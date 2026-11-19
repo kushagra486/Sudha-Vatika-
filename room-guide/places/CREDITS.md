@@ -35,3 +35,4 @@ Each page link has the original file, author and licence text.
 - zerobus: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - civilbus: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - wparena: design visualisation of the building supplied by the owner, used with the owner's permission. Replace with a real photo when one is available.
+- museum: photo supplied by the owner (original photographer not known), used with the owner's permission.
