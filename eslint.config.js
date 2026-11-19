@@ -20,6 +20,10 @@ export default tseslint.config(
     },
   },
   {
+    files: ['room-guide/**/*.js'],
+    languageOptions: { globals: globals.browser, sourceType: 'script' },
+  },
+  {
     files: ['**/*.config.{ts,js}', 'scripts/**'],
     languageOptions: { globals: globals.node },
   },
