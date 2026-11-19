@@ -95,4 +95,9 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  mankameshwar: {
+    file: 'places/mankameshwar.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
