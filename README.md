@@ -17,7 +17,7 @@ Weddings · Receptions · Parties · Functions · Meetings
 
 ## Contents
 
-[Links](#-all-links) · [About](#-about-sudha-vatika) · [Gallery](#-gallery) · [Downloads](#-downloads) · [Android apps](#-android-apps) · [How it fits together](#-how-it-fits-together) · [Dashboard and logins](#-staff-dashboard-and-logins) · [Hosting](#-hosting) · [For developers](#for-developers)
+[Links](#-all-links) · [About](#-about-sudha-vatika) · [Room guide](#-room-guide-for-hotel-guests) · [Gallery](#-gallery) · [Downloads](#-downloads) · [Android apps](#-android-apps) · [How it fits together](#-how-it-fits-together) · [Dashboard and logins](#-staff-dashboard-and-logins) · [Hosting](#-hosting) · [For developers](#for-developers)
 
 ## 🔗 All links
 
@@ -71,6 +71,25 @@ Flower-covered entrance gates, lit canopy passages and floral stage sets, styled
 - **Instagram:** [@sudha.vatika](https://www.instagram.com/sudha.vatika) · **Maps:** [open in Google Maps](https://maps.app.goo.gl/UULQUpDEhLZk1mDw8)
 
 Prices are not published online. Call, WhatsApp or send an enquiry and the team will get back to you, usually the same day.
+
+## 🛎️ Room guide for hotel guests
+
+A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/**, a large-icon page that replaces the room phone. It lives next to the website but is a separate app, so the official website is untouched.
+
+| Guests can                                                 | Details                                                                                                                                                                                                     |
+| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Call or WhatsApp Reception**                             | One tap, any time                                                                                                                                                                                           |
+| **Ask for Housekeeping, Luggage help, Repairs, Help Desk** | Big option buttons, then Send. Goes straight to the dashboard                                                                                                                                               |
+| **Food and drinks on request**                             | Tell the team what they want. Plus **Order Food Online**: nearby restaurants with phone numbers, veg filter and delivery-app buttons                                                                        |
+| **WiFi**                                                   | Name and password (shown after they enter room number and name)                                                                                                                                             |
+| **Explore Prayagraj**                                      | Picture tiles for temples, sights, markets, stations, airport, bus stands and areas. Each place has a readable page with the best time to go and its own map. A one-day plan shows all stops on a route map |
+| **Follow their requests**                                  | "My requests" shows Received, On the way, Done                                                                                                                                                              |
+| **Rate their stay**                                        | Stars, comments, and a few quick ratings                                                                                                                                                                    |
+
+- **No password**: guests only give a **room number and a name**, so staff know who is asking and for what. It works in English and Hindi.
+- **Staff side**: the dashboard's **Room desk** shows new requests (with a one-tap "On it" and "Done"), reviews with averages, the restaurant list, and the WiFi, check-out time and note that guests see.
+- **QR cards**: [one card for every room](https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf) (A5, English and Hindi). `node room-guide/tools/make_room_cards.mjs 101 102 103` makes a card per room with the room number filled in.
+- **Changing things**: phone numbers and links are in `room-guide/config.js`; places in `room-guide/places.js` and `room-guide/place-details.js`; restaurants, WiFi and check-out time are edited in the dashboard, no code needed.
 
 ## 🖼️ Gallery
 
@@ -161,12 +180,12 @@ The dashboard is for the owners and staff: enquiries and follow-ups, bookings an
 
 ## ☁️ Hosting
 
-| Part                               | Where                                    | Updates when                                                         |
-| ---------------------------------- | ---------------------------------------- | -------------------------------------------------------------------- |
-| Website (`site/`)                  | GitHub Pages, from the `gh-pages` branch | `site/` changes on `main` (workflow `.github/workflows/website.yml`) |
-| Dashboard (`apps/web`)             | Vercel                                   | `main` changes (root folder `apps/web`)                              |
-| Database, logins, files, functions | Supabase                                 | Migrations in `supabase/migrations` and Edge Functions               |
-| Android apps                       | GitHub Actions builds the APKs           | Changes in `android-app/` or `android-dashboard/`                    |
+| Part                               | Where                                    | Updates when                                                                          |
+| ---------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------- |
+| Website (`site/`)                  | GitHub Pages, from the `gh-pages` branch | `site/` or `room-guide/` changes on `main` (workflow `.github/workflows/website.yml`) |
+| Dashboard (`apps/web`)             | Vercel                                   | `main` changes (root folder `apps/web`)                                               |
+| Database, logins, files, functions | Supabase                                 | Migrations in `supabase/migrations` and Edge Functions                                |
+| Android apps                       | GitHub Actions builds the APKs           | Changes in `android-app/` or `android-dashboard/`                                     |
 
 **Email alerts** need a sending Gmail account with an app password, saved as the Supabase function secrets `GMAIL_USER` and `GMAIL_APP_PASSWORD` (optionally `DASHBOARD_URL`). Without them enquiries are still saved, and the missing email is logged.
 
@@ -198,6 +217,7 @@ See [docs/RUNBOOK.md](docs/RUNBOOK.md) for local Supabase setup, creating the fi
 ```
 apps/web/            React SPA (the staff dashboard)
 site/                Public website (static HTML), plus site/downloads (brochure, posters, APKs)
+room-guide/          In-room QR guest page (static), published at /room/
 android-app/         Android wrapper for the website
 android-dashboard/   Android wrapper for the dashboard
 packages/shared/     Zod schemas and helpers shared with Edge Functions
