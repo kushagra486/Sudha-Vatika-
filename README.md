@@ -91,9 +91,9 @@ A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/
 - **QR cards**: [one card for every room](https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf) (A5, English and Hindi). `node room-guide/tools/make_room_cards.mjs 101 102 103` makes a card per room with the room number filled in.
 - **Changing things**: phone numbers and links are in `room-guide/config.js`; places in `room-guide/places.js` and `room-guide/place-details.js`; restaurants, WiFi and check-out time are edited in the dashboard, no code needed.
 
-### Real photos still needed (23 of 36 places)
+### Photos still needed (23 of 36 places)
 
-These 23 places show a placeholder card (with the place name) until a real photo is added. Photos must be ones we may use: your own pictures, or Wikimedia Commons files with a free licence (the credit shows under the photo).
+The room guide shows an icon tile for these places until a photo is added. Photos must be ones we may use: your own pictures, or Wikimedia Commons files with a free licence (the credit shows under the photo).
 
 **🛕 Temples and ghats**
 
@@ -136,7 +136,7 @@ These 23 places show a placeholder card (with the place name) until a real photo
 - Civil Lines Bus Station (id: `civilbus`)
 - Zero Road Bus Stand (id: `zerobus`)
 
-To replace a card: put the real picture in `room-guide/places/<id>.jpg` (about 800 pixels wide), change its entry in `room-guide/images.js` (remove `placeholder: true`, add credit, licence and link), and note it in `room-guide/places/CREDITS.md`.
+To add one: put the picture in `room-guide/places/<id>.jpg` (about 800 pixels wide), add its entry (credit, licence, link) to `room-guide/images.js`, and note it in `room-guide/places/CREDITS.md`.
 
 ## 🖼️ Gallery
 

@@ -1,5 +1,4 @@
 // Photos for the places, from Wikimedia Commons, used under their free licences with credit.
-// Entries with placeholder: true are cards supplied by the owner, to be replaced by real photos.
 // Add a picture: put it in places/<id>.jpg and add a line here (credit, licence, page link).
 window.PLACE_IMG = {
   sangam: {
@@ -79,97 +78,5 @@ window.PLACE_IMG = {
     credit: 'Apurv013',
     license: 'CC0',
     url: 'https://commons.wikimedia.org/wiki/File:Prayagraj_Jn_Railway_Station.jpg',
-  },
-  akshayavat: {
-    file: 'places/akshayavat.jpg',
-    placeholder: true,
-  },
-  bharadwaj: {
-    file: 'places/bharadwaj.jpg',
-    placeholder: true,
-  },
-  chowk: {
-    file: 'places/chowk.jpg',
-    placeholder: true,
-  },
-  civilbus: {
-    file: 'places/civilbus.jpg',
-    placeholder: true,
-  },
-  civillines: {
-    file: 'places/civillines.jpg',
-    placeholder: true,
-  },
-  daraganj: {
-    file: 'places/daraganj.jpg',
-    placeholder: true,
-  },
-  hanuman: {
-    file: 'places/hanuman.jpg',
-    placeholder: true,
-  },
-  iskcon: {
-    file: 'places/iskcon.jpg',
-    placeholder: true,
-  },
-  johnstonganj: {
-    file: 'places/johnstonganj.jpg',
-    placeholder: true,
-  },
-  kalyani: {
-    file: 'places/kalyani.jpg',
-    placeholder: true,
-  },
-  katra: {
-    file: 'places/katra.jpg',
-    placeholder: true,
-  },
-  library: {
-    file: 'places/library.jpg',
-    placeholder: true,
-  },
-  lukerganj: {
-    file: 'places/lukerganj.jpg',
-    placeholder: true,
-  },
-  mankameshwar: {
-    file: 'places/mankameshwar.jpg',
-    placeholder: true,
-  },
-  museum: {
-    file: 'places/museum.jpg',
-    placeholder: true,
-  },
-  oldnaini: {
-    file: 'places/oldnaini.jpg',
-    placeholder: true,
-  },
-  sangamstn: {
-    file: 'places/sangamstn.jpg',
-    placeholder: true,
-  },
-  saraswati: {
-    file: 'places/saraswati.jpg',
-    placeholder: true,
-  },
-  subedarganj: {
-    file: 'places/subedarganj.jpg',
-    placeholder: true,
-  },
-  triveniroad: {
-    file: 'places/triveniroad.jpg',
-    placeholder: true,
-  },
-  university: {
-    file: 'places/university.jpg',
-    placeholder: true,
-  },
-  vimana: {
-    file: 'places/vimana.jpg',
-    placeholder: true,
-  },
-  zerobus: {
-    file: 'places/zerobus.jpg',
-    placeholder: true,
   },
 };
