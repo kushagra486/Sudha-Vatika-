@@ -91,6 +91,53 @@ A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/
 - **QR cards**: [one card for every room](https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf) (A5, English and Hindi). `node room-guide/tools/make_room_cards.mjs 101 102 103` makes a card per room with the room number filled in.
 - **Changing things**: phone numbers and links are in `room-guide/config.js`; places in `room-guide/places.js` and `room-guide/place-details.js`; restaurants, WiFi and check-out time are edited in the dashboard, no code needed.
 
+### Photos still needed (23 of 36 places)
+
+The room guide shows an icon tile for these places until a photo is added. Photos must be ones we may use: your own pictures, or Wikimedia Commons files with a free licence (the credit shows under the photo).
+
+**🛕 Temples and ghats**
+
+- Bade Hanuman Ji Mandir (id: `hanuman`)
+- Adi Shankar Vimana Mandapam (id: `vimana`)
+- Akshayavat and Patalpuri (id: `akshayavat`)
+- Mankameshwar Temple (id: `mankameshwar`)
+- Saraswati Ghat (id: `saraswati`)
+- Kalyani Devi Mandir (id: `kalyani`)
+- ISKCON Temple (id: `iskcon`)
+- Bharadwaj Ashram (id: `bharadwaj`)
+
+**🏛️ Sights and history**
+
+- Allahabad Museum (id: `museum`)
+- Allahabad University (id: `university`)
+- Allahabad Public Library (Thornhill Mayne Memorial) (id: `library`)
+- Old Naini Bridge (Curzon Bridge) (id: `oldnaini`)
+
+**🛍️ Markets and squares**
+
+- Civil Lines (Subhash Chauraha) (id: `civillines`)
+- Chowk (old city market) (id: `chowk`)
+- Katra (books and shopping) (id: `katra`)
+
+**🚉 Stations and airport**
+
+- Prayagraj Sangam Station (id: `sangamstn`)
+- Subedarganj Station (id: `subedarganj`)
+
+**🛤️ Areas and paths**
+
+- Daraganj (old pilgrim quarter) (id: `daraganj`)
+- Johnstonganj (id: `johnstonganj`)
+- Lukerganj (id: `lukerganj`)
+- Triveni Road (the road to the Sangam) (id: `triveniroad`)
+
+**🚌 Bus stands**
+
+- Civil Lines Bus Station (id: `civilbus`)
+- Zero Road Bus Stand (id: `zerobus`)
+
+To add one: put the picture in `room-guide/places/<id>.jpg` (about 800 pixels wide), add its entry (credit, licence, link) to `room-guide/images.js`, and note it in `room-guide/places/CREDITS.md`.
+
 ## 🖼️ Gallery
 
 <p align="center">
