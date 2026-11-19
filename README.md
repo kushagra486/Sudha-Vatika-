@@ -17,7 +17,7 @@ Weddings · Receptions · Parties · Functions · Meetings
 
 ## Contents
 
-[Links](#-all-links) · [About](#-about-sudha-vatika) · [Room guide](#-room-guide-for-hotel-guests) · [Gallery](#-gallery) · [Downloads](#-downloads) · [Android apps](#-android-apps) · [How it fits together](#-how-it-fits-together) · [Dashboard and logins](#-staff-dashboard-and-logins) · [Hosting](#-hosting) · [For developers](#for-developers)
+[Links](#-all-links) · [What's new](#-whats-new) · [About](#-about-sudha-vatika) · [Room guide](#-room-guide-for-hotel-guests) · [Gallery](#-gallery) · [Downloads](#-downloads) · [Android apps](#-android-apps) · [How it fits together](#-how-it-fits-together) · [Dashboard and logins](#-staff-dashboard-and-logins) · [Hosting](#-hosting) · [For developers](#for-developers)
 
 ## 🔗 All links
 
@@ -38,6 +38,14 @@ Weddings · Receptions · Parties · Functions · Meetings
 Website pages: [Pandaal](https://kushagra486.github.io/Sudha-Vatika-/pandaal.html) · [Ashoka Hall](https://kushagra486.github.io/Sudha-Vatika-/ashoka-hall.html) · [Lawn](https://kushagra486.github.io/Sudha-Vatika-/lawn.html) · [Conference Hall](https://kushagra486.github.io/Sudha-Vatika-/conference.html) · [VIP Rooms](https://kushagra486.github.io/Sudha-Vatika-/rooms.html) · [Dormitory](https://kushagra486.github.io/Sudha-Vatika-/dormitory.html) · [Decor](https://kushagra486.github.io/Sudha-Vatika-/decor.html) · [About](https://kushagra486.github.io/Sudha-Vatika-/about.html) · [Location](https://kushagra486.github.io/Sudha-Vatika-/location.html) · [Contact](https://kushagra486.github.io/Sudha-Vatika-/contact.html)
 
 <p align="center"><img src="site/images/qr/website.svg" width="150" alt="QR code for the website">&nbsp;&nbsp;&nbsp;<img src="room-guide/cards/qr-room-guide.svg" width="150" alt="QR code for the room guide"><br><sub>Scan to open the website (left) or the room guide (right)</sub></p>
+
+## 🆕 What's new
+
+- **Room guide** (QR in every room): requests to Reception, Housekeeping, Luggage, Repairs and Help Desk, food on request, WiFi, nearby restaurants with phone numbers, reviews, My requests, English and Hindi. No taxi tile.
+- **Explore Prayagraj**: 46 places with real photos, a page for each (what is there, best time, how long to allow), a map for each, and a one-day plan on a route map. New **Food outings** group (Loknath Gali, Katra and Colonelganj, El Chico, Civil Lines Night Market), plus malls (WP Arena, Vinayak City Centre, P Square), Minto Park, Shivalaya Park, Triveni Pushp, Swaraj Bhawan, Law Museum, Boat Club and the Curzon Bridge.
+- **Dashboard Room desk**: requests, reviews, restaurants and the guest page settings (WiFi, check-out time, note).
+- **Website, marketing kit and Android apps**: all live, see the links above and the downloads below.
+- **Last check**: every page, image and link on the website and room guide was tested on the live site and loads (46 place pages, 46 tiles, map, plan, restaurants, Hindi).
 
 ## 🏛️ About Sudha Vatika
 
@@ -76,7 +84,7 @@ Prices are not published online. Call, WhatsApp or send an enquiry and the team 
 
 ## 🛎️ Room guide for hotel guests
 
-A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/**, a large-icon page that replaces the room phone. It lives next to the website but is a separate app, so the official website is untouched.
+A QR code in each room opens [**https://kushagra486.github.io/Sudha-Vatika-/room/**](https://kushagra486.github.io/Sudha-Vatika-/room/), a large-icon page that replaces the room phone. It lives next to the website but is a separate app, so the official website is untouched.
 
 | Guests can                                                 | Details                                                                                                                                                                                                                                                                                                          |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -84,7 +92,7 @@ A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/
 | **Ask for Housekeeping, Luggage help, Repairs, Help Desk** | Big option buttons, then Send. Goes straight to the dashboard                                                                                                                                                                                                                                                    |
 | **Food and drinks on request**                             | Tell the team what they want. Plus **Order Food Online**: nearby restaurants with phone numbers, veg filter and delivery-app buttons                                                                                                                                                                             |
 | **WiFi**                                                   | Name and password (shown after they enter room number and name)                                                                                                                                                                                                                                                  |
-| **Explore Prayagraj**                                      | 45 places with picture tiles, in groups: temples and ghats, sights and history, markets and squares, **food outings**, stations and airport, areas and paths, bus stands. Each place has a readable page (what is there, best time, time to allow) and its own map. A one-day plan shows 10 stops on a route map |
+| **Explore Prayagraj**                                      | 46 places with picture tiles, in groups: temples and ghats, sights and history, markets and squares, **food outings**, stations and airport, areas and paths, bus stands. Each place has a readable page (what is there, best time, time to allow) and its own map. A one-day plan shows 10 stops on a route map |
 | **Follow their requests**                                  | "My requests" shows Received, On the way, Done                                                                                                                                                                                                                                                                   |
 | **Rate their stay**                                        | Stars, comments, and a few quick ratings                                                                                                                                                                                                                                                                         |
 
@@ -95,7 +103,7 @@ A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/
 
 ### Places and photos
 
-- **45 places**, each with a photo, an English and Hindi description, a best time to visit and a map pin. **Food outings** covers Loknath Gali, Katra and Colonelganj, El Chico and the Civil Lines Night Market; **Markets** includes the malls (WP Arena, Vinayak City Centre and P Square).
+- **46 places**, each with a photo, an English and Hindi description, a best time to visit and a map pin. **Food outings** covers Loknath Gali, Katra and Colonelganj, El Chico and the Civil Lines Night Market; **Markets** includes the malls (WP Arena, Vinayak City Centre and P Square).
 - **Photos** are supplied by the owner (credited as such) or free-licence Wikimedia Commons files (credited with a link). The list and licences are in `room-guide/places/CREDITS.md`. Please make sure you have permission for every photo you supply.
 - **Check these**: the P Square Mall and Boat Club photos look like renderings or stock images, and the Civil Lines Night Market photo is a video still, so replace them with real photos when you have them.
 - **Approximate map pins**: Loknath Gali (uses the Chowk pin), El Chico and the Night Market (Civil Lines centre), the Law Museum (High Court campus), Swaraj Bhawan (next to Anand Bhawan) and Boat Club (near Mankameshwar). Send a Google Maps pin for any of them to make it exact.
@@ -196,12 +204,12 @@ The dashboard is for the owners and staff: enquiries and follow-ups, bookings an
 
 ## ☁️ Hosting
 
-| Part                               | Where                                    | Updates when                                                                          |
-| ---------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------- |
-| Website (`site/`)                  | GitHub Pages, from the `gh-pages` branch | `site/` or `room-guide/` changes on `main` (workflow `.github/workflows/website.yml`) |
-| Dashboard (`apps/web`)             | Vercel                                   | `main` changes (root folder `apps/web`)                                               |
-| Database, logins, files, functions | Supabase                                 | Migrations in `supabase/migrations` and Edge Functions                                |
-| Android apps                       | GitHub Actions builds the APKs           | Changes in `android-app/` or `android-dashboard/`                                     |
+| Part                                             | Where                                                                     | Updates when                                                                          |
+| ------------------------------------------------ | ------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Website (`site/`) and room guide (`room-guide/`) | GitHub Pages, from the `gh-pages` branch (Vercel is told not to build it) | `site/` or `room-guide/` changes on `main` (workflow `.github/workflows/website.yml`) |
+| Dashboard (`apps/web`)                           | Vercel                                                                    | `main` changes (root folder `apps/web`)                                               |
+| Database, logins, files, functions               | Supabase                                                                  | Migrations in `supabase/migrations` and Edge Functions                                |
+| Android apps                                     | GitHub Actions builds the APKs                                            | Changes in `android-app/` or `android-dashboard/`                                     |
 
 **Email alerts** need a sending Gmail account with an app password, saved as the Supabase function secrets `GMAIL_USER` and `GMAIL_APP_PASSWORD` (optionally `DASHBOARD_URL`). Without them enquiries are still saved, and the missing email is logged.
 

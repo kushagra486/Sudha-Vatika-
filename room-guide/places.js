@@ -258,6 +258,16 @@ window.PLACES = [
     dh: 'आज़ाद पार्क के अंदर पुरानी गॉथिक शैली की इमारत, जिसमें शहर का सार्वजनिक पुस्तकालय है।',
   },
   {
+    id: 'curzon',
+    c: 'heritage',
+    lat: 25.50642,
+    lon: 81.8668,
+    en: 'Curzon Bridge (Ganga)',
+    hi: 'कर्ज़न ब्रिज (गंगा)',
+    de: 'An old red iron bridge over the Ganga towards Phaphamau, built in 1905. A view from the bank is enough.',
+    dh: 'फाफामऊ की ओर गंगा पर 1905 में बना पुराना लाल लोहे का पुल। किनारे से देखना काफ़ी है।',
+  },
+  {
     id: 'oldnaini',
     c: 'heritage',
     lat: 25.42374,

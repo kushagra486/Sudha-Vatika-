@@ -48,3 +48,4 @@ Each page link has the original file, author and licence text.
 - pvr: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - psquare: photo supplied by the owner (original photographer not known), used with the owner's permission. The photo looks like a design rendering or a stock image; replace it with a real photo of the place.
 - boatclub: photo supplied by the owner (original photographer not known), used with the owner's permission. The photo looks like a design rendering or a stock image; replace it with a real photo of the place.
+- curzon: photo supplied by the owner (original photographer not known), used with the owner's permission.
