@@ -177,4 +177,9 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  minto: {
+    file: 'places/minto.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };

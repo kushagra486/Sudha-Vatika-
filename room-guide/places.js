@@ -167,6 +167,16 @@ window.PLACES = [
     dh: 'शहर का बड़ा हरा पार्क, जहाँ शहीद आज़ाद ने बलिदान दिया। शाम की सैर के लिए अच्छा।',
   },
   {
+    id: 'minto',
+    c: 'heritage',
+    lat: 25.43287,
+    lon: 81.86209,
+    en: 'Minto Park (Madan Mohan Malaviya Park)',
+    hi: 'मिंटो पार्क (मदन मोहन मालवीय पार्क)',
+    de: 'A riverside park on the Yamuna with a tall white pillar, linked to the 1858 proclamation that put India under the Crown.',
+    dh: 'यमुना किनारे का पार्क, जहाँ ऊँचा सफ़ेद स्तंभ है। 1858 की उस घोषणा से जुड़ा है जिसने भारत को ताज के अधीन किया।',
+  },
+  {
     id: 'highcourt',
     c: 'heritage',
     lat: 25.45331,

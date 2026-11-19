@@ -322,6 +322,26 @@ window.PLACE_TEXT = {
     dur: '45 minutes',
     dd: '45 मिनट',
   },
+  minto: {
+    ab: 'Minto Park, now called Madan Mohan Malaviya Park, is a quiet park on the bank of the Yamuna, close to the Fort and Saraswati Ghat. A tall white stone pillar stands in the middle. In 1858 the proclamation that moved the rule of India from the East India Company to the Crown was read here. Today it is a calm place for a walk and some history.',
+    ah: 'मिंटो पार्क, जिसे अब मदन मोहन मालवीय पार्क कहते हैं, यमुना किनारे का शांत पार्क है, जो किले और सरस्वती घाट के पास है। बीच में ऊँचा सफ़ेद पत्थर का स्तंभ है। 1858 में यहीं वह घोषणा पढ़ी गई थी जिससे भारत का शासन ईस्ट इंडिया कंपनी से ताज के हाथ में गया। आज यह टहलने और इतिहास जानने की शांत जगह है।',
+    hl: [
+      'Tall white pillar in the middle of the park',
+      'Place of the 1858 proclamation',
+      'Green lawns beside the Yamuna',
+      'Close to the Fort and Saraswati Ghat',
+    ],
+    hh: [
+      'पार्क के बीच ऊँचा सफ़ेद स्तंभ',
+      '1858 की घोषणा का स्थान',
+      'यमुना के किनारे हरे लॉन',
+      'किले और सरस्वती घाट के पास',
+    ],
+    bt: 'Early morning or late afternoon, in the cooler months. Combine it with the Fort and Saraswati Ghat.',
+    bh: 'ठंड के मौसम में सुबह जल्दी या देर दोपहर। किले और सरस्वती घाट के साथ घूमें।',
+    dur: '30 to 45 minutes',
+    dd: '30 से 45 मिनट',
+  },
   highcourt: {
     ab: 'The Allahabad High Court is a grand building of red stone, one of the oldest high courts in India. It is best admired from outside, as the building is a working court.',
     ah: 'इलाहाबाद उच्च न्यायालय लाल पत्थर की भव्य इमारत है और भारत के सबसे पुराने उच्च न्यायालयों में से एक है। इसे बाहर से देखना ही ठीक है, क्योंकि यह चालू अदालत है।',
