@@ -142,4 +142,9 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  chowk: {
+    file: 'places/chowk.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
