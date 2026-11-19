@@ -143,3 +143,37 @@ export function enquiryMail(e: EnquiryMail): Mail {
     html,
   };
 }
+
+export interface RoomRequestMail {
+  room: string;
+  name: string;
+  kind: string;
+  item?: string;
+  details?: string;
+  url: string;
+}
+
+/** A guest in a room asked for something: short, so staff can act from the phone. */
+export function roomRequestMail(r: RoomRequestMail): Mail {
+  const label = r.kind.charAt(0).toUpperCase() + r.kind.slice(1);
+  const lines = [
+    `Room ${r.room}: ${label}`,
+    `Guest: ${r.name}`,
+    ...(r.item ? [`Needs: ${r.item}`] : []),
+    ...(r.details ? [`Note: ${r.details}`] : []),
+    '',
+    `Open the Room desk: ${r.url}`,
+  ];
+  const html = `<div style="font-family:Arial,sans-serif;max-width:480px;margin:auto;color:#2b2220">
+  <div style="background:#6b1d2a;color:#fff;padding:14px 18px;border-radius:10px 10px 0 0">
+    <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#e7cf96">Room request</div>
+    <div style="font-size:20px;font-weight:bold;margin-top:4px">Room ${esc(r.room)} · ${esc(label)}</div>
+  </div>
+  <div style="border:1px solid #e3d7c3;border-top:0;padding:14px 18px">
+    <p><b>${esc(r.name)}</b></p>
+    ${r.item ? `<p>Needs: <b>${esc(r.item)}</b></p>` : ''}
+    ${r.details ? `<p>Note: ${esc(r.details)}</p>` : ''}
+    <p style="margin-top:16px"><a href="${esc(r.url)}" style="background:#6b1d2a;color:#fff;padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:bold">Open Room desk</a></p>
+  </div></div>`;
+  return { subject: `Room ${r.room}: ${label} request`, text: lines.join('\n'), html };
+}

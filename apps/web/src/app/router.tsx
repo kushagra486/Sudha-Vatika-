@@ -18,6 +18,7 @@ import { MediaPage } from '@/features/media/MediaPage';
 import { LeadDetailPage } from '@/features/leads/LeadDetailPage';
 import { LeadsPage } from '@/features/leads/LeadsPage';
 import { PaymentsPage } from '@/features/payments/PaymentsPage';
+import { RoomDeskPage } from '@/features/roomdesk/RoomDeskPage';
 import { SettingsPage } from '@/features/settings/SettingsPage';
 import { AppLayout } from './AppLayout';
 import { RequireAuth, RequireRole } from './guards';
@@ -47,6 +48,7 @@ const BUILT: Partial<Record<NavItem['labelKey'], RouteObject[]>> = {
   packages: [{ path: 'packages', element: <PackagesPage /> }],
   calls: [{ path: 'calls', element: <CallsPage /> }],
   followups: [{ path: 'followups', element: <FollowupsPage /> }],
+  roomDesk: [{ path: 'room-desk', element: <RoomDeskPage /> }],
   chats: [
     { path: 'chats', element: <ChatsPage /> },
     { path: 'chats/:guestId', element: <ChatThreadPage /> },
