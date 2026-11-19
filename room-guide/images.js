@@ -157,4 +157,14 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },
+  subedarganj: {
+    file: 'places/subedarganj.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  zerobus: {
+    file: 'places/zerobus.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
 };
