@@ -17,6 +17,6 @@ Plain HTML, CSS and JavaScript, no build step. It talks to the public `room-gues
 Restaurants, WiFi, check-out time and the guest note are **not** in this folder: owners edit them in the
 dashboard under Room desk, and the page reads them live.
 
-Photos still needed are listed in the root README. Test locally: `cd room-guide && python3 -m http.server 8766`, then open http://127.0.0.1:8766/?room=101
+Place photos, credits and how to add a place are in the root README and `places/CREDITS.md`. Test locally: `cd room-guide && python3 -m http.server 8766`, then open http://127.0.0.1:8766/?room=101
 (the function allows that address). Publishing is done by `.github/workflows/website.yml` when this folder
 changes on `main`.

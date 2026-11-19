@@ -21,21 +21,23 @@ Weddings · Receptions · Parties · Functions · Meetings
 
 ## 🔗 All links
 
-| What                                    | For                                 | Link                                                         |
-| --------------------------------------- | ----------------------------------- | ------------------------------------------------------------ |
-| **Website**                             | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/                 |
-| **Enquiry form**                        | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/enquiry.html     |
-| **Staff dashboard**                     | Owners and staff (sign-in required) | https://sudha-vatika.vercel.app                              |
-| **Instagram**                           | Everyone                            | https://www.instagram.com/sudha.vatika                       |
-| **Google Maps**                         | Everyone                            | https://maps.app.goo.gl/UULQUpDEhLZk1mDw8                    |
-| **Save our contact (vCard)**            | Everyone                            | https://kushagra486.github.io/Sudha-Vatika-/sudha-vatika.vcf |
-| **Source code**                         | Developers                          | https://github.com/kushagra486/Sudha-Vatika-                 |
-| Old dashboard address (Netlify, legacy) | Staff                               | https://sudha-vatika.netlify.app                             |
-| Old website address (Netlify, legacy)   | Customers                           | https://sudhavatika.netlify.app                              |
+| What                                    | For                                 | Link                                                                              |
+| --------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------- |
+| **Website**                             | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/                                      |
+| **Enquiry form**                        | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/enquiry.html                          |
+| **Room guide** (QR in every room)       | Hotel guests                        | https://kushagra486.github.io/Sudha-Vatika-/room/                                 |
+| Room QR cards (PDF)                     | Reception, printing                 | https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf |
+| **Staff dashboard**                     | Owners and staff (sign-in required) | https://sudha-vatika.vercel.app                                                   |
+| **Instagram**                           | Everyone                            | https://www.instagram.com/sudha.vatika                                            |
+| **Google Maps**                         | Everyone                            | https://maps.app.goo.gl/UULQUpDEhLZk1mDw8                                         |
+| **Save our contact (vCard)**            | Everyone                            | https://kushagra486.github.io/Sudha-Vatika-/sudha-vatika.vcf                      |
+| **Source code**                         | Developers                          | https://github.com/kushagra486/Sudha-Vatika-                                      |
+| Old dashboard address (Netlify, legacy) | Staff                               | https://sudha-vatika.netlify.app                                                  |
+| Old website address (Netlify, legacy)   | Customers                           | https://sudhavatika.netlify.app                                                   |
 
 Website pages: [Pandaal](https://kushagra486.github.io/Sudha-Vatika-/pandaal.html) · [Ashoka Hall](https://kushagra486.github.io/Sudha-Vatika-/ashoka-hall.html) · [Lawn](https://kushagra486.github.io/Sudha-Vatika-/lawn.html) · [Conference Hall](https://kushagra486.github.io/Sudha-Vatika-/conference.html) · [VIP Rooms](https://kushagra486.github.io/Sudha-Vatika-/rooms.html) · [Dormitory](https://kushagra486.github.io/Sudha-Vatika-/dormitory.html) · [Decor](https://kushagra486.github.io/Sudha-Vatika-/decor.html) · [About](https://kushagra486.github.io/Sudha-Vatika-/about.html) · [Location](https://kushagra486.github.io/Sudha-Vatika-/location.html) · [Contact](https://kushagra486.github.io/Sudha-Vatika-/contact.html)
 
-<p align="center"><img src="site/images/qr/website.svg" width="150" alt="QR code for the website"><br><sub>Scan to open the website</sub></p>
+<p align="center"><img src="site/images/qr/website.svg" width="150" alt="QR code for the website">&nbsp;&nbsp;&nbsp;<img src="room-guide/cards/qr-room-guide.svg" width="150" alt="QR code for the room guide"><br><sub>Scan to open the website (left) or the room guide (right)</sub></p>
 
 ## 🏛️ About Sudha Vatika
 
@@ -76,33 +78,34 @@ Prices are not published online. Call, WhatsApp or send an enquiry and the team 
 
 A QR code in each room opens **https://kushagra486.github.io/Sudha-Vatika-/room/**, a large-icon page that replaces the room phone. It lives next to the website but is a separate app, so the official website is untouched.
 
-| Guests can                                                 | Details                                                                                                                                                                                                     |
-| ---------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Call or WhatsApp Reception**                             | One tap, any time                                                                                                                                                                                           |
-| **Ask for Housekeeping, Luggage help, Repairs, Help Desk** | Big option buttons, then Send. Goes straight to the dashboard                                                                                                                                               |
-| **Food and drinks on request**                             | Tell the team what they want. Plus **Order Food Online**: nearby restaurants with phone numbers, veg filter and delivery-app buttons                                                                        |
-| **WiFi**                                                   | Name and password (shown after they enter room number and name)                                                                                                                                             |
-| **Explore Prayagraj**                                      | Picture tiles for temples, sights, markets, stations, airport, bus stands and areas. Each place has a readable page with the best time to go and its own map. A one-day plan shows all stops on a route map |
-| **Follow their requests**                                  | "My requests" shows Received, On the way, Done                                                                                                                                                              |
-| **Rate their stay**                                        | Stars, comments, and a few quick ratings                                                                                                                                                                    |
+| Guests can                                                 | Details                                                                                                                                                                                                                                                                                                          |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Call or WhatsApp Reception**                             | One tap, any time                                                                                                                                                                                                                                                                                                |
+| **Ask for Housekeeping, Luggage help, Repairs, Help Desk** | Big option buttons, then Send. Goes straight to the dashboard                                                                                                                                                                                                                                                    |
+| **Food and drinks on request**                             | Tell the team what they want. Plus **Order Food Online**: nearby restaurants with phone numbers, veg filter and delivery-app buttons                                                                                                                                                                             |
+| **WiFi**                                                   | Name and password (shown after they enter room number and name)                                                                                                                                                                                                                                                  |
+| **Explore Prayagraj**                                      | 45 places with picture tiles, in groups: temples and ghats, sights and history, markets and squares, **food outings**, stations and airport, areas and paths, bus stands. Each place has a readable page (what is there, best time, time to allow) and its own map. A one-day plan shows 10 stops on a route map |
+| **Follow their requests**                                  | "My requests" shows Received, On the way, Done                                                                                                                                                                                                                                                                   |
+| **Rate their stay**                                        | Stars, comments, and a few quick ratings                                                                                                                                                                                                                                                                         |
 
 - **No password**: guests only give a **room number and a name**, so staff know who is asking and for what. It works in English and Hindi.
 - **Staff side**: the dashboard's **Room desk** shows new requests (with a one-tap "On it" and "Done"), reviews with averages, the restaurant list, and the WiFi, check-out time and note that guests see.
 - **QR cards**: [one card for every room](https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf) (A5, English and Hindi). `node room-guide/tools/make_room_cards.mjs 101 102 103` makes a card per room with the room number filled in.
 - **Changing things**: phone numbers and links are in `room-guide/config.js`; places in `room-guide/places.js` and `room-guide/place-details.js`; restaurants, WiFi and check-out time are edited in the dashboard, no code needed.
 
-### Photos still needed (4 of 44 places)
+### Places and photos
 
-The room guide shows an icon tile for these places until a photo is added. Photos must be ones we may use: your own pictures, or Wikimedia Commons files with a free licence (the credit shows under the photo).
+- **45 places**, each with a photo, an English and Hindi description, a best time to visit and a map pin. **Food outings** covers Loknath Gali, Katra and Colonelganj, El Chico and the Civil Lines Night Market; **Markets** includes the malls (WP Arena, Vinayak City Centre and P Square).
+- **Photos** are supplied by the owner (credited as such) or free-licence Wikimedia Commons files (credited with a link). The list and licences are in `room-guide/places/CREDITS.md`. Please make sure you have permission for every photo you supply.
+- **Check these**: the P Square Mall and Boat Club photos look like renderings or stock images, and the Civil Lines Night Market photo is a video still, so replace them with real photos when you have them.
+- **Approximate map pins**: Loknath Gali (uses the Chowk pin), El Chico and the Night Market (Civil Lines centre), the Law Museum (High Court campus), Swaraj Bhawan (next to Anand Bhawan) and Boat Club (near Mankameshwar). Send a Google Maps pin for any of them to make it exact.
+- **Opening times and food**: pages say to confirm times with Reception, and Sudha Vatika itself does not serve food.
+- **To add a place**: add it to `room-guide/places.js` (position, group, short text), its details to `room-guide/place-details.js`, the photo (about 800 pixels wide) as `room-guide/places/<id>.jpg`, its entry in `room-guide/images.js` and a line in `room-guide/places/CREDITS.md`.
 
-**🛤️ Areas and paths**
+### Still to set up
 
-- Daraganj (old pilgrim quarter) (id: `daraganj`)
-- Johnstonganj (id: `johnstonganj`)
-- Lukerganj (id: `lukerganj`)
-- Triveni Road (the road to the Sangam) (id: `triveniroad`)
-
-To add one: put the picture in `room-guide/places/<id>.jpg` (about 800 pixels wide), add its entry (credit, licence, link) to `room-guide/images.js`, and note it in `room-guide/places/CREDITS.md`.
+- **Email alerts**: the `GMAIL_USER`, `GMAIL_APP_PASSWORD` and `DASHBOARD_URL` secrets in Supabase (website enquiries and room requests are saved without them).
+- **WiFi name and password**: enter them in the dashboard under **Room desk, Guest page**; until then the guest page says to ask Reception.
 
 ## 🖼️ Gallery
 
