@@ -75,9 +75,8 @@ window.PLACE_IMG = {
   },
   junction: {
     file: 'places/junction.jpg',
-    credit: 'Apurv013',
-    license: 'CC0',
-    url: 'https://commons.wikimedia.org/wiki/File:Prayagraj_Jn_Railway_Station.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   hanuman: {
     file: 'places/hanuman.jpg',
@@ -164,6 +163,11 @@ window.PLACE_IMG = {
   },
   zerobus: {
     file: 'places/zerobus.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
+  civilbus: {
+    file: 'places/civilbus.jpg',
     credit: 'supplied by the owner',
     license: "used with the owner's permission",
   },

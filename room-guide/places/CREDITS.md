@@ -15,7 +15,7 @@ Each page link has the original file, author and licence text.
 - bridge: Bhartrihari Pandiya, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Naini_Bridge_@_Allahabad.jpg
 - airport: Harshv7777, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Airport.jpg
 - chheoki: Gamerzer, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Chheoki_junction.jpg
-- junction: Apurv013, CC0, https://commons.wikimedia.org/wiki/File:Prayagraj_Jn_Railway_Station.jpg
+- junction: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - hanuman: Shri Bade Hanuman Ji (@ShriBadeHanumanji), photo supplied by the owner and used with the owner's permission (please confirm the temple's permission).
 - vimana: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - akshayavat: photo supplied by the owner (original photographer not known), used with the owner's permission. Please check it shows the right place.
@@ -33,3 +33,4 @@ Each page link has the original file, author and licence text.
 - sangamstn: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - subedarganj: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - zerobus: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- civilbus: photo supplied by the owner (original photographer not known), used with the owner's permission.
