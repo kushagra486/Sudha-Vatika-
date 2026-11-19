@@ -463,6 +463,28 @@ window.PLACE_TEXT = {
     dur: '1 to 2 hours',
     dd: '1 से 2 घंटे',
   },
+  loknath: {
+    ab: 'Loknath Gali is the old food lane in Chowk, the heart of old Prayagraj, and a favourite for traditional snacks and sweets. Shops here include Hari Ram & Sons for mini masala samosas and namkeen, Raja Ram Lassi Wala for traditional lassi, Sulaki & Sons for dahi jalebi and sweets, and Nirala Chaat and Mishthan Bhandar for chaat and sweets. The lane is narrow and busy, so go on foot or by e-rickshaw.',
+    ah: 'लोकनाथ गली पुराने प्रयागराज के दिल चौक की पुरानी खाने की गली है, जो पारंपरिक नाश्ते और मिठाइयों के लिए पसंद की जाती है। यहाँ मिनी मसाला समोसे और नमकीन के लिए हरि राम एंड संस, पारंपरिक लस्सी के लिए राजा राम लस्सी वाला, दही जलेबी और मिठाइयों के लिए सुलाकी एंड संस, और चाट व मिठाइयों के लिए निराला चाट एंड मिष्ठान भंडार जैसी दुकानें हैं। गली तंग और भीड़भाड़ वाली है, इसलिए पैदल या ई-रिक्शा से जाएँ।',
+    hl: [
+      'Loknath Food Market: traditional food street',
+      'Hari Ram & Sons: mini masala samosas and namkeen',
+      'Raja Ram Lassi Wala: traditional lassi',
+      'Sulaki & Sons: dahi jalebi and traditional sweets',
+      'Nirala Chaat and Mishthan Bhandar: chaat and sweets',
+    ],
+    hh: [
+      'लोकनाथ फ़ूड मार्केट: पारंपरिक खाने की गली',
+      'हरि राम एंड संस: मिनी मसाला समोसे और नमकीन',
+      'राजा राम लस्सी वाला: पारंपरिक लस्सी',
+      'सुलाकी एंड संस: दही जलेबी और पारंपरिक मिठाइयाँ',
+      'निराला चाट एंड मिष्ठान भंडार: चाट और मिठाइयाँ',
+    ],
+    bt: 'Late morning to evening, when the shops are open and fresh. Avoid festival rush hours. Shop timings change, so please confirm with Reception. Sudha Vatika does not serve food.',
+    bh: 'देर सुबह से शाम तक, जब दुकानें खुली और ताज़ा माल होता है। त्योहार की भीड़ के समय से बचें। दुकानों का समय बदल सकता है, इसलिए रिसेप्शन से पूछ लें। सुधा वाटिका में भोजन नहीं मिलता।',
+    dur: '1 to 2 hours',
+    dd: '1 से 2 घंटे',
+  },
   chowk: {
     ab: 'Chowk is the old city market, a web of narrow, busy lanes. It is the place for sweets, spices, cloth, brassware, flowers and gifts, and shows the real daily life of old Prayagraj.',
     ah: 'चौक पुराने शहर का बाज़ार है, तंग और व्यस्त गलियों का जाल। यह मिठाई, मसाले, कपड़े, पीतल के बर्तन, फूल और उपहारों की जगह है, और पुराने प्रयागराज का असली रोज़मर्रा का जीवन दिखाता है।',

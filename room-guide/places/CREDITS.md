@@ -39,3 +39,4 @@ Each page link has the original file, author and licence text.
 - minto: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - shivalaya: photo supplied by the owner (original photographer not known), used with the owner's permission.
 - trivenipushp: photo supplied by the owner (original photographer not known), used with the owner's permission.
+- loknath: photo supplied by the owner (original photographer not known), used with the owner's permission.

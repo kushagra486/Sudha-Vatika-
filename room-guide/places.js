@@ -318,6 +318,16 @@ window.PLACES = [
     dh: 'सिविल लाइंस में लाल बहादुर शास्त्री मार्ग पर शॉपिंग मॉल, जहाँ ब्रांड की दुकानें हैं और आराम से घूमा जा सकता है।',
   },
   {
+    id: 'loknath',
+    c: 'food',
+    lat: 25.43844,
+    lon: 81.83402,
+    en: 'Loknath Gali (Chowk food lane)',
+    hi: 'लोकनाथ गली (चौक की खाने की गली)',
+    de: 'The old food lane in Chowk, known for samosas, lassi, jalebi, chaat and sweets.',
+    dh: 'चौक की पुरानी खाने की गली, समोसे, लस्सी, जलेबी, चाट और मिठाइयों के लिए मशहूर।',
+  },
+  {
     id: 'chowk',
     c: 'market',
     lat: 25.43844,
@@ -421,6 +431,7 @@ window.CATEGORIES = [
     hi: 'दर्शनीय और इतिहास',
   },
   { id: 'market', icon: '🛍️', color: '#7c3aed', en: 'Markets and squares', hi: 'बाज़ार और चौराहे' },
+  { id: 'food', icon: '🍽️', color: '#be185d', en: 'Food outings', hi: 'खाने की जगहें' },
   {
     id: 'station',
     icon: '🚉',

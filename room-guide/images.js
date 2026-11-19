@@ -144,6 +144,11 @@ window.PLACE_IMG = {
     credit: 'supplied by the owner (design visualisation)',
     license: "used with the owner's permission",
   },
+  loknath: {
+    file: 'places/loknath.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
+  },
   chowk: {
     file: 'places/chowk.jpg',
     credit: 'supplied by the owner',
