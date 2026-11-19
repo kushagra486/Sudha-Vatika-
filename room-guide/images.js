@@ -52,9 +52,8 @@ window.PLACE_IMG = {
   },
   fort: {
     file: 'places/fort.jpg',
-    credit: 'Vyomtripathi',
-    license: 'CC BY-SA 4.0',
-    url: 'https://commons.wikimedia.org/wiki/File:Akbar_Fort_Allahabad.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   anand: {
     file: 'places/anand.jpg',
