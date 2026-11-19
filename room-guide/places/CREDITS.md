@@ -10,7 +10,7 @@ Each page link has the original file, author and licence text.
 - azadpark: Vyomtripathi, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Victoria_Memorial_Allahabad.jpg
 - planetarium: Dananuj, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Jawahar_Planetarium,_Allahabad_Jan_2014_AJ.jpg
 - khusro: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
-- cathedral: Ar.anujgupta, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:All_Saints_Cathedral,_Prayagraj,_Uttar_Pradesh,_India_(2018)142.jpg
+- cathedral: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - nagvasuki: 21GauriGuptaa, CC0, https://commons.wikimedia.org/wiki/File:NaagvasukiTemple.jpg
 - bridge: Bhartrihari Pandiya, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Naini_Bridge_@_Allahabad.jpg
 - airport: Harshv7777, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Prayagraj_Airport.jpg
