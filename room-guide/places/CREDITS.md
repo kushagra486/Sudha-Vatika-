@@ -6,7 +6,7 @@ Each page link has the original file, author and licence text.
 - sangam: Timothy A. Gonsalves, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Boat_Pilgrims_Triveni_Sangam_Allahabad_Jan24_A7C_08513.jpg
 - fort: Vyomtripathi, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Akbar_Fort_Allahabad.jpg
 - highcourt: Vroomtrapit at English Wikipedia, CC0, https://commons.wikimedia.org/wiki/File:Allahabad_high_court.jpg
-- anand: Balasub, CC BY-SA 2.0, https://commons.wikimedia.org/wiki/File:Anand_Bhawan,_Allahabad.jpg
+- anand: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.
 - azadpark: Vyomtripathi, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Victoria_Memorial_Allahabad.jpg
 - planetarium: Dananuj, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Jawahar_Planetarium,_Allahabad_Jan_2014_AJ.jpg
 - khusro: photo supplied by the owner (original photographer not known), used with the owner's permission. Replaces the earlier Wikimedia Commons photo.

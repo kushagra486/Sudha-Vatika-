@@ -58,9 +58,8 @@ window.PLACE_IMG = {
   },
   anand: {
     file: 'places/anand.jpg',
-    credit: 'Balasub',
-    license: 'CC BY-SA 2.0',
-    url: 'https://commons.wikimedia.org/wiki/File:Anand_Bhawan,_Allahabad.jpg',
+    credit: 'supplied by the owner',
+    license: "used with the owner's permission",
   },
   planetarium: {
     file: 'places/planetarium.jpg',
