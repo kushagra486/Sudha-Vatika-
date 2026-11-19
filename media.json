@@ -1,0 +1,817 @@
+{
+  "spaces": {
+    "pandaal": {
+      "photos": [
+        {
+          "file": "pandaal-02",
+          "hash": "a19b6dac9269c492",
+          "score": 90.3,
+          "width": 1200,
+          "height": 1600,
+          "alt": "The aisle under the grand chandelier, leading to the floral stage",
+          "source": "3ceff187-image.jpg"
+        },
+        {
+          "file": "pandaal-06",
+          "hash": "c9e80e370b1726b7",
+          "score": 98.7,
+          "width": 1600,
+          "height": 1200,
+          "alt": "The decorated stage with its floral canopy and golden sofa",
+          "source": "1c1490ea-image.jpg"
+        },
+        {
+          "file": "pandaal-04",
+          "hash": "7c7372d053523c0a",
+          "score": 95.7,
+          "width": 1600,
+          "height": 1200,
+          "alt": "The full pandaal: golden drapes, hanging-flower chandeliers and the stage",
+          "source": "1bd1125b-image.jpg"
+        },
+        {
+          "file": "pandaal-15",
+          "hash": "19326a4b4ab88e96",
+          "score": 96.3,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Guests relaxing under the golden fairy-light ceiling",
+          "source": "8e341186-image.jpg"
+        },
+        {
+          "file": "pandaal-16",
+          "hash": "bb99074a4146473d",
+          "score": 89.7,
+          "width": 960,
+          "height": 1280,
+          "alt": "The aisle lined with lit arches and crystal chandeliers",
+          "source": "ca9165a5-image.jpg"
+        },
+        {
+          "file": "pandaal-07",
+          "hash": "fef8ca93885d1e41",
+          "score": 98.1,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Golden ceiling drapes and crystal chandeliers above the stage",
+          "source": "59c44d92-image.jpg"
+        },
+        {
+          "file": "pandaal-11",
+          "hash": "47b9704394369780",
+          "score": 92.9,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Bride and groom on the stage",
+          "source": "f30cceba-image.jpg"
+        },
+        {
+          "file": "pandaal-10",
+          "hash": "cc9293ac71d91a79",
+          "score": 95.3,
+          "width": 960,
+          "height": 1280,
+          "alt": "Seating set for a reception under fairy lights and chandeliers",
+          "source": "189ac34a-image.jpg"
+        },
+        {
+          "file": "pandaal-12",
+          "hash": "4dd892443c2f43c3",
+          "score": 90.9,
+          "width": 960,
+          "height": 1280,
+          "alt": "A floral stage set framed by lit green arches",
+          "source": "b02a82cc-image.jpg"
+        },
+        {
+          "file": "pandaal-01",
+          "hash": "1cb2e69e26270f1b",
+          "score": 92.6,
+          "width": 1600,
+          "height": 1200,
+          "alt": "",
+          "source": "5d1dcce4-image.jpg",
+          "hidden": "similar to pandaal-04"
+        },
+        {
+          "file": "pandaal-03",
+          "hash": "9e8ccc73330f7ff7",
+          "score": 98.9,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "4f1c4cae-image.jpg",
+          "hidden": "same stage as pandaal-06"
+        },
+        {
+          "file": "pandaal-05",
+          "hash": "c4e926329bb32163",
+          "score": 95.6,
+          "width": 1600,
+          "height": 1200,
+          "alt": "",
+          "source": "a2428fa2-image.jpg",
+          "hidden": "same stage as pandaal-06"
+        },
+        {
+          "file": "pandaal-08",
+          "hash": "034e71c211066639",
+          "score": 91.7,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "fcec88ff-image.jpg",
+          "hidden": "similar to pandaal-07"
+        },
+        {
+          "file": "pandaal-09",
+          "hash": "7ee083232a637f27",
+          "score": 87.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "ac5cbc62-image.jpg",
+          "hidden": "similar to pandaal-11"
+        },
+        {
+          "file": "pandaal-13",
+          "hash": "6c59cb94787c093d",
+          "score": 95.4,
+          "width": 960,
+          "height": 1280,
+          "alt": "",
+          "source": "5ef63c44-image.jpg",
+          "hidden": "similar to pandaal-10"
+        },
+        {
+          "file": "pandaal-14",
+          "hash": "983158b3352d52d3",
+          "score": 91.3,
+          "width": 960,
+          "height": 1280,
+          "alt": "",
+          "source": "14e8544f-image.jpg",
+          "hidden": "similar to pandaal-12"
+        }
+      ],
+      "videos": [
+        {
+          "file": "pandaal-video-01",
+          "duration": 13.72,
+          "orientation": "landscape",
+          "score": 85.6,
+          "sig": ["97068ecdce93da0f", "3515cd4d4d736d2d", "6a67ce66471b222a"],
+          "caption": "Walk down the aisle under lit arches",
+          "source": "c0e85ec7-VIDEO-2026-06-22-21-17-32.mov",
+          "clip": [[0.0, 8.0]]
+        },
+        {
+          "file": "pandaal-video-06",
+          "hidden": true,
+          "duration": 9.24,
+          "orientation": "portrait",
+          "score": 76.9,
+          "sig": ["954feeac2e09fb1f", "4c5c6e9ab3724d73", "e16b25711b2fa4a6"],
+          "caption": "Under the golden ceiling drapes",
+          "source": "2d6cee46-VIDEO-2025-05-24-14-43-57.mp4",
+          "clip": [[0.0, 8.0]]
+        },
+        {
+          "file": "pandaal-video-03",
+          "duration": 16.18,
+          "orientation": "landscape",
+          "score": 82.8,
+          "sig": ["a4450f0f8b8f3e3f", "38232233a3ad3e6e", "62261c1134ba6721"],
+          "caption": "DJ, dance floor and stage",
+          "source": "24d023e1-VIDEO-2026-06-22-21-17-31.mov",
+          "clip": [[0.0, 8.0]]
+        },
+        {
+          "file": "pandaal-video-02",
+          "duration": 11.52,
+          "orientation": "landscape",
+          "score": 88.4,
+          "sig": ["d4cdebc9cf474d17", "542ba8ceca0acd4c", "5569acc69b8a0d8c"],
+          "caption": "The seating and arches",
+          "source": "19f99e2c-VIDEO-2026-06-22-21-17-32.mov",
+          "clip": [[0.0, 8.0]]
+        },
+        {
+          "file": "pandaal-video-05",
+          "duration": 37.92,
+          "orientation": "landscape",
+          "score": 84.0,
+          "sig": ["336850666f2fb2b2", "7c5815791de7311c", "58193e7e4ec3c991"],
+          "caption": "The pandaal set for a reception",
+          "source": "403a2492-VIDEO-2026-02-06-22-52-13.mp4",
+          "clip": [
+            [0.0, 5.0],
+            [13.5, 18.5]
+          ]
+        },
+        {
+          "file": "pandaal-video-04",
+          "duration": 9.47,
+          "orientation": "landscape",
+          "score": 79.0,
+          "sig": ["c5478f4b8f9e7e7f", "e8a36563471d5f5f", "18d9d0d9520f1732"],
+          "caption": "DJ and stage",
+          "source": "b8c963aa-VIDEO-2026-06-22-21-17-31.mov",
+          "hidden": "similar to pandaal-video-03",
+          "clip": [[0.0, 8.0]]
+        }
+      ]
+    },
+    "ashoka": {
+      "photos": [
+        {
+          "file": "ashoka-01",
+          "hash": "d99166a4276acea4",
+          "score": 97.4,
+          "width": 1512,
+          "height": 2016,
+          "alt": "The aisle to the stage under crystal chandeliers",
+          "source": "aced988e-image.jpg"
+        },
+        {
+          "file": "ashoka-03",
+          "hash": "031273132be41399",
+          "score": 99.5,
+          "width": 1200,
+          "height": 1600,
+          "alt": "The floral stage with a golden sofa",
+          "source": "8e078a6f-image.jpg"
+        },
+        {
+          "file": "ashoka-06",
+          "hash": "371d3b394d2f2795",
+          "score": 97.8,
+          "width": 1280,
+          "height": 1144,
+          "alt": "The hall set for a function, with the DJ setup",
+          "source": "3f210cc7-image.jpg"
+        },
+        {
+          "file": "ashoka-05",
+          "hash": "02cae96b9697cd38",
+          "score": 81.9,
+          "width": 960,
+          "height": 1280,
+          "alt": "Lit floral rings along the wall",
+          "source": "59b90bfd-image.jpg"
+        },
+        {
+          "file": "ashoka-07",
+          "hash": "616b0eb29e2b0256",
+          "score": 97.1,
+          "width": 960,
+          "height": 1280,
+          "alt": "Lit floral X panels on the white wall",
+          "source": "dd578cbb-image.jpg"
+        },
+        {
+          "file": "ashoka-04",
+          "hash": "bc939f94cec9ecb0",
+          "score": 96.7,
+          "width": 960,
+          "height": 1280,
+          "alt": "Rows of seating beside the flower-covered side wall",
+          "source": "8937bc43-image.jpg"
+        },
+        {
+          "file": "ashoka-02",
+          "hash": "4993c78dd7cb2d36",
+          "score": 97.1,
+          "width": 960,
+          "height": 1280,
+          "alt": "",
+          "source": "95bbd738-image.jpg",
+          "hidden": "similar to ashoka-01"
+        }
+      ],
+      "videos": [
+        {
+          "file": "ashoka-video-01",
+          "duration": 15.02,
+          "orientation": "portrait",
+          "score": 93.1,
+          "sig": ["3b230c1cc7c8e8a7", "774d192c879094cf", "c93373519f546a2a"],
+          "caption": "Walk through Ashoka Hall",
+          "source": "ac34bdb1-VIDEO-2025-11-19-18-07-25.mp4",
+          "clip": [[7.0, 15.0]]
+        },
+        {
+          "file": "ashoka-video-02",
+          "duration": 6.08,
+          "orientation": "portrait",
+          "score": 93.2,
+          "sig": ["635b3c60671b4f34", "d92f1e18938f271b", "24c387ccea67d9ac"],
+          "caption": "Down the aisle to the stage",
+          "source": "36460925-VIDEO-2026-02-06-22-57-46.mov",
+          "clip": [[0.0, 6.083628]]
+        },
+        {
+          "file": "ashoka-video-03",
+          "duration": 24.15,
+          "orientation": "portrait",
+          "score": 92.0,
+          "sig": ["367ae19e5732938f", "1c8c6c2c5d3c7e6c", "443697033ace6118"],
+          "caption": "The lit wall decor and stage",
+          "source": "705a3c8b-VIDEO-2026-02-06-22-57-46.mov",
+          "clip": [
+            [9.0, 14.0],
+            [18.5, 23.5]
+          ]
+        },
+        {
+          "file": "ashoka-video-04",
+          "duration": 16.56,
+          "orientation": "landscape",
+          "score": 76.2,
+          "sig": ["3a565d69635b2929", "c7b3bdae361693ab", "ccec434d5d456666"],
+          "caption": "The lit X wall panel",
+          "source": "61785768-VIDEO-2026-02-06-22-52-13.mp4",
+          "clip": [[8.0, 16.0]]
+        }
+      ]
+    },
+    "lawn": {
+      "photos": [
+        {
+          "file": "lawn-01",
+          "hash": "c0fcbeab29b2d7d9",
+          "score": 85.8,
+          "width": 1600,
+          "height": 1200,
+          "alt": "Dining tables on the lawn beside the lit buffet pavilion",
+          "source": "0bf824c6-image.jpg"
+        },
+        {
+          "file": "lawn-05",
+          "hash": "80c0e065997a6783",
+          "score": 86.9,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Guests dining on the lawn under the lit pavilions",
+          "source": "e21401a8-image.jpg"
+        },
+        {
+          "file": "lawn-03",
+          "hash": "318109898d8c9400",
+          "score": 86.7,
+          "width": 1600,
+          "height": 1200,
+          "alt": "Lounge seating under golden drapes and lit panels",
+          "source": "30ef810c-image.jpg"
+        },
+        {
+          "file": "lawn-06",
+          "hash": "131dd978998f8f03",
+          "score": 84.4,
+          "width": 1600,
+          "height": 1200,
+          "alt": "A mosaic buffet counter lit against the palms",
+          "source": "7b4ca99b-image.jpg"
+        },
+        {
+          "file": "lawn-04",
+          "hash": "13c8324f0b2bc383",
+          "score": 82.6,
+          "width": 1200,
+          "height": 1600,
+          "alt": "A lit buffet counter under the palms",
+          "source": "06c6eee2-image.jpg"
+        },
+        {
+          "file": "lawn-02",
+          "hash": "e14020a71d16b33c",
+          "score": 85.0,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "5be69517-image.jpg",
+          "hidden": "similar to lawn-05"
+        },
+        {
+          "file": "lawn-07",
+          "hash": "efcce0e892521383",
+          "score": 85.0,
+          "width": 1600,
+          "height": 1200,
+          "alt": "",
+          "source": "5d286955-image.jpg",
+          "hidden": "similar to lawn-06"
+        }
+      ],
+      "videos": [
+        {
+          "file": "lawn-video-01",
+          "duration": 14.86,
+          "orientation": "landscape",
+          "score": 66.4,
+          "sig": ["2473694b5a43694e", "aaaeac9a920a6c65", "264c485d38484f4e"],
+          "caption": "The lounge pavilion on the lawn",
+          "source": "6f38710e-VIDEO-2026-02-06-22-52-13.mp4",
+          "clip": [[0.0, 8.0]]
+        },
+        {
+          "file": "lawn-video-02",
+          "duration": 20.94,
+          "orientation": "landscape",
+          "score": 65.4,
+          "sig": ["88478f8d5dd2cc4f", "7153396e6c83b32e", "b29ed7c1471fbbec"],
+          "caption": "Buffet counters across the lawn",
+          "source": "d9ce2e7c-VIDEO-2026-02-06-22-52-13.mp4",
+          "clip": [
+            [0.0, 5.0],
+            [9.5, 14.5]
+          ]
+        }
+      ]
+    },
+    "passage": {
+      "photos": [
+        {
+          "file": "passage-02",
+          "hash": "c84f07792b1fb392",
+          "score": 99.4,
+          "width": 1600,
+          "height": 725,
+          "alt": "The entrance gate with lit arches and the long canopy walkway",
+          "source": "57c26034-image.jpg"
+        },
+        {
+          "file": "passage-03",
+          "hash": "11c082962b0f01c4",
+          "score": 94.8,
+          "width": 1200,
+          "height": 1600,
+          "alt": "White canopy passage with lit ruffles leading inside",
+          "source": "2877e98f-image.jpg"
+        },
+        {
+          "file": "passage-05",
+          "hash": "e8d933075b6b7ebe",
+          "score": 94.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Red-drape passage with crystal chandeliers",
+          "source": "c30c8cc2-image.jpg"
+        },
+        {
+          "file": "passage-01",
+          "hash": "0361920f49590f2b",
+          "score": 86.6,
+          "width": 1600,
+          "height": 1200,
+          "alt": "The flower-covered entrance gate lit up at night",
+          "source": "4875c4c0-image.jpg"
+        },
+        {
+          "file": "passage-06",
+          "hash": "272727b315d4b4bf",
+          "score": 89.2,
+          "width": 1280,
+          "height": 960,
+          "alt": "Lit pillars and chandeliers along the side passage",
+          "source": "59b3e3a6-image.jpg"
+        },
+        {
+          "file": "passage-04",
+          "hash": "cc2b6929094d4d93",
+          "score": 92.3,
+          "width": 1599,
+          "height": 720,
+          "alt": "The canopy passage between lit pillars",
+          "source": "437fe973-image.jpg"
+        }
+      ],
+      "videos": [
+        {
+          "file": "passage-video-01",
+          "duration": 32.81,
+          "orientation": "landscape",
+          "score": 91.1,
+          "sig": ["412c625213333206", "889b130b5bdb1b9b", "c8d5ed8c98c9d898"],
+          "caption": "Walk in from the gate to the pandaal",
+          "source": "07b579f9-VIDEO-2026-02-06-22-58-46.mov"
+        },
+        {
+          "file": "passage-video-02",
+          "duration": 15.72,
+          "orientation": "portrait",
+          "score": 80.5,
+          "sig": ["d83870932b33de30", "eef8b05b4be7b76f", "d87830a999e3313e"],
+          "caption": "Through the red-drape passage",
+          "source": "a7b309ca-VIDEO-2025-12-20-10-55-20.mp4"
+        },
+        {
+          "file": "passage-video-03",
+          "duration": 8.92,
+          "orientation": "landscape",
+          "score": 87.8,
+          "sig": ["4c0c8dac8e3bcc4c", "6c8c4d8c8c33cc4c", "2e97ce4e0a1349cc"],
+          "caption": "Down the aisle under lit arches",
+          "source": "d277aa04-VIDEO-2026-06-22-21-17-31.mov"
+        }
+      ]
+    },
+    "stages": {
+      "photos": [
+        {
+          "file": "stages-04",
+          "hash": "6133174d694b450c",
+          "score": 87.8,
+          "width": 1600,
+          "height": 1200,
+          "alt": "Grand stage with three floral canopies",
+          "source": "a43ff0fe-image.jpg"
+        },
+        {
+          "file": "stages-03",
+          "hash": "be7955968e8e39dc",
+          "score": 96.3,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Pink floral stage with crossed ribbons and candle lights",
+          "source": "dfad4dd6-image.jpg"
+        },
+        {
+          "file": "stages-02",
+          "hash": "7ee083232a637f27",
+          "score": 87.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Bride and groom on a peach and orange floral stage",
+          "source": "5ff6093d-image.jpg"
+        },
+        {
+          "file": "stages-01",
+          "hash": "c4e926329bb32163",
+          "score": 95.6,
+          "width": 1600,
+          "height": 1200,
+          "alt": "Floral stage with red and peach canopies and a golden sofa",
+          "source": "205cb97b-image.jpg"
+        }
+      ],
+      "videos": [
+        {
+          "file": "stages-video-01",
+          "duration": 21.38,
+          "orientation": "landscape",
+          "score": 91.9,
+          "sig": ["2e3f371b1b22eafa", "39a185b7aa35d5a7", "1fbb859d29190fe0"],
+          "caption": "A floral stage up close",
+          "source": "5fecbb34-VIDEO-2026-06-22-21-17-31.mov"
+        }
+      ]
+    },
+    "rooms": {
+      "photos": [
+        {
+          "file": "rooms-02",
+          "hash": "5f3fd74f7fbdb7c7",
+          "score": 87.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Double room with a window and sitting chairs",
+          "source": "dc337964-image.jpg"
+        },
+        {
+          "file": "rooms-01",
+          "hash": "3c121bdb593860f1",
+          "score": 86.7,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Air-conditioned double room",
+          "source": "e5b0e991-image.jpg"
+        },
+        {
+          "file": "rooms-04",
+          "hash": "1f1bfbf37236c68e",
+          "score": 91.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Family room with a double bed and an extra bed",
+          "source": "f41cf397-image.jpg"
+        },
+        {
+          "file": "rooms-07",
+          "hash": "a8a49292b2fccc84",
+          "score": 89.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Double room with wardrobe and side table",
+          "source": "30bb49c3-image.jpg"
+        },
+        {
+          "file": "rooms-09",
+          "hash": "0030303806c66922",
+          "score": 84.5,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Sitting area by the window",
+          "source": "84e8e2c8-image.jpg"
+        },
+        {
+          "file": "rooms-06",
+          "hash": "4d7b6317733f3787",
+          "score": 98.1,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Attached bathroom with hot water geyser",
+          "source": "50bc2444-image.jpg"
+        },
+        {
+          "file": "rooms-10",
+          "hash": "9cc0e42c24acacac",
+          "score": 92.8,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Corridor to the rooms, with a drinking-water cooler",
+          "source": "367546f2-image.jpg"
+        },
+        {
+          "file": "rooms-03",
+          "hash": "fc39b9ada9b9347e",
+          "score": 82.6,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "ff3af220-image.jpg",
+          "hidden": "similar to rooms-04"
+        },
+        {
+          "file": "rooms-05",
+          "hash": "c1c3c7c2c5c9d0b4",
+          "score": 86.1,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "6e4b938a-image.jpg",
+          "hidden": "wardrobe detail, weaker shot"
+        },
+        {
+          "file": "rooms-08",
+          "hash": "392d2d0909c48391",
+          "score": 98.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "c40ff14e-image.jpg",
+          "hidden": "similar to rooms-06"
+        }
+      ],
+      "videos": []
+    },
+    "dorm": {
+      "photos": [
+        {
+          "file": "dorm-01",
+          "hash": "23272d328789d1e3",
+          "score": 99.8,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Large dormitory hall with rows of beds under chandeliers",
+          "source": "c0dfbb03-image.jpg"
+        },
+        {
+          "file": "dorm-02",
+          "hash": "1d93e3d7e6e43962",
+          "score": 99.8,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Dormitory hall set with beds for a large group",
+          "source": "6a02daf2-image.jpg"
+        },
+        {
+          "file": "dorm-03",
+          "hash": "75279407f228b061",
+          "score": 92.3,
+          "width": 960,
+          "height": 1280,
+          "alt": "Dormitory room with beds, blankets and fans",
+          "source": "f33e1289-image.jpg"
+        },
+        {
+          "file": "dorm-04",
+          "hash": "08919b261f47a3de",
+          "score": 85.0,
+          "width": 960,
+          "height": 1280,
+          "alt": "Dormitory room with beds in a row",
+          "source": "ec2389b9-image.jpg"
+        },
+        {
+          "file": "dorm-05",
+          "hash": "15311b3973874be6",
+          "score": 82.0,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Smaller dormitory room with beds",
+          "source": "14dec86a-image.jpg"
+        },
+        {
+          "file": "dorm-06",
+          "hash": "f97333333470e363",
+          "score": 97.6,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Shared washroom with wash basins and mirrors",
+          "source": "7019bfd9-image.jpg"
+        },
+        {
+          "file": "dorm-07",
+          "hash": "171d371009753b4b",
+          "score": 91.2,
+          "width": 960,
+          "height": 1280,
+          "alt": "Bathroom with wash basin and shower",
+          "source": "58d09185-image.jpg"
+        },
+        {
+          "file": "dorm-11",
+          "hash": "d86005b3842464fc",
+          "score": 95.9,
+          "width": 1200,
+          "height": 1600,
+          "alt": "Toilet and bath cubicles",
+          "source": "7b0ce909-image.jpg"
+        },
+        {
+          "file": "dorm-08",
+          "hash": "3c9c68786c2e832d",
+          "score": 87.6,
+          "width": 960,
+          "height": 1280,
+          "alt": "Clean toilet with tiled walls",
+          "source": "0ad62319-image.jpg",
+          "hidden": "similar to dorm-07"
+        },
+        {
+          "file": "dorm-09",
+          "hash": "1f1bfbf37236c68e",
+          "score": 91.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "9ac7b450-image.jpg",
+          "hidden": "same as VIP rooms-04"
+        },
+        {
+          "file": "dorm-10",
+          "hash": "a8a49292b2fccc84",
+          "score": 89.2,
+          "width": 1200,
+          "height": 1600,
+          "alt": "",
+          "source": "cd8675cb-image.jpg",
+          "hidden": "same as VIP rooms-07"
+        }
+      ],
+      "videos": []
+    },
+    "conference": {
+      "photos": [
+        {
+          "file": "conference-01",
+          "hash": "9f1c47e49c9d7c24",
+          "score": 87.8,
+          "width": 1206,
+          "height": 552,
+          "alt": "Theatre-style seating for a meeting, with a head table",
+          "source": "90157436-image.jpg"
+        },
+        {
+          "file": "conference-02",
+          "hash": "be96818b83411913",
+          "score": 77.5,
+          "width": 1206,
+          "height": 537,
+          "alt": "Rows of covered chairs set up for a seminar",
+          "source": "a2d08ab7-image.jpg"
+        },
+        {
+          "file": "conference-03",
+          "hash": "4d64aaa9796b3935",
+          "score": 91.7,
+          "width": 1206,
+          "height": 792,
+          "alt": "Round-table setup with sofas under crystal chandeliers",
+          "source": "ff8fe408-image.jpg"
+        },
+        {
+          "file": "conference-04",
+          "hash": "524d6fcfa9c61d39",
+          "score": 93.2,
+          "width": 1206,
+          "height": 801,
+          "alt": "Round tables, sofa seating and a stage for a function",
+          "source": "f55b4cc3-image.jpg"
+        }
+      ],
+      "videos": []
+    }
+  }
+}

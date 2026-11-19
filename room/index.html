@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#6b1d2a" />
+    <meta name="robots" content="noindex" />
+    <title>Guest Guide | Sudha Vatika</title>
+    <link rel="icon" href="favicon.png" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="top">
+      <button class="brand" id="brand" aria-label="Home">
+        <img src="logo.png" alt="" />
+        <span><b>Sudha Vatika</b><small data-t="guide">Guest Guide</small></span>
+      </button>
+      <div class="top-right">
+        <button class="who" id="who" hidden aria-label="Change room or name"></button>
+        <button class="lang" id="lang" aria-label="Language">हिं</button>
+      </div>
+    </header>
+
+    <main id="app" tabindex="-1"></main>
+
+    <noscript>
+      <p class="nojs">
+        Please turn on JavaScript, or call Reception:
+        <a href="tel:+919451636524">+91 94516 36524</a>
+      </p>
+    </noscript>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="config.js"></script>
+    <script src="places.js"></script>
+    <script src="place-details.js"></script>
+    <script src="images.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
