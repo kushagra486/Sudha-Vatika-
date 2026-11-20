@@ -6,6 +6,7 @@
 Weddings · Receptions · Parties · Functions · Meetings
 
 [![Website](https://img.shields.io/badge/Website-open-6b1d2a?style=for-the-badge)](https://kushagra486.github.io/Sudha-Vatika-/)
+[![Guest site](https://img.shields.io/badge/Guest%20site-room%20QR-0f766e?style=for-the-badge)](https://kushagra486.github.io/Sudha-Vatika-/room/)
 [![Dashboard](https://img.shields.io/badge/Staff%20dashboard-sign%20in-c19a4b?style=for-the-badge)](https://sudha-vatika.vercel.app)
 [![Android](https://img.shields.io/badge/Android-download%20APK-3ddc84?style=for-the-badge&logo=android&logoColor=white)](#-android-apps)
 
@@ -13,27 +14,29 @@ Weddings · Receptions · Parties · Functions · Meetings
 
 </div>
 
+**Guest site (the page guests open from the QR code in their room):** https://kushagra486.github.io/Sudha-Vatika-/room/
+
 > This repository holds everything for Sudha Vatika: the **public website**, the **staff dashboard** (Banquet Manager), the **Android apps**, and the **brochures and posters**. The dashboard's product name is configurable with `VITE_APP_NAME`.
 
 ## Contents
 
-[Links](#-all-links) · [What's new](#-whats-new) · [About](#-about-sudha-vatika) · [Room guide](#-room-guide-for-hotel-guests) · [Gallery](#-gallery) · [Downloads](#-downloads) · [Android apps](#-android-apps) · [How it fits together](#-how-it-fits-together) · [Dashboard and logins](#-staff-dashboard-and-logins) · [Hosting](#-hosting) · [For developers](#for-developers)
+[Links](#-all-links) · [What's new](#-whats-new) · [About](#-about-sudha-vatika) · [Guest site](#-room-guide-for-hotel-guests) · [Gallery](#-gallery) · [Downloads](#-downloads) · [Android apps](#-android-apps) · [How it fits together](#-how-it-fits-together) · [Dashboard and logins](#-staff-dashboard-and-logins) · [Hosting](#-hosting) · [For developers](#for-developers)
 
 ## 🔗 All links
 
-| What                                    | For                                 | Link                                                                              |
-| --------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------- |
-| **Website**                             | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/                                      |
-| **Enquiry form**                        | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/enquiry.html                          |
-| **Room guide** (QR in every room)       | Hotel guests                        | https://kushagra486.github.io/Sudha-Vatika-/room/                                 |
-| Room QR cards (PDF)                     | Reception, printing                 | https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf |
-| **Staff dashboard**                     | Owners and staff (sign-in required) | https://sudha-vatika.vercel.app                                                   |
-| **Instagram**                           | Everyone                            | https://www.instagram.com/sudha.vatika                                            |
-| **Google Maps**                         | Everyone                            | https://maps.app.goo.gl/UULQUpDEhLZk1mDw8                                         |
-| **Save our contact (vCard)**            | Everyone                            | https://kushagra486.github.io/Sudha-Vatika-/sudha-vatika.vcf                      |
-| **Source code**                         | Developers                          | https://github.com/kushagra486/Sudha-Vatika-                                      |
-| Old dashboard address (Netlify, legacy) | Staff                               | https://sudha-vatika.netlify.app                                                  |
-| Old website address (Netlify, legacy)   | Customers                           | https://sudhavatika.netlify.app                                                   |
+| What                                          | For                                 | Link                                                                              |
+| --------------------------------------------- | ----------------------------------- | --------------------------------------------------------------------------------- |
+| **Website**                                   | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/                                      |
+| **Enquiry form**                              | Customers                           | https://kushagra486.github.io/Sudha-Vatika-/enquiry.html                          |
+| **Guest site** (room guide, QR in every room) | Hotel guests                        | https://kushagra486.github.io/Sudha-Vatika-/room/                                 |
+| Room QR cards (PDF)                           | Reception, printing                 | https://kushagra486.github.io/Sudha-Vatika-/room/cards/Sudha-Vatika-Room-Card.pdf |
+| **Staff dashboard**                           | Owners and staff (sign-in required) | https://sudha-vatika.vercel.app                                                   |
+| **Instagram**                                 | Everyone                            | https://www.instagram.com/sudha.vatika                                            |
+| **Google Maps**                               | Everyone                            | https://maps.app.goo.gl/UULQUpDEhLZk1mDw8                                         |
+| **Save our contact (vCard)**                  | Everyone                            | https://kushagra486.github.io/Sudha-Vatika-/sudha-vatika.vcf                      |
+| **Source code**                               | Developers                          | https://github.com/kushagra486/Sudha-Vatika-                                      |
+| Old dashboard address (Netlify, legacy)       | Staff                               | https://sudha-vatika.netlify.app                                                  |
+| Old website address (Netlify, legacy)         | Customers                           | https://sudhavatika.netlify.app                                                   |
 
 Website pages: [Pandaal](https://kushagra486.github.io/Sudha-Vatika-/pandaal.html) · [Ashoka Hall](https://kushagra486.github.io/Sudha-Vatika-/ashoka-hall.html) · [Lawn](https://kushagra486.github.io/Sudha-Vatika-/lawn.html) · [Conference Hall](https://kushagra486.github.io/Sudha-Vatika-/conference.html) · [VIP Rooms](https://kushagra486.github.io/Sudha-Vatika-/rooms.html) · [Dormitory](https://kushagra486.github.io/Sudha-Vatika-/dormitory.html) · [Decor](https://kushagra486.github.io/Sudha-Vatika-/decor.html) · [About](https://kushagra486.github.io/Sudha-Vatika-/about.html) · [Location](https://kushagra486.github.io/Sudha-Vatika-/location.html) · [Contact](https://kushagra486.github.io/Sudha-Vatika-/contact.html)
 
@@ -41,7 +44,7 @@ Website pages: [Pandaal](https://kushagra486.github.io/Sudha-Vatika-/pandaal.htm
 
 ## 🆕 What's new
 
-- **Room guide** (QR in every room): requests to Reception, Housekeeping, Luggage, Repairs and Help Desk, food on request, WiFi, nearby restaurants with phone numbers, reviews, My requests, English and Hindi. No taxi tile.
+- **Guest site** ([kushagra486.github.io/Sudha-Vatika-/room/](https://kushagra486.github.io/Sudha-Vatika-/room/), the room guide with a QR in every room): requests to Reception, Housekeeping, Luggage, Repairs and Help Desk, food on request, WiFi, nearby restaurants with phone numbers, reviews, My requests, English and Hindi. No taxi tile.
 - **Explore Prayagraj**: 46 places with real photos, a page for each (what is there, best time, how long to allow), a map for each, and a one-day plan on a route map. New **Food outings** group (Loknath Gali, Katra and Colonelganj, El Chico, Civil Lines Night Market), plus malls (WP Arena, Vinayak City Centre, P Square), Minto Park, Shivalaya Park, Triveni Pushp, Swaraj Bhawan, Law Museum, Boat Club and the Curzon Bridge.
 - **Dashboard Room desk**: requests, reviews, restaurants and the guest page settings (WiFi, check-out time, note).
 - **Website, marketing kit and Android apps**: all live, see the links above and the downloads below.
@@ -84,7 +87,7 @@ Prices are not published online. Call, WhatsApp or send an enquiry and the team 
 
 ## 🛎️ Room guide for hotel guests
 
-A QR code in each room opens [**https://kushagra486.github.io/Sudha-Vatika-/room/**](https://kushagra486.github.io/Sudha-Vatika-/room/), a large-icon page that replaces the room phone. It lives next to the website but is a separate app, so the official website is untouched.
+The **guest site** is a large-icon page that replaces the room phone. A QR code in each room opens it: [**https://kushagra486.github.io/Sudha-Vatika-/room/**](https://kushagra486.github.io/Sudha-Vatika-/room/). It lives next to the website but is a separate app, so the official website is untouched.
 
 | Guests can                                                 | Details                                                                                                                                                                                                                                                                                                          |
 | ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
